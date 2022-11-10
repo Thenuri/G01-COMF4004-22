@@ -5,7 +5,12 @@
 ***REMOVED***
 ***REMOVED***
 
-## Member 1 detail
+## Member 1 details
 - Name : Samadee Kularatne
+***REMOVED***
+***REMOVED***
+
+## Member 2 details
+- Name : Sachintha Lakmin
 ***REMOVED***
 ***REMOVED***
