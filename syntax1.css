@@ -1,15 +1,9 @@
+
 .banner{
-    /*position: absolute;
-    width: 1441px;
-    height: 611px;
-    left: 1.76px;
-    top: -13px;*/
-    background-image:url(images/) ;
-   
-    
+    background-image: url(images/banner.jpg);
+    background-position:center;
+    background-size: cover;
+    position:relative;
 }
-
-
-
 
 
