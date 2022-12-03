@@ -1,0 +1,6 @@
+/* Change font to Inria Sans */
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans');
+
+* {
+    font-family: 'Inria Sans', sans-serif;
+}
