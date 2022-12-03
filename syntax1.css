@@ -4,6 +4,7 @@
     background-position:center;
     background-size: cover;
     position:relative;
+    
 }
 .content{
    
@@ -11,4 +12,22 @@
     top: 40%;
     margin-left:54%;
 
+}
+#h1text{
+    font-size: 110px;
+}
+
+
+
+@media (max-device-width:900px ){
+    #h1text{
+        font-size:50px;
+    }
+    .content{
+   
+        position: absolute;
+        top: 40%;
+        margin-left:15%;
+    
+    }
 }
