@@ -5,5 +5,10 @@
     background-size: cover;
     position:relative;
 }
+.content{
+   
+    position: absolute;
+    top: 40%;
+    margin-left:54%;
 
-
+}
