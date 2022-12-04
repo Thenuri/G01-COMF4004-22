@@ -9,6 +9,15 @@
     max-width: 100%;
 
 }
+.banner1{
+    background-image: url(images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
+    background-position:center;
+    background-size: cover;
+    position:relative;
+    max-width: 100%;
+    height: 80vh;
+
+}
 /*book a bus with ease*/
 .content{
    
@@ -100,12 +109,19 @@
     text-align: center;
     font-weight: bold;
 }
+#h2text{
+    margin-left:-150px;
+    margin-top:110px;
+}
 
 
 @media (max-device-width:900px ){
     #h1text{
         font-size:40px;    
         margin-left:15%;
+    }
+    #h2text{
+        margin-left: 15%;
     }
     /*.content{
    
