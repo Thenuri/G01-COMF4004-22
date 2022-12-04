@@ -7,7 +7,7 @@
     background-size: cover;
     position:relative;
     max-width: 100%;
-    max-height: 50%;
+
 }
 /*book a bus with ease*/
 .content{
@@ -17,14 +17,12 @@
     margin-left:50%;
 
 }
+/*for the 3 pictures in a row*/
 .mySlides{
     margin-top: 50px;
     height: 250px;
 }
-/*#h1text{
-    font-size: 90px;
-    align-items: center;
-}*/
+
 /*top trending buses*/
 .heading{
  color: #240A6B;
@@ -34,42 +32,79 @@
  font-weight: bold;
 
 }
-/*#row{
+/*About us*/
+.heading1{
+    color: #240A6B;
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+.heading2{
+    color: #240A6B;
+    font-size: 50px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/*fisr container*/
+#container{
    background-color: #bbc4de;
-   margin-top: 2%;
-   padding: 30px;
-   display: grid;
-   height: 100%;
-}*/
-/*#col{
+   margin-top: 5%;
+  
+   
+   
+}
+#row{
+    background-color: #bbc4de;
+    
+   
+}
+#col{
    color: #240A6B;
-   font-size: 48px;
+   font-size: 45px;
    font-weight: bold;
 
 }
 #row1{
     color: #240A6B;
-    font-size: 25px;
+    font-size: 18px;
     font-weight: normal;
 }
-#align1{
-    position: relative;
-    top: -260px;
-    right:-700px;
-    border-radius: 20px;
+/*image css*/
+#align1,#align2{
     width: 450px;
+    height: 300px;
+    border-radius: 20px;
+   
+    
 }
+#align1{
+    margin-left:-10px;
+}
+#align2{
+    margin-left:5px;
+}
+/*#align2{
+    width: 350px;
+    height: 300px;
+}*/
+/*button to add bus*/
 #btn{
     top: 500px;
     right: -680px;
     color:white;
     background-color: #240A6B;
     width: 250px;
-}*/
+}
+.copyright{
+    text-align: center;
+    font-weight: bold;
+}
+
 
 @media (max-device-width:900px ){
     #h1text{
-        font-size:40px;
+        font-size:40px;    
         margin-left:15%;
     }
     /*.content{
@@ -82,11 +117,34 @@
     #align1{
         width: 350px;
         height: 250px;
-    }
     #row{
       height: 100%;
     }
     */
+    
+    #align1{
+    
+        width: 250px;
+        
+    }
+    #row{
+        
+        width:350px;
+    }
+    #row1{
+        font-size: 12px;
+    }
+    #col{
+        font-size:25px ;
+    }
+    #container{
+        
+        margin-left: 0px;
+        
+        
+     }
+    
+
     
 
 }
