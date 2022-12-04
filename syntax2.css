@@ -130,4 +130,11 @@ a {
         border-top: 1px solid #EEEEEE;
         margin: 0px 15px;
     }
+    .new1{
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    .new{
+        margin: 0px;
+    }
 }
