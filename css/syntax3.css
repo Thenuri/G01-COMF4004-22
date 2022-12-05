@@ -1,0 +1,14 @@
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 22% auto;
+}
+.sidebar {
+    position: sticky;
+    height: 100vh;
+    max-width: 335px ;
+}
+
+.dashboard-content {
+    overflow-y:scroll;
+    scroll-behavior: smooth;
+}
