@@ -1,0 +1,55 @@
+/* * {
+    border: 1px red solid;
+} */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 22% auto;
+}
+.sidebar {
+    position: sticky;
+    height: 100vh;
+    max-width: 335px ;
+}
+
+.dashboard-content {
+    overflow-y:scroll;
+    scroll-behavior: smooth;
+}
+
+.trip-info-card {
+    width: 25rem; 
+    height: 10rem;
+}
+
+.trip-card-grid {
+    display: grid;
+    grid-template-columns: 7rem auto;
+    height: 100%;
+}
+
+.trip-info-bus-img {
+    height: 100%;
+    width: auto;
+
+    background-size: cover;
+    background-position: center;
+}
+
+.trip-info-bus-img .trip-id {
+    position: absolute;
+    bottom: 10px;
+    padding-left: 20px;
+    
+}
+
+.trip-info-card-info span {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.seat-icon {
+    margin: .5rem;
+    height: 20px;
+    width: auto;
+}
