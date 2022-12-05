@@ -4,3 +4,15 @@
 * {
     font-family: 'Inria Sans', sans-serif;
 }
+
+
+.profilePic {
+    border-radius: 100%;
+}
+
+nav .profilePic {
+    height: 1.7rem;
+    width: 1.7rem;
+    margin-top: -5px;
+    margin-right: 10px;
+}
