@@ -2,7 +2,7 @@
 /*--------------------------------------home page-------------------------------------------------------*/
 /* main image*/
 .banner{
-    background-image: url(images/banner.jpg);
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.3)),url(images/banner.jpg);
     background-position:center;
     background-size: cover;
     position:relative;
@@ -10,7 +10,7 @@
 
 }
 .banner1{
-    background-image: url(images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
+    background:linear-gradient(rgba(5, 5, 5, 0.6),rgba(5,5,5,0.3)),url(images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
     background-position:center;
     background-size: cover;
     position:relative;
@@ -63,10 +63,17 @@
    
    
 }
-#row{
+/*all the containers*/
+#row,#row2{
     background-color: #bbc4de;
     
    
+}
+#row2{
+    border-radius: 20px;
+    margin-left:-5px;
+    width:472px;
+    height: 250px;
 }
 #col{
    color: #240A6B;
@@ -93,6 +100,14 @@
 #align2{
     margin-left:5px;
 }
+#align3{
+    
+    width:200px;
+    height: 249px;
+    margin-top:-48px;
+    margin-left:-12px;
+    border-radius: 20px 0px 0px 20px ;
+}                                                         
 /*#align2{
     width: 350px;
     height: 300px;
@@ -109,9 +124,10 @@
     text-align: center;
     font-weight: bold;
 }
-#h2text{
-    margin-left:-150px;
-    margin-top:110px;
+#h1text2{
+    margin-left: -60px;
+    margin-top: 80px;
+     font-weight:bold;
 }
 
 
@@ -120,7 +136,7 @@
         font-size:40px;    
         margin-left:15%;
     }
-    #h2text{
+    #h1text2{
         margin-left: 15%;
     }
     /*.content{
