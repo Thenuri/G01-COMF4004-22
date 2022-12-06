@@ -9,13 +9,13 @@
     <link rel="stylesheet" type="text/css" href="css/commonstyles.css">
     <link rel="stylesheet" href="css/syntax3.css">
 </head>
-<body style="height:100vh; overflow: hidden; ">
+<body>
     <div class="header1">
         <header>
             <!--nav bar-->
             <nav class="navbar fixed-top navbar-expand-lg navbar-light p-md-3">
                 <div class="container">
-                    <!-- <a href="#" class="navbar-brand text-primary fs-1" style="margin-left: -70px;">Book My Bus</a> -->
+                    <a href="#" class="navbar-brand text-primary fs-1" style="margin-left: -70px;">Book My Bus</a>
                     <button type="button"class="navbar-toggler bottom-"data-bs-target="#navbarNav"data-bs-toggle="collapse"aria-controls="navbarNav"aria-expanded="false"aria-label="Toggle Navbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -34,7 +34,7 @@
                                         <img src="images/profilepic1.jpg" class="profilePic" alt="">
                                       <span class="fs-5">Joe Biden</span>
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="userDropDown">
+                                    <ul class="dropdown-menu text-dark" aria-labelledby="userDropDown">
                                       <li><a class="dropdown-item" href="#">My Profile</a></li>
                                       <li><a class="dropdown-item" href="#">Dashboard</a></li>
                                       <li><a class="dropdown-item" href="#">Sign out</a></li>
@@ -64,7 +64,7 @@
             </ul>
         </div>
 
-        <div class="dashboard-content p-4" style="margin-top: 3rem; height: 100% ;">
+        <div class="dashboard-content p-4">
             <h1  class="p-2" id="upcoming-trips">Upcoming Trips</h1>
                 <div id="upcoming-trips-items" class="d-flex flex-wrap gap-3">
 
@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="row px-3 ">
                                     <div class="col-6 text-start">Colombo</div>
-                                    <div class="position-absolute" style="position: absolute; z-index: 10; left: 50%;">--></div>
+                                    <div class="position-absolute" style="position: absolute; z-index: 10; left: 50%;"></div>
                                     <div class="col-6 text-center">Galle</div>
                                 </div>
                                 <div class="row px-3">
@@ -244,7 +244,7 @@
                     <div class="d-flex justify-content-around flex-column fw-bold">
                         <div class="row px-3">
                             <div class="col-6 text-start">30 Dec 2022</div>
-                            <div class="col-6 text-end">Upcoming</div>
+                            <div class="col-6 text-end fs-6">Pending Confirmation</div>
                         </div>
                         <div class="row px-3 ">
                             <div class="col-6 text-start">Colombo</div>
@@ -259,9 +259,15 @@
                         </div>
                         <div class="row px-3">
                             <div class="col-6 text-start">
-                                <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6">
-                                    Cancel
-                                </button>
+                                <div class="row gap-1">
+                                    <button class="btn-primary rounded-pill shadow-none px-1 col fs-6">
+                                        Confirm
+                                    </button>
+                                    <button class="btn-outline-danger rounded-pill shadow-none px-1 col fs-6">
+                                        Cancel
+                                    </button>
+                                </div>
+                               
                             </div>
                             <div class="col-6 text-end ">LKR 30000</div>
                         </div>                      
@@ -312,7 +318,7 @@
                     <div class="d-flex justify-content-around flex-column fw-bold">
                         <div class="row px-3">
                             <div class="col-6 text-start">30 Dec 2022</div>
-                            <div class="col-6 text-end">Upcoming</div>
+                            <div class="col-6 text-end">Cancelled</div>
                         </div>
                         <div class="row px-3 ">
                             <div class="col-6 text-start">Colombo</div>
