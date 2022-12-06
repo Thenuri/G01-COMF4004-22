@@ -100,14 +100,7 @@
 #align2{
     margin-left:5px;
 }
-#align3{
-    
-    width:200px;
-    height: 249px;
-    margin-top:-48px;
-    margin-left:-12px;
-    border-radius: 20px 0px 0px 20px ;
-}                                                         
+                                                        
 /*#align2{
     width: 350px;
     height: 300px;
@@ -120,6 +113,11 @@
     background-color: #240A6B;
     width: 250px;
 }
+#btn1{
+    background-color: white;
+    color: #240A6B;
+    width: 150px;
+}
 .copyright{
     text-align: center;
     font-weight: bold;
@@ -127,9 +125,79 @@
 #h1text2{
     margin-left: -60px;
     margin-top: 80px;
-     font-weight:bold;
+    font-weight:bold;
+}
+#ac{
+    margin-left:30px;
+}
+/*-------------------------------------------------------*****/
+.bus-img{
+    width: 420px;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
 }
 
+
+
+.trip-info-card {
+    width: 25rem; 
+    height: 15rem;
+    margin-top:-50px;
+    margin-left: 20px;
+
+}
+.trip-info-card1 {
+    width: 75rem; 
+    height: 15rem;
+    margin-top:-50px;
+    margin-left: 20px;
+
+}
+
+.trip-card-grid {
+    display: grid;
+    grid-template-columns: 7rem auto;
+    height: 100%;
+}
+
+.trip-info-bus-img {
+    height: 250px;
+    width: 200px;
+
+    background-size: cover;
+    background-position: center;
+}
+
+.trip-info-bus-img .trip-id {
+    position: absolute;
+    bottom: 10px;
+    padding-left:50px;
+    
+}
+#text{
+    font-size:17px;
+    padding-top: 30px;
+    padding-left: 95px;
+}
+#text1{
+    font-size:25px;
+    padding-top: 30px;
+    padding-left:350px;
+}
+#stars{
+    width: 150px;
+}
+.trip-info-card-info span {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.seat-icon {
+    margin: .5rem;
+    height: 20px;
+    width: auto;
+}
 
 @media (max-device-width:900px ){
     #h1text{
