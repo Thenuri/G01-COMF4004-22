@@ -133,6 +133,37 @@ a {
     overflow-y:scroll;
     scroll-behavior: smooth;
 }
+.Profile-Gradient{
+    background-position:center;
+    position:relative;
+    max-width: 100%;
+    padding-bottom: 0px;
+
+}
+.line1{
+    height: 50px;
+    width: 400px;
+}
+.line2{
+    height: 50px;
+    padding-right: 170px;
+}
+.Profile-Form{
+    padding-left: 175px;
+    padding-top: 0px;
+    padding-bottom: 100px;
+    margin-top: 0px;
+}
+
+.lol{
+    width: 500px;
+    display: flex;
+    gap: 25px;
+    padding-left: 300px;
+}
+hi{
+    width: 100px;
+}
 
 @media screen and (max-width: 991px) {
     .logo {
