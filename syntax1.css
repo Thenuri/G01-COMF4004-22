@@ -7,7 +7,6 @@
     background-size: cover;
     position:relative;
     max-width: 100%;
-
 }
 .banner1{
     background:linear-gradient(rgba(5, 5, 5, 0.6),rgba(5,5,5,0.3)),url(images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
@@ -16,7 +15,6 @@
     position:relative;
     max-width: 100%;
     height: 80vh;
-
 }
 /*book a bus with ease*/
 .content{
@@ -24,14 +22,12 @@
     position: absolute;
     top: 35%;
     margin-left:50%;
-
 }
 /*for the 3 pictures in a row*/
 .mySlides{
     margin-top: 50px;
     height: 250px;
 }
-
 /*top trending buses*/
 .heading{
  color: #240A6B;
@@ -54,32 +50,27 @@
     text-align: left;
     font-weight: bold;
 }
-
 /*fisr container*/
 #container{
-   background-color: #bbc4de;
-   margin-top: 5%;
-  
-   
-   
+   background-color: #EFF3FF;
+   margin-top: 5%;  
 }
 /*all the containers*/
-#row,#row2{
-    background-color: #bbc4de;
-    
-   
-}
+/*#row{
+    background-color: #EFF3FF;
+    width: 100%;  
+}*/
 #row2{
     border-radius: 20px;
     margin-left:-5px;
     width:472px;
     height: 250px;
+    background-color: #EFF3FF;
 }
 #col{
    color: #240A6B;
    font-size: 45px;
    font-weight: bold;
-
 }
 #row1{
     color: #240A6B;
@@ -87,18 +78,18 @@
     font-weight: normal;
 }
 /*image css*/
-#align1,#align2{
+#align1{
     width: 450px;
     height: 300px;
-    border-radius: 20px;
-   
-    
+    border-radius: 20px;   
 }
 #align1{
     margin-left:-10px;
 }
 #align2{
+    width: 100%;
     margin-left:5px;
+    border-radius: 20px;
 }
                                                         
 /*#align2{
@@ -144,27 +135,22 @@
 #card-con1{
     margin-right:-120px;
 }
-
-
 .trip-info-card {
     width: 25rem; 
     height: 15rem;
     margin-top:-50px;
     margin-left: 20px;
-
 }
 .trip-card-grid1 {
     display: grid;
     grid-template-columns: 7rem auto;
     height: 100%;
 }
-
 .trip-card-grid {
     display: grid;
     grid-template-columns: 7rem auto;
     height: 100%;
 }
-
 .trip-info-bus-img {
     height: 250px;
     width: 200px;
@@ -172,12 +158,10 @@
     background-size: cover;
     background-position: center;
 }
-
 .trip-info-bus-img .trip-id {
     position: absolute;
     bottom: 10px;
     padding-left:50px;
-    
 }
 #text{
     font-size:17px;
@@ -196,14 +180,15 @@
     padding: 0.5rem;
     font-size: 1rem;
 }
-
 .seat-icon {
     margin: .5rem;
     height: 20px;
     width: auto;
 }
-
-@media (max-device-width:900px ){
+.vehicles{
+    margin-left:50px;  
+}
+@media only screen and (max-device-width:900px ){
     #h1text{
         font-size:40px;    
         margin-left:15%;
@@ -211,25 +196,11 @@
     #h1text2{
         margin-left: 15%;
     }
-    /*.content{
-   
-        position: absolute;
-        top: 40%;
-        margin-left:15%;
-    
-    }
-    #align1{
-        width: 350px;
-        height: 250px;
-    #row{
-      height: 100%;
-    }
-    */
-    
     #align1{
     
-        width: 250px;
-        
+        width:300px;
+        margin-left:5px;
+        margin-bottom:10px;   
     }
     #row{
         
@@ -243,12 +214,59 @@
     }
     #container{
         
-        margin-left: 0px;
-        
-        
-     }
-    
-
-    
+        margin-left: 0px;   
+    }
+    #col{
+      margin-left:12px;
+      margin-top:10px;
+    }
+    .trip-info-card{
+        width:20rem;
+        margin-left:-2px;
+    }
+    #btn1{
+        width:100px;
+        font-size:15px;
+    }
+    .trip-info-bus-img{
+        width:150px;
+    }
+    #text{
+        margin-left:-40px;
+        margin-top:-15px;
+    }
+    .seat-icon{
+        margin-left:-5px;
+    }
+    #ac{
+        margin-left:-0.0010px;
+    }
+    .trip-info-card-info span{
+        margin-left:-2px;
+    }
 
 }
+@media (device-width:820px ){
+    #container{
+        margin-left:50px;
+    }
+}
+@media (device-width:768px ){
+    #container{
+        margin-left:25px;
+    }
+}
+@media (device-width:280px ){
+    #align1{
+    
+        width:250px;
+        margin-left:-10px;
+        margin-bottom:10px;
+    }
+    #btn{
+        width:125px;
+    }
+        
+    
+}
+
