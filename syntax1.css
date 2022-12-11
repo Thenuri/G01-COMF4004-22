@@ -6,7 +6,7 @@
     background-position:center;
     background-size: cover;
     position:relative;
-    max-width: 100%;
+    width: 100%;
 }
 .banner1{
     background:linear-gradient(rgba(5, 5, 5, 0.6),rgba(5,5,5,0.3)),url(images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
@@ -54,7 +54,7 @@
 #container{
    background-color: #EFF3FF;
    margin-top: 5%; 
-   
+   width: 100%;
 }
 /*all the containers*/
 /*#row{
@@ -83,8 +83,8 @@
 }
 /*image css*/
 #align1{
-    width: 450px;
-    height: 300px;
+    width:450px;
+    height:300px;
     border-radius: 20px;  
    
 }
@@ -92,7 +92,7 @@
     margin-left:-10px;
 }
 #align2{
-    width: 100%;
+    width:100%;
     margin-left:5px;
     border-radius: 20px;
 }
@@ -204,7 +204,7 @@
     #align1{
     
         width:300px;
-        margin-left:5px;
+        margin-left:30px;
         margin-bottom:10px;   
     }
     #row{
@@ -215,15 +215,12 @@
         font-size: 12px;
     }
     #col{
-        font-size:25px ;
+        font-size:25px;
+        margin-left:-105px;
+        margin-top:10px;
     }
     #container{
-        
-        margin-left: 0px;   
-    }
-    #col{
-      margin-left:12px;
-      margin-top:10px;
+        margin-left:0.5px;
     }
     .trip-info-card{
         width:20rem;
