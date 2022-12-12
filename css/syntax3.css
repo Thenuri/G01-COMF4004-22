@@ -67,3 +67,10 @@
     gap: 5px;
  }
 
+.user-card {
+    width: 10rem;
+    height: auto;
+    padding: 1rem;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+}
