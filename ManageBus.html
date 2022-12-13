@@ -226,13 +226,13 @@
             <h1  class="p-2" id="add-a-bus">Add A Bus</h1>
             <div id="add-a-bus-form" class="fs-4 mx-4">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-8">
                         <div class="row my-2">
                             <div class="col-3">
                                 <label class="bus-number">Bus Number</label>
         
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <input type="text" name="bus-number">
         
                             </div>
@@ -242,7 +242,7 @@
                                 <label class="num-of-seats">Number of seats</label>
         
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <input type="text" name="num-of-seats">
                                 
                             </div>
@@ -252,7 +252,7 @@
                                 <label class="price-per-km">Price per Km</label>
         
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <input type="text" name="price-per-km"><br>
         
                             </div>
@@ -262,7 +262,7 @@
                                 <span>AC / Non AC</span>
         
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <input type="radio" name="ac-status" id="ac">
                                 <label for="ac">AC</label>
                                 <input type="radio" name="ac-status" id="non-ac">
@@ -274,23 +274,27 @@
                                 <label class="driver-name">Driver Name</label>
         
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <input type="text" name="driver-name">
         
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-3"></div>
-                            <div class="col-6"></div>
-                        </div>
-                        
+
 
                     </div>
+                    
                     <div class="col-3">
-                     <input type="file" name="bus-image" id="bus-image">
-                     
+                        <div class="w-100 h-75 bg-secondary">
+                            <img src="" alt="" id="bus-img-display">
+                        </div>
+                        
+                        <input type="file" name="bus-image" id="bus-img-upload">
                     </div>
+                    <div class="col-6"></div>
+                    <button class="btn-primary col-6 " type="submit">Add Bus</button>
+                   
                 </div>
+
                 
                 
                 
@@ -302,6 +306,7 @@
 
     <script>
 
+        
         // Sidebar menu link color to white for selected link.
             // get a node list of the sidebar links
             const sidebarMenuLinks = document.querySelectorAll(".sidebar li a");
