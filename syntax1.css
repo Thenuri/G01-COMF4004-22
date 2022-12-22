@@ -515,6 +515,10 @@
     margin-left:-70px;
     margin-bottom:-30px;
 }
+
+.bg-dark-blue-theme {
+    background-color: #240A6B;
+}
   
 @media only screen and (max-device-width:900px ){
     #h1text{
