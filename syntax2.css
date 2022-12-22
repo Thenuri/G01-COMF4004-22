@@ -33,7 +33,7 @@ body {
 }
 .old{
     margin-left: 50px;
-    margin-top: 200px;
+    margin-top: 150px;
 }
 
 .line {
@@ -168,8 +168,13 @@ a {
 hi{
     width: 100px;
 }
-.nav-item{
-    
+.sam{
+    margin-left: 150px;
+    padding-top: 210px;
+}
+
+.row{
+   padding-left: 30px;
 }
 
 @media screen and (max-width: 991px) {
