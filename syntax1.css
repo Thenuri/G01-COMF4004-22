@@ -328,7 +328,7 @@
     position: absolute;
     bottom: 4rem;
     left:150px;
-    background: blue;
+    background: #240A6B;
     padding:5px;
     border-radius:10px;
 }
@@ -340,7 +340,7 @@
     position: absolute;
     bottom: 2rem;
     left: 150px;
-    background: blue;
+    background: #240A6B;
     padding:5px;
     border-radius:10px;
 }
@@ -352,7 +352,7 @@
     position: absolute;
     bottom:-350px;
     left:340px;
-    background: blue;
+    background: #240A6B;
     padding:5px;
     border-radius:10px;
 }
