@@ -2,14 +2,14 @@
 /*--------------------------------------home page-------------------------------------------------------*/
 /* main image*/
 .banner{
-    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.3)),url(images/banner.jpg);
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.3)),url(../images/banner.jpg);
     background-position:center;
     background-size: cover;
     position:relative;
     max-width: 100%;
 }
 .banner1{
-    background:linear-gradient(rgba(5, 5, 5, 0.6),rgba(5,5,5,0.3)),url(images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
+    background:linear-gradient(rgba(5, 5, 5, 0.6),rgba(5,5,5,0.3)),url(../images/brock-wegner-pWGUMQSWBwI-unsplash.jpg);
     background-position:center;
     background-size: cover;
     position:relative;
