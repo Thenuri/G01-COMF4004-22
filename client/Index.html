@@ -58,7 +58,6 @@
             <div class="input-box">
                 <span>Return Date</span>
                 <input type="date" name="" id="">
-
             </div>
             <div id="dropdown" >
                 <div class="dropdown">
@@ -220,7 +219,6 @@
                 navbar.classList.remove('bg-dark-blue-theme','shadow');
             }
         }
-
         const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach(dropdown => {
             const select= dropdown.querySelector('.select');
@@ -234,7 +232,6 @@
                 caret.classList.toggle('caret-rotate');
                 menu.classList.toggle('menu-open');
             });
-
            options.forEach(option => {
             option.addEventListener('click',() =>{
                 selected.innerText= option.innerText;
@@ -248,12 +245,9 @@
                 option.classList.add('active');
             });
 
-           }) ;
+           });
 
         });
-
-
-
     </script>
 </body>
 </html>
