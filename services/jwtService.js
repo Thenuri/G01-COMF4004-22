@@ -11,11 +11,16 @@ function generateJWTToken(Account_ID, Email) {
         Account_ID: Account_ID,
         Email: Email
     }
-    
-    return jwt.sign(accountDetails, process.env.JWT_SECRET, {
-        expiresIn: 600  // 10 min denoted in secounds
 
-    })
+    try {
+        return jwt.sign(accountDetails, process.env.JWT_SECRET, {
+            expiresIn: 600  // 10 min denoted in secounds
+    
+        })
+    } catch (e) {
+        console.log(e.message)
+    }
+    
 }
 
 
@@ -24,10 +29,20 @@ exports.verifyJWTToken = (token) => {
     try {
         const isValid =  jwt.verify(token, process.env.JWT_SECRET)
         if (isValid) {
-            return isValid.accountDetails
+            return isValid; // contains account detail json
+            /* eg:
+            {
+                Account_ID: 23,
+                Email: 'qaadsfw@tt.com',
+                iat: 1672148072,
+                exp: 1672148672
+            }
+                */
         }
+        console.log(isValid, 'notvalid')
 
     } catch (e) {
+        console.log(e.message)
         throw e;
     }
     
