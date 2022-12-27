@@ -8,6 +8,24 @@ class AuthService {
 
     static async signUp(req, res)  {
 
+        
+        //  Expected JSON format
+        /*
+            {
+                "email": "John@example.com",
+                "password": "test1234567890",
+                "confirmPassword" : "test1234567890",
+                "accountType" : "client", 
+                "details" : {
+                    "name" : "John",
+                    "address": "123 Fake St",
+                    "contactNo": "0123456790",
+                    "profilePhoto": "imageBlob"
+                }
+            }
+
+            */   
+
         // insert incomming json data to variables
         const email = req.body.email.trim().toLowerCase();
         const password = req.body.password
@@ -115,6 +133,14 @@ class AuthService {
             
         }
 
+        if (account.Account_Status !== "active") {
+            return res.json({
+                error: {
+                    message: "Account not active / suspended"
+                    // message: "Email Or Password is not valid"
+                }
+            })
+        }
 
         // Check the password hashes
         const hashed_password = account.Password  // Hashed password in database
