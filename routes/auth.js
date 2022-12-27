@@ -4,20 +4,7 @@ const authService = require('../services/authService')
 const jwt = require('jsonwebtoken')
 
 // Routes
-router.post('/signin', (req, res) => {
-  token = jwt.sign('lol', 'adsfadsf', {
-    expiresIn: 100000
-  })
-  res.cookie("token", token, {
-      secure: true,
-      httpOnly: true,
-      maxAge: 10000
-  })
-  res.sendStatus(201)
-
-  //console.log(req.cookie)
-  
-});
+router.post('/signin', authService.signIn);
 
 router.post('/signup', authService.signUp)
 

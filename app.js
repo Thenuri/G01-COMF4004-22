@@ -1,11 +1,10 @@
 // node module imports
 const express = require('express')
 const dotenv = require('dotenv')
-
+dotenv.config();
 
 // to parse json in body
 const bodyParser = require('body-parser') 
-
 
 // router imports
 const authRouter = require('./routes/auth')
@@ -28,7 +27,7 @@ app.get('/', (req, res) => {
 
 
 
-const port = process.env.PORT || 3000
+const port = process.env.APP_PORT || 3000
 app.listen(port, () => {
     console.log(`App is listening on port:${port}`)
 })

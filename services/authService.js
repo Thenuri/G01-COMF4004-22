@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const emailValidator = require('email-validator')
 const accountController = require('../controllers/accountController');
 const AccountModel = require('../models/accountModel');
+const jwtService = require('./jwtService')
 
 class AuthService { 
 
@@ -44,14 +45,9 @@ class AuthService {
         }
     
         // check if account already exists for that email
+        let existingAccount;
         try {
-            const [existingAccountsRow] = await accountController.findAccountByEmail(email);
-
-            if (existingAccountsRow.length !== 0 ) {
-                return res.json({ 
-                    error: { message: 'Account already exists for that email'}
-                })
-            }
+            existingAccount = await accountController.findAccountByEmail(email);
 
         } catch (error) {
             console.log(error)
@@ -59,7 +55,12 @@ class AuthService {
                 message: "Error Occured"
             })
         }
-              
+
+        if (existingAccount !== undefined ) {
+            return res.status(409).json({ 
+                error: { message: 'Account already exists for that email'}
+            })
+        }
         
         // Hash password
         const hashed_password = await bcrypt.hash(password, 10)
@@ -68,42 +69,77 @@ class AuthService {
         accountController.createAccount(email, hashed_password, accountType).then(            
             // TODO if create account success, create client or owner account
             result => {
-                const account_id = result[0].insertId;
+                console.log(result)
+                const account_id = result.insertId;
+
+                // generate cookie with a jwt
+                res = jwtService.generateCookieWithJWT(res, account_id, email)      
                 
                 res.status(201).json({
                     "message": "Account Created Successfully"
                 })
             }
-        );
+        ).catch( e => {
+            console.log(e)
+            return res.json({
+                error: {
+                            message: e.message
+                        }
+            })
+        })
     }
 
+
+    // 
     static async signIn (req, res) {
         const email = req.body.email.trim().toLowerCase();
         const password = req.body.password
+        
         let account;
         try {
-            [account] = await AccountModel.findAccountByEmail(email)
-            if (account.length === 0) {
-                return res.json({
-                    error: {
-                        message: "Account not found"
-                    }
-                })
-            }
+            account = await accountController.findAccountByEmail(email)
+            // console.log(account)
+            
         }
         catch (e) {
             return res.status(500)
         }
 
-        const hashed_password = account[0].hashed_password
-        const isValidPassword = await bcrypt.compare(password, hashed_password)
-        if (isValidPassword) {
-            // generate jwt token, add to a cookie and send 
+        if (account === undefined) {
+            return res.json({
+                error: {
+                    message: "Account not found"
+                    // message: "Email Or Password is not valid"
+                }
+            })
             
         }
-        
-        
-    }
 
+
+        // Check the password hashes
+        const hashed_password = account.Password  // Hashed password in database
+        const isValidPassword = await bcrypt.compare(password, hashed_password)
+        
+        if (isValidPassword) {
+
+            console.log(isValidPassword, 'valid', hashed_password)
+            // generate jwt token, add to a cookie and send 
+            res = jwtService.generateCookieWithJWT(res, account.Account_ID, account.Email)    
+            
+            return res.status(200).json({
+                    message: "success"
+                    })     
+        } else {
+
+            return res.status(403).json( { 
+                error: {
+                    message: "Password not valid"
+                    // message: "Email Or Password is not valid"
+                }
+            })
+
+        }
+    }
 }
+
 module.exports = AuthService
