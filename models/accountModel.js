@@ -36,6 +36,17 @@ class AccountModel {
         }
     }
 
+    static findAccountTypeById(accountId) {
+        const sql = "SELECT Account_Type FROM `account` WHERE Account_ID = ?"
+        const values = [accountId]
+        try {
+            return dbQueryFetchFirstResult(sql, values)
+        }
+        catch (error) {
+            throw error
+        }
+    }
+
  }
 
 module.exports = AccountModel;

@@ -32,3 +32,40 @@ exports.findAccountByEmail = async (email) => {
     }
 
 }
+
+exports.findAccountTypeById = async (accountId) => {
+    try {
+        const result = await Account.findAccountTypeById(accountId)
+        return result.Account_Type;
+    } 
+    catch (err) {
+        throw err
+    }
+}
+
+exports.isClientAccount = async (accountId) => {
+    const accountType = await this.findAccountTypeById(accountId);
+    if (accountType.toLowerCase() === 'client') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+exports.isOwnerAccount = async (accountId) => {
+    const accountType = await this.findAccountTypeById(accountId);
+    if (accountType.toLowerCase() === 'owner') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+exports.isAdminAccount = async (accountId) => {
+    const accountType = await this.findAccountTypeById(accountId);
+    if (accountType.toLowerCase() === 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}
