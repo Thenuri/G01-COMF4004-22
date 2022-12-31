@@ -63,7 +63,7 @@ class AuthService {
         }
 
         // Check if account type field is valid
-        const accountTypeList = ["client", "owner"]
+        const accountTypeList = ["client", "owner" , "admin"]    // , "admin"
         if (!(accountTypeList.includes(accountType))) {
             return res.json({error: { message: 'Account Type Error'}})
         }
