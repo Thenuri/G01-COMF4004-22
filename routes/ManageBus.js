@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const db=require('../database');
+const db=require('../config/database');
 
 
 /* GET ManageBus page. */
 router.get('/', function(req, res, next) {
-    res.render('Add-A-Bus', { title: 'Add-A-Bus' });
+    res.render('ManageBus', { title: 'Add-A-Bus' });
   });
 
-  router.post('/Add-A-Bus', function(req, res, next) {
+  router.post('/save', function(req, res, next) {
     var Bus_No = req.body.Bus_No;
     var No_Of_Seats = req.body.No_Of_Seats;
     var Price_Per_km = req.body.Price_Per_km;
