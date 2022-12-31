@@ -1,7 +1,7 @@
 const {verifyJWTToken} = require('../services/jwtService.js')
+const accountController = require('../controllers/accountController')
 
-
-function authenticateJWT (req, res, next) {
+async function authenticateJWT (req, res, next) {
 
     if (req.cookies === undefined) {
         return res.json({
@@ -38,8 +38,35 @@ function authenticateJWT (req, res, next) {
     }
 
     // valid, therefore add to req.body
+    const account_id = isValid.Account_ID;
+
+    // check if the account is active
+    let isAccountActive;
+    try {
+        isAccountActive = await accountController.isAccountActive(account_id);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500)
+    }
+
+    if ( !isAccountActive) {
+        return res.status(403).json({ error:{ message : "Account not active / suspended"}})
+    }
+     
+    let accountType;
+    try {
+        accountType = await accountController.findAccountTypeById(account_id)
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500)
+    }
+    
     req.body.Account_ID = isValid.Account_ID;
     req.body.Email = isValid.Email
+    req.body.AccountType = accountType;
+    console.log(accountType)
 
     next();
 }
