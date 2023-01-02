@@ -16,4 +16,24 @@ router.put('/cancel/:id',function(req,res,next){
         
 })
 
+router.get('/find/:id',function(req,res,next){
+
+    let findConfirmation = "SELECT `Trip_Status` FROM `trip` WHERE `trip`.`Trip_ID`= ?"
+
+
+    const values = [req.params.id];
+    try {
+         dbQuery(findConfirmation, values).then(result =>{
+            if (result[0].Trip_Status === 'completed') {
+                res.send("error, Cannot cancel alredy completed")
+            }
+         })
+    } 
+    catch (error) {
+        throw error
+    }
+
+   
+})     
+
 module.exports = router;
