@@ -224,81 +224,83 @@
             </div> 
             
             <h1  class="p-2" id="add-a-bus">Add A Bus</h1>
-            <form action="Add-A-Bus" method="POST">
-                <div id="add-a-bus-form" class="fs-4 mx-4">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="row my-2">
-                                <div class="col-5">
-                                <label class="bus-number">Bus Number</label>
-            
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="bus-number" id="Bus_No">
-            
-                                </div>
+            <div id="add-a-bus-form" class="fs-4 mx-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row my-2">
+                            <div class="col-5">
+                            <label class="bus-number">Bus Number</label>
+        
                             </div>
-                            <div class="row my-2">
-                                <div class="col-5">
-                                    <label class="num-of-seats">Number of seats</label>
-            
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="num-of-seats" id="No_Of_Seats">
-                                    
-                                </div>
+                            <div class="col-6">
+                                <input type="text" name="bus-number">
+        
                             </div>
-                            <div class="row my-2">
-                                <div class="col-5">
-                                    <label class="price-per-km">Price per Km</label>
-            
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="price-per-km" id="Price_Per_km"><br>
-            
-                                </div>
-                            </div>
-                            <div class="row my-2">
-                                <div class="col-5">
-                                    <span>AC / Non AC</span>
-            
-                                </div>
-                                <div class="col-6">
-                                    <input type="radio" name="ac-status" id="Value">
-                                    <label for="ac">AC</label>
-                                    <input type="radio" name="ac-status" id="Value">
-                                    <label for="non-ac">NON-AC</label>
-                                </div>
-                            </div>
-                            <div class="row my-2">
-                                <div class="col-5">
-                                    <label class="driver-name">Driver Name</label>
-            
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="driver-name" id="Driver_Name">
-            
-                                </div>
-                            </div>
-    
-    
                         </div>
-                        
-                        <div class="col-6 ">
-                            
-                                <div id="bus-img-display"></div>
-                            
-                            
-                            
-                            <input type="file" name="bus-image" id="bus-img-upload">
+                        <div class="row my-2">
+                            <div class="col-5">
+                                <label class="num-of-seats">Number of seats</label>
+        
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="num-of-seats">
+                                
+                            </div>
                         </div>
-                        <div class="col-6"></div>
-                        <button class="btn-primary col-3 rounded-pill " type="submit">Add Bus</button>
-                       
+                        <div class="row my-2">
+                            <div class="col-5">
+                                <label class="price-per-km">Price per Km</label>
+        
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="price-per-km"><br>
+        
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-5">
+                                <span>AC / Non AC</span>
+        
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" name="ac-status" id="ac">
+                                <label for="ac">AC</label>
+                                <input type="radio" name="ac-status" id="non-ac">
+                                <label for="non-ac">NON-AC</label>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-5">
+                                <label class="driver-name">Driver Name</label>
+        
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="driver-name">
+        
+                            </div>
+                        </div>
+
+
                     </div>
+                    
+                    <div class="col-6 ">
+                        
+                            <div id="bus-img-display"></div>
+                        
+                        
+                        
+                        <input type="file" name="bus-image" id="bus-img-upload">
+                    </div>
+                    <div class="col-6"></div>
+                    <button class="btn-primary col-3 rounded-pill " type="submit">Add Bus</button>
+                   
                 </div>
-            </form>
-            
+
+                
+                
+                
+
+            </div>
         </div>
     </div>
 </div>
