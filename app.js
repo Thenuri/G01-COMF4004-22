@@ -10,7 +10,8 @@ dotenv.config();
 var ManageBusRouter = require('./routes/ManageBus');
 const authRouter = require('./routes/auth')
 const accountRouter = require('./routes/accountRouter')
-
+const bookingRouter = require('./routes/booking')
+const filterRouter = require('./routes/filter')
 
 
 var app = express();
@@ -28,6 +29,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 // to parse json in body
 const bodyParser = require('body-parser') 
 app.use(bodyParser.json()) // to parse json to req.body
+
+
+// to parse cookies
+app.use(cookieParser())
+
+// authenticate
+// if auth success will add email, and account id to req.body.Email, req.body.Account_ID
+const AuthenicateWithJWT = require('./middleware/authMiddleware') 
+
+
+
+// Use routers
+app.use('/api/auth', authRouter)
+
+app.use('/booking', bookingRouter)
+app.use('/filter', filterRouter)
 
 app.get('/', (req, res) => {
   res.send("Testing")
