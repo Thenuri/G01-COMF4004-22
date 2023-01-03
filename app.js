@@ -11,6 +11,7 @@ var ManageBusRouter = require('./routes/ManageBus');
 const authRouter = require('./routes/auth')
 const accountRouter = require('./routes/accountRouter')
 const bookingRouter = require('./routes/booking')
+const filterRouter = require('./routes/filter')
 
 
 var app = express();
@@ -43,6 +44,7 @@ const AuthenicateWithJWT = require('./middleware/authMiddleware')
 app.use('/api/auth', authRouter)
 
 app.use('/booking', bookingRouter)
+app.use('/filter', filterRouter)
 
 app.get('/', (req, res) => {
   res.send("Testing")
