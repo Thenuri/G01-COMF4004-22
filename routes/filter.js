@@ -1,7 +1,6 @@
 const express = require('express');
 const { dbQuery } = require('../config/database');
 const router = express.Router();
-
 router.get('/finder',function(req,res){
     seatNo = req.body.seatNo
     price = req.body.price
