@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {dbQuery} = require('../config/database')
+const {dbQuery} = require('../config/database');
+const authenticateJWT = require('../middleware/authMiddleware');
 
 router.put('/cancel/:id',function(req,res,next){
 
@@ -9,7 +10,7 @@ router.put('/cancel/:id',function(req,res,next){
     const values = [req.params.id];
         try {
              dbQuery(cancelBooking, values).then(res.send("well done"))
-        } 
+        }
         catch (error) {
             throw error
         }
@@ -34,6 +35,13 @@ router.get('/find/:id',function(req,res,next){
     }
 
    
-})     
+})    
+
+
+/*router.put("/profileUpdate:id", authenticateJWT, function(req,res){
+    req.body.
+
+   
+})*/
 
 module.exports = router;
