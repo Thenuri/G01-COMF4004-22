@@ -36,6 +36,50 @@ class AccountModel {
         }
     }
 
+    static findAccountTypeById(accountId) {
+        const sql = "SELECT Account_Type FROM `account` WHERE Account_ID = ?"
+        const values = [accountId]
+        try {
+            return dbQueryFetchFirstResult(sql, values)
+        }
+        catch (error) {
+            throw error
+        }
+    }
+
+    static findAccountStatus(accountId) {
+        const sql = "SELECT Account_Status FROM `account` WHERE Account_ID = ?"
+        const values = [accountId]
+        try {
+            return dbQueryFetchFirstResult(sql, values)
+        }
+        catch (error) {
+            throw error
+        }
+    }
+
+    static suspendAccount(accountId) {
+        const sql = "UPDATE `account` SET `Account_Status` = 'suspended' WHERE `Account_ID` = ?"
+        const values = [accountId]
+        try {
+            return dbQuery(sql, values);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    static activateAccount(accountId) {
+        const sql = "UPDATE `account` SET `Account_Status` = 'active' WHERE `Account_ID` = ?"
+        const values = [accountId]
+        try {
+            return dbQuery(sql, values);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
  }
 
 module.exports = AccountModel;
