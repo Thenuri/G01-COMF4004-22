@@ -1,16 +1,34 @@
 const express = require('express');
+const { dbQuery } = require('../config/database');
 const router = express.Router();
       
-router('/finder/:id',function(req,res,next){
+router.get('/finder',function(req,res){
     seatNo = req.body.seatNo
     price = req.body.price
-    sort
     ac = req.body.ac
+    let sort;
+    let select;
+    if (price === "low to high price"){
+        select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?)  ORDER BY `Price_Per_km` ASC "
+    }else{
+        select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?)  ORDER BY `Price_Per_km` DESC "
+    }
+    /*let select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?) AND ORDER BY `Price_Per_Km` ?"*/
+    const values = [seatNo,seatNo,ac, ac];
+    try {
+        dbQuery(select, values).then( result => res.send(result))
+    }
+    catch (error) {
+        throw error
+    }
 
-    let select = "SELECT * FROM `bus` where `No_Of_Seats`= seatNo AND `AC_Status` = ac AND ORDER BY `Price_Per_Km` ="
+
+
+
 
 })
 
+module.exports = router;
 
 
 

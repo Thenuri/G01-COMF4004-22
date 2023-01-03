@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 // router imports
 const authRouter = require('./routes/auth')
 const bookingRouter = require('./routes/booking')
+const filterRouter = require('./routes/filter')
 
 const app = express()
 
@@ -29,6 +30,7 @@ const AuthenicateWithJWT = require('./middleware/authMiddleware')
 app.use('/api/auth', authRouter)
 
 app.use('/booking', bookingRouter)
+app.use('/filter', filterRouter)
 
 app.get('/', (req, res) => {
     res.send("hello")

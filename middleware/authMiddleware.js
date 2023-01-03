@@ -40,7 +40,8 @@ function authenticateJWT (req, res, next) {
     // valid, therefore add to req.body
     req.body.Account_ID = isValid.Account_ID;
     req.body.Email = isValid.Email
-
+    
+    
     next();
 }
 
