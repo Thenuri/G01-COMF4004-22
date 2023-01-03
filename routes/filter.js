@@ -9,6 +9,4 @@ router('/finder/:id',function(req,res,next){
 
     let select = "SELECT * FROM `bus` where `No_Of_Seats`= seatNo AND `AC_Status` = ac AND ORDER BY `Price_Per_Km` ="
 
-})
-
-
+});
