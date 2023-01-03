@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt')
 const emailValidator = require('email-validator')
 const accountController = require('../controllers/accountController');
-const AccountModel = require('../models/accountModel');
+const clientController = require('../controllers/clientController')
+const ownerController = require('../controllers/ownerController')
+
 const jwtService = require('./jwtService')
 
 class AuthService { 
@@ -30,7 +32,11 @@ class AuthService {
         const email = req.body.email.trim().toLowerCase();
         const password = req.body.password
         const confirmPassword = req.body.confirmPassword
-        const accountType = req.body.accountType
+        const accountType = req.body.accountType.toLowerCase();
+        const name = req.body.details.name;
+        const address = req.body.details.address;
+        const contactNo = req.body.details.contactNo;
+        const profilePhoto = req.body.details.profilePhoto;
     
         // check if email is valid
         const isValidEmail = emailValidator.validate(email);
@@ -57,7 +63,7 @@ class AuthService {
         }
 
         // Check if account type field is valid
-        const accountTypeList = ["client", "owner"]
+        const accountTypeList = ["client", "owner" , "admin"]    // , "admin"
         if (!(accountTypeList.includes(accountType))) {
             return res.json({error: { message: 'Account Type Error'}})
         }
@@ -80,6 +86,19 @@ class AuthService {
             })
         }
         
+
+        // check if details are provided
+        if (name === undefined) {
+            return res.json({ error: {message: "Enter your name"}})
+        }
+
+        if (address === undefined) return res.json({ error: {message: "Enter your address"}})
+
+        if (contactNo === undefined) return res.json({ error: {message: "Enter your Contact No"}})
+
+        // TODO check for profile photo later
+
+
         // Hash password
         const hashed_password = await bcrypt.hash(password, 10)
 
@@ -89,6 +108,27 @@ class AuthService {
             result => {
                 console.log(result)
                 const account_id = result.insertId;
+
+                // Create Client and Owner account
+                try {
+                    switch (accountType) {
+                        case 'client':
+                            clientController.createClient(account_id, name, address, contactNo, profilePhoto);
+                            break;
+                        
+                        case 'owner':
+                            ownerController.createOwner(account_id, name, address, contactNo, profilePhoto);                        
+                            break;
+                    
+                        default:
+                            res.json({error: { message: "Error Creating account type"}})
+                            break;
+                    }
+                } catch (error) {
+                    res.json({error: { message: "Error Creating account type"}});
+                }
+
+                
 
                 // generate cookie with a jwt
                 res = jwtService.generateCookieWithJWT(res, account_id, email)      
