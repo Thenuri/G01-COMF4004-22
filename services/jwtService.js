@@ -6,10 +6,11 @@ require('dotenv').config()
 // require('crypto').randomBytes(64).toString('hex')
 // ref: https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
 
-function generateJWTToken(Account_ID, Email) {
+function generateJWTToken(Account_ID, Email, AccountType) {
     const accountDetails = {
         Account_ID: Account_ID,
-        Email: Email
+        Email: Email,
+        AccountType: AccountType
     }
 
     try {
@@ -34,6 +35,7 @@ exports.verifyJWTToken = (token) => {
             {
                 Account_ID: 23,
                 Email: 'qaadsfw@tt.com',
+                AccountType: 'client',
                 iat: 1672148072,
                 exp: 1672148672
             }
@@ -49,10 +51,10 @@ exports.verifyJWTToken = (token) => {
 }
 
 
-exports.generateCookieWithJWT = (res, Account_ID, Email) => {
+exports.generateCookieWithJWT = (res, Account_ID, Email, AccountType) => {
     // generates jwt, adds it to a cookie in the res, and returns the res
 
-    token = generateJWTToken(Account_ID, Email)
+    token = generateJWTToken(Account_ID, Email, AccountType)
     res.cookie("token", token, {
         secure: true,
         httpOnly: true,
