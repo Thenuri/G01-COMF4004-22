@@ -29,7 +29,7 @@ async function authenticateJWT (req, res, next) {
         // console.log(isValid)
     } catch (error) {
         console.log('authMiddleware error', error)
-        res.json({
+        return res.json({
             error: {
                 message: error.message
             }

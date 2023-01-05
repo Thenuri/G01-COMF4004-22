@@ -3,7 +3,7 @@ const router = express.Router();
 const { dbQuery } = require('../config/database');
 
 
-router.get('/addBus', function(req, res, next) {
+router.put('/addBus', function(req, res, next) {
     const Bus_No = req.body.Bus_No;
     const No_Of_Seats = req.body.No_Of_Seats;
     const Price_Per_km = req.body.Price_Per_km;
