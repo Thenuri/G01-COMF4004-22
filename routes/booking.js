@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {dbQuery} = require('../config/database');
+const clientController = require('../controllers/clientController');
+const ownerController  = require('../controllers/ownerController');
 const authenticateJWT = require('../middleware/authMiddleware');
 
 router.put('/cancel/:id',function(req,res,next){
@@ -35,13 +37,8 @@ router.get('/find/:id',function(req,res,next){
     }
 
    
-})    
+}) 
 
 
-/*router.put("/profileUpdate:id", authenticateJWT, function(req,res){
-    req.body.
-
-   
-})*/
 
 module.exports = router;

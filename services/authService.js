@@ -131,7 +131,7 @@ class AuthService {
                 
 
                 // generate cookie with a jwt
-                res = jwtService.generateCookieWithJWT(res, account_id, email)      
+                res = jwtService.generateCookieWithJWT(res, account_id, email, accountType)      
                 
                 res.status(201).json({
                     "message": "Account Created Successfully"
@@ -190,7 +190,7 @@ class AuthService {
 
             console.log(isValidPassword, 'valid', hashed_password)
             // generate jwt token, add to a cookie and send 
-            res = jwtService.generateCookieWithJWT(res, account.Account_ID, account.Email)    
+            res = jwtService.generateCookieWithJWT(res, account.Account_ID, account.Email, account.Account_Type)    
             
             return res.status(200).json({
                     message: "success"
