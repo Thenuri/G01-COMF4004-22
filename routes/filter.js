@@ -20,11 +20,6 @@ router.get('/finder',function(req,res){
     catch (error) {
         throw error
     }
-
-
-
-
-
 });
 
 module.exports = router;
