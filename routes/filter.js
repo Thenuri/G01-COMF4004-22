@@ -9,7 +9,7 @@ router.get('/finder',function(req,res){
     let select;
     if (price === "low to high price"){
         select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?)  ORDER BY `Price_Per_km` ASC "
-    }else{
+    }else if (price === "high to low price"){
         select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?)  ORDER BY `Price_Per_km` DESC "
     }
     /*let select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?) AND ORDER BY `Price_Per_Km` ?"*/
