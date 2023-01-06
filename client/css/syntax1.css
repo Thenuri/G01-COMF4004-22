@@ -422,11 +422,12 @@
 
 #dropdown{
     gap:0rem;
-    min-width: 50vh;
+    min-width:30vh;
     display: flex;
     align-items: center;
     align-content: center;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 .dropdown{
   
@@ -513,7 +514,7 @@
     font-weight:bold;
     font-size:20px;
     color: #fff;
-    margin-left:-70px;
+    margin-left:-20px;
     margin-bottom:-30px;
 }
 
