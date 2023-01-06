@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const dotenv = require('dotenv');
 dotenv.config();
+const cors = require('cors');
 
 // router imports
 var ManageBusRouter = require('./routes/ManageBus');
@@ -14,6 +15,7 @@ const bookingRouter = require('./routes/booking')
 const filterRouter = require('./routes/filter')
 
 
+
 var app = express();
 
 
@@ -21,7 +23,7 @@ var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,7 +44,7 @@ const AuthenicateWithJWT = require('./middleware/authMiddleware')
 
 // Use routers
 app.use('/api/auth', authRouter)
-
+app.use(cors())
 app.use('/booking', bookingRouter)
 app.use('/filter', filterRouter)
 
