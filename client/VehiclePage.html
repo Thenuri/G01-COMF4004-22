@@ -23,7 +23,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <div class="mx-auto"></div>
                         <ul class="navbar-nav   fs-5">
-                            <li class="nav-item mx-4"><a href="VehiclePage.html" class="nav-link text-white">Book Now</a></li>
+                            <li class="nav-item mx-4"><a href="#" class="nav-link text-white">Book Now</a></li>
                             <li class="nav-item mx-4"><a href="Index.html#aboutUs" class="nav-link text-white">About Us</a></li>
                             <li class="nav-item mx-4"><a href="Index.html#ContactUs" class="nav-link text-white">Contact Us</a></li>
                             <li class="nav-item mx-4"><a href="signup.html" class="nav-link text-white">Sign Up</a></li>
@@ -43,7 +43,7 @@
     <br><br><br><br><br><br><br>
     <div class="form-container1">
         <form action="">
-            <div class="input-box">
+            <!--<div class="input-box">
                 <span>To</span>
                 <input type="search" name="" id="to" placeholder="search place">
             </div>
@@ -59,7 +59,7 @@
                 <span>Return Date</span>
                 <input type="date" name="" id="return_Date">
 
-            </div>
+            </div>-->
             <div id="dropdown" >
                 <div class="dropdown">
                     <!--<div class="select">
@@ -73,7 +73,7 @@
                         <li class="active">50 Seats</li>
                     </ul>-->
                     <select name="seats" id="seats" class="form-select">
-                        <option value=null selected disabled> No Of Seats</option>
+                        <option value=null selected > No Of Seats</option>
                         <option value="50">50 Seats</option>
                         <option value="40">40 Seats</option>
                         <option value="30">30 Seats</option>
@@ -88,26 +88,28 @@
                         <li>Low to High</li>
                         <li class="active">Hight to Low</li>
                     </ul>-->
-                    <select name="price" id="price" class="form-select" >
-                        <option value="volvo">High to Low Price</option>
-                        <option value="saab">Low to High Price</option>
+                    <select name="price" id="price" class="form-select">
+                        <option value="low to high price">Low to High Price</option>
+                        <option value="high to low price">High to Low Price</option>
                     </select>
 
                 </div>
 
             </div>
-            <div class="checkbox">
-                <span>AC</span>
-                <input type="checkbox" checked="checked">
-                
-            </div>
-            <button class="btn">filter</button>
+            <div class="ac" id="accc">
+                <select name="ac" id="ac-select" class="form-select" >
+                    <option value=null selected >Select Ac Type</option>
+                    <option value="ac">AC</option>
+                    <option value="non-ac">Non-AC</option>
+                </select> 
+            </div><br><br>
+            <button class="btn" id="filterBtn">filter</button>
            
         </form>
     </div>
     <br><br><br><br>
     
-    <div class="vehicles d-flex flex-wrap">
+    <div class="vehicles d-flex flex-wrap" id="buses">
         <div class="dashboard-content p-4" style="margin-top: 3rem;">
             <div id="upcoming-trips-items">
                 <div class="trip-info-card card overflow-hidden border-0fs-5" style="background-color: #bbc4de; border-radius: 20px; width:400px;height:250px;">
@@ -213,30 +215,71 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        document.addEventListener("click",filter);
-        function filter(event){
-
+        document.getElementById("filterBtn").addEventListener("click",filtering);
+        
+        function filtering(event){
             event.preventDefault();
-
-            let To = document.getElementById("to").value;
+           /* let To = document.getElementById("to").value;
             let From = document.getElementById("from").value;
             let start_Date = document.getElementById("start_Date").value;
-            let return_Date = document.getElementById("return_Date").value;
-            let seat = document.getElementById("seats").value;
+            let return_Date = document.getElementById("return_Date").value;*/
+            let seatNo = document.getElementById("seats").value;
+            let ac = document.getElementById("ac-select").value;
             let price = document.getElementById("price").value;
-
             let filterValues = {
-                to : To,
-                From :From,
-                start_Date : start_Date,
-                return_Date : return_Date,
-                seat : seat,
+                /*to : To,
+                From :From,*/
+                ac : ac,
+               /* start_Date : start_Date,
+                return_Date : return_Date,*/
+                seatNo : seatNo,
                 price : price
             }
-            axios.get('http://localhost:3000/filter/finder', filterValues)
+           /* console.log(filterValues);*/
+            axios.post('http://localhost:3000/filter/finder', filterValues)
             .then( (res) => {
-                console.log(res)
+              /*  console.log(res)*/
+                buses = res.data
+              /*  console.log(buses)*/
+                displayBuses(buses);
             }).catch(e => console.log(e))
+            
+        }
+
+        function displayBuses(buses) {
+            let busesContainerElement = document.getElementById("buses");
+            busesContainerElement.innerHTML = ""
+            buses.forEach( bus => {
+
+                
+                busCard = `
+                <div class="dashboard-content p-4" style="margin-top: 3rem;">
+                    <div id="upcoming-trips-items">
+                        <div class="trip-info-card card overflow-hidden border-0fs-5" style="background-color: #bbc4de; border-radius: 20px; width:400px; height:250px;">
+                            <div class="trip-card-grid">
+                                <div class="trip-info-bus-img" style="background-image: url('images/istockphoto-1372188593-170667a.jpg');" > </div>
+                                <div class=" justify-content-around  fw-bold">
+                                    <div class="row px-3">
+                                        <div class="col-0 text-start" id="text">${bus.Bus_No.toUpperCase()}<br>LKR/KM-${bus.Price_Per_km}.00<br>
+                                        <img src="images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span>${bus.No_Of_Seats}</span> <span id="ac">${bus.AC_Status.toUpperCase()}</span>
+                                        <div class=" rating-stars d-flex" style="font-size:30px;">
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star-o"> </span>
+                                        </div><br><br>
+                                        <button type="button" class="btn" id="btn1">Book</button>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>  ` 
+           /* console.log('buscard', busCard)*/
+            busesContainerElement.innerHTML += busCard;
+            }) ;  
         }
     </script>
 </body>
