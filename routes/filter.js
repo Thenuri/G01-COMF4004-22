@@ -15,7 +15,11 @@ router.get('/finder',function(req,res){
     /*let select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?) AND ORDER BY `Price_Per_Km` ?"*/
     const values = [seatNo,seatNo,ac, ac];
     try {
-        dbQuery(select, values).then( result => res.send(result))
+        dbQuery(select, values).then( result => {
+            // res.send(result)
+            console.log(result)
+        
+        })
     }
     catch (error) {
         throw error

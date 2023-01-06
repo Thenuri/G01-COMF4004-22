@@ -23,9 +23,9 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <div class="mx-auto"></div>
                         <ul class="navbar-nav   fs-5">
-                            <li class="nav-item mx-4"><a href="#" class="nav-link text-white">Book Now</a></li>
-                            <li class="nav-item mx-4"><a href="#" class="nav-link text-white">About Us</a></li>
-                            <li class="nav-item mx-4"><a href="#" class="nav-link text-white">Contact Us</a></li>
+                            <li class="nav-item mx-4"><a href="VehiclePage.html" class="nav-link text-white">Book Now</a></li>
+                            <li class="nav-item mx-4"><a href="Index.html#aboutUs" class="nav-link text-white">About Us</a></li>
+                            <li class="nav-item mx-4"><a href="Index.html#ContactUs" class="nav-link text-white">Contact Us</a></li>
                             <li class="nav-item mx-4"><a href="signup.html" class="nav-link text-white">Sign Up</a></li>
                             <li class="nav-item mx-4"><a href="login.html" class="nav-link text-white">Login</a></li>
                         </ul>
@@ -45,24 +45,24 @@
         <form action="">
             <div class="input-box">
                 <span>To</span>
-                <input type="search" name="" id="" placeholder="search place">
+                <input type="search" name="" id="to" placeholder="search place">
             </div>
             <div class="input-box">
                 <span>From</span>
-                <input type="search" name="" id="" placeholder="search place">
+                <input type="search" name="" id="from" placeholder="search place">
             </div>
             <div class="input-box">
                 <span>Start Date</span>
-                <input type="date" name="" id="">
+                <input type="date" name="" id="start_Date">
             </div>
             <div class="input-box">
                 <span>Return Date</span>
-                <input type="date" name="" id="">
+                <input type="date" name="" id="return_Date">
 
             </div>
             <div id="dropdown" >
                 <div class="dropdown">
-                    <div class="select">
+                    <!--<div class="select">
                         <span class="selected">50 Seats</span>
                         <div class="caret"></div>     
                     </div>
@@ -71,18 +71,30 @@
                         <li>30 seats</li>
                         <li>20 seats</li>
                         <li class="active">50 Seats</li>
-                    </ul>
+                    </ul>-->
+                    <select name="seats" id="seats" class="form-select">
+                        <option value=null selected disabled> No Of Seats</option>
+                        <option value="50">50 Seats</option>
+                        <option value="40">40 Seats</option>
+                        <option value="30">30 Seats</option>
+                    </select>
                 </div>
                 <div class="dropdown">
-                    <div class="select">
+                    <!--<div class="select">
                         <span class="selected">Hight to Low</span>
                         <div class="caret"></div>     
                     </div>
                     <ul class="menu">
                         <li>Low to High</li>
                         <li class="active">Hight to Low</li>
-                    </ul>
+                    </ul>-->
+                    <select name="price" id="price" class="form-select" >
+                        <option value="volvo">High to Low Price</option>
+                        <option value="saab">Low to High Price</option>
+                    </select>
+
                 </div>
+
             </div>
             <div class="checkbox">
                 <span>AC</span>
@@ -199,10 +211,33 @@
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        document.addEventListener("click",filter);
+        function filter(event){
+
+            event.preventDefault();
+
+            let To = document.getElementById("to").value;
+            let From = document.getElementById("from").value;
+            let start_Date = document.getElementById("start_Date").value;
+            let return_Date = document.getElementById("return_Date").value;
+            let seat = document.getElementById("seats").value;
+            let price = document.getElementById("price").value;
+
+            let filterValues = {
+                to : To,
+                From :From,
+                start_Date : start_Date,
+                return_Date : return_Date,
+                seat : seat,
+                price : price
+            }
+            axios.get('http://localhost:3000/filter/finder', filterValues)
+            .then( (res) => {
+                console.log(res)
+            }).catch(e => console.log(e))
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
