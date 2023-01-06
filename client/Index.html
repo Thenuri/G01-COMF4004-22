@@ -44,23 +44,24 @@
             </div>
         </header>
     </div>
-    <div class="form-container">
+   <!-- <div class="form-container1">
         <form action="">
             <div class="input-box">
                 <span>To</span>
-                <input type="search" name="" id="" placeholder="search place">
+                <input type="search" name="" id="to" placeholder="search place">
             </div>
             <div class="input-box">
                 <span>From</span>
-                <input type="search" name="" id="" placeholder="search place">
+                <input type="search" name="" id="from" placeholder="search place">
             </div>
             <div class="input-box">
                 <span>Start Date</span>
-                <input type="date" name="" id="">
+                <input type="date" name="" id="start_Date">
             </div>
             <div class="input-box">
                 <span>Return Date</span>
-                <input type="date" name="" id="">
+                <input type="date" name="" id="return_Date">
+
             </div>
             <div id="dropdown" >
                 <div class="dropdown">
@@ -74,27 +75,39 @@
                         <li>20 seats</li>
                         <li class="active">50 Seats</li>
                     </ul>
+                    <select name="seats" id="seats" class="form-select">
+                        <option value=null selected disabled> No Of Seats</option>
+                        <option value="50">50 Seats</option>
+                        <option value="40">40 Seats</option>
+                        <option value="30">30 Seats</option>
+                    </select>
                 </div>
-                <div class="dropdown" id="drop">
+                <div class="dropdown">
                     <div class="select">
-                        <span class="selected">High to Low Price</span>
+                        <span class="selected">Hight to Low</span>
                         <div class="caret"></div>     
                     </div>
                     <ul class="menu">
-                        <li>Low to High Price</li>
-                        <li class="active">High to Low Price</li>
+                        <li>Low to High</li>
+                        <li class="active">Hight to Low</li>
                     </ul>
+                    <select name="price" id="price" class="form-select" >
+                        <option value="volvo">High to Low Price</option>
+                        <option value="saab">Low to High Price</option>
+                    </select>
+
                 </div>
-            </div><br>
+
+            </div>
             <div class="checkbox">
                 <span>AC</span>
                 <input type="checkbox" checked="checked">
                 
             </div>
-            <button class="btn">filter</button>
+            <button class="btn" id="filterBtn">filter</button>
            
         </form>
-    </div>
+    </div>-->
     
     <h3 class="heading"> Top Trending Buses</h3>
     <div id="marks">
@@ -256,6 +269,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+
 
     </script>
 </body>
