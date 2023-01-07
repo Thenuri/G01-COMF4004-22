@@ -51,7 +51,7 @@ app.use('/booking', bookingRouter)
 app.use('/filter', filterRouter)
 
 app.get('/', (req, res) => {
-  res.send("Testing")
+  res.render('index')
 })
 
 app.use('/ManageBus', ManageBusRouter);
