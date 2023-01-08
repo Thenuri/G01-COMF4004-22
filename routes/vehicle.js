@@ -2,6 +2,10 @@ const express = require('express');
 const { dbQuery } = require('../config/database');
 const router = express.Router();
 
+router.get('/', (req, res) => {
+    res.render('VehiclePage');
+})
+
 router.post('/finder',function(req,res){
 console.log(req.body);
     seatNo = req.body.seatNo

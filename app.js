@@ -12,7 +12,8 @@ var ManageBusRouter = require('./routes/ManageBus');
 const authRouter = require('./routes/auth')
 const accountRouter = require('./routes/accountRouter')
 const bookingRouter = require('./routes/booking')
-const filterRouter = require('./routes/filter')
+const vehicleRouter = require('./routes/vehicle')
+const updateBusRouter = require('./routes/updateBus')
 
 
 
@@ -48,7 +49,7 @@ const AuthenicateWithJWT = require('./middleware/authMiddleware')
 app.use('/api/auth', authRouter)
 app.use(cors())
 app.use('/booking', bookingRouter)
-app.use('/filter', filterRouter)
+app.use('/vehicle', vehicleRouter)
 
 app.get('/', (req, res) => {
   res.render('index')
@@ -58,6 +59,7 @@ app.use('/ManageBus', ManageBusRouter);
 app.use(express.static('routes'));
 app.use('/api/auth', authRouter);
 app.use('/accounts', accountRouter);
+app.use('/updatebus', updateBusRouter);
 
 
 // // catch 404 and forward to error handler
