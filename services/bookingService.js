@@ -20,7 +20,6 @@ exports.bookTrip = async (req, res) => {
             "startTime" : "14:08:48"
     }
     */
-        console.log("Hi");
     const busId = req.body.busId;
     const from = req.body.from;
     const to = req.body.to;
