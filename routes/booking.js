@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const {dbQuery} = require('../config/database');
+const bookingService = require('../services/bookingService')
 const clientController = require('../controllers/clientController');
 const ownerController  = require('../controllers/ownerController');
 const authenticateJWT = require('../middleware/authMiddleware');
+
+// new trip booking
+// router.post('/new', authenticateJWT, bookingService.bookTrip)
+router.post('/new', bookingService.bookTrip)
+
 
 router.put('/cancel/:id',function(req,res,next){
     let findConfirmation = "SELECT * FROM `trip` WHERE `trip`.`Trip_ID`= ?"
