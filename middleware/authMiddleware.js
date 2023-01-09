@@ -4,7 +4,7 @@ const accountController = require('../controllers/accountController')
 async function authenticateJWT (req, res, next) {
 
     if (req.cookies === undefined) {
-        return res.json({
+        return res.status(403).json({
             error: {
                 message: "No Cookies Found"
             }
@@ -14,7 +14,7 @@ async function authenticateJWT (req, res, next) {
     const {token} = req.cookies
 
     if (token === undefined) {
-        return res.json({
+        return res.status(403).json({
             error: {
                 message: "No Token Found"
             }
@@ -29,7 +29,7 @@ async function authenticateJWT (req, res, next) {
         // console.log(isValid)
     } catch (error) {
         console.log('authMiddleware error', error)
-        return res.json({
+        return res.status(403).json({
             error: {
                 message: error.message
             }
@@ -47,7 +47,7 @@ async function authenticateJWT (req, res, next) {
         
     } catch (error) {
         console.log(error);
-        res.status(500)
+        return res.status(500)
     }
 
     if ( !isAccountActive) {
@@ -60,7 +60,7 @@ async function authenticateJWT (req, res, next) {
         
     } catch (error) {
         console.log(error);
-        res.status(500)
+        return res.status(500)
     }
     
     req.body.Account_ID = isValid.Account_ID;
