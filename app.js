@@ -13,7 +13,6 @@ const authRouter = require('./routes/auth')
 const accountRouter = require('./routes/accountRouter')
 const bookingRouter = require('./routes/booking')
 const vehicleRouter = require('./routes/vehicle')
-/*const updateBusRouter = require('./routes/updateBus')*/
 
 
 
@@ -59,7 +58,6 @@ app.use('/ManageBus', ManageBusRouter);
 app.use(express.static('routes'));
 app.use('/api/auth', authRouter);
 app.use('/accounts', accountRouter);
-/*app.use('/updatebus', updateBusRouter);*/
 
 
 // // catch 404 and forward to error handler
