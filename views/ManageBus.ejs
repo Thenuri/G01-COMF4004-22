@@ -68,8 +68,7 @@
 
         <div class="dashboard-content p-4">
             <h1  class="p-2" id="manage-buses">Manage Buses</h1>
-                <div id="manage-buses-items" class="d-flex flex-wrap gap-3">
-
+                <div id="managebusesitems" class="d-flex flex-wrap gap-3">
                     <div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;">
                         <div class="trip-card-grid">
                             <div class="trip-info-bus-img" style="background-image: url('/images/1.jpg');" >
@@ -294,7 +293,7 @@
                         
                         
                         
-                        <input type="file" name="bus-image" id="bus-img-upload">
+                        <input type="file" name="bus-image" id="busimgupload">
                     </div>
                     <div class="col-6"></div>
                     <button class="btn-primary col-3 rounded-pill "id="addBus" type="submit">Add Bus</button>
@@ -314,7 +313,7 @@
 
         // Display uploaded image
         // select the elements
-        const imageUploadInput = document.getElementById("bus-img-upload")
+        const imageUploadInput = document.getElementById("busimgupload")
         const imageDisplay = document.getElementById("bus-img-display")
 
         imageUploadInput.addEventListener( "change", displayImg )
@@ -374,47 +373,63 @@
             }) 
             // let ac = document.getElementById("radio_ac").value;
             let driverName = document.getElementById("name");
+            let busimage = document.getElementById("busimgupload");
+
             let addData = {
                 Bus_No : BusNumber.value,
                 No_Of_Seats : seat.value,
                 Price_Per_km : price.value,
                 AC_Status : ac,
-                Driver_Name : driverName.value
+                Driver_Name : driverName.value,
+                Bus_Image: busimage      
             }
-            addBuses(addData);
-            // axios.patch('http://localhost:3000/manageBus/addBus',addData)
-            // .then((res)=> {
-                
-            //     addBuses(addData);
-            // }).catch(e => console.log(e))
+            
+             axios.patch('http://localhost:3000/manageBus/addBus',addData)
+             .then((res)=> {
+                BusNumber.value="";
+                seat.value="";
+                price.value="";
+                driverName.value="";
+                document.getElementsByName("ac-status").forEach(Option=>{
+                    if (Option.checked == true)
+                    {Option.checked = false
+                    }
+                 })
+                busimage.value="";
+                getbuses()
+                /*addBuses(addData);*/
+             }).catch(e => console.log(e))
         }
-        function addBuses(addData){
-            let busForm = document.getElementById("addBuses");
-                
-                
-            busCard = `<div class="trip-card-grid">
+        
+        function displayBuscard(managebusesitems){
+            
+            let busform = document.getElementById("managebusesitems");
+            busform.innerHTML = ""
+            managebusesitems.forEach(buses =>{
+                busCard = `<div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;">
+                        <div class="trip-card-grid">
                             <div class="trip-info-bus-img" style="background-image: url('/images/1.jpg');" >
                                 
                             </div>
                             
                             <div class="d-flex justify-content-around flex-column fw-bold">
                                 <div class="row px-3">
-                                    <div class="col-6 text-start fw-bolder fs-4">${addData.Bus_No.toUpperCase()}</div>
+                                    <div class="col-6 text-start fw-bolder fs-4">${buses.Bus_No.toUpperCase()}</div>
                                     <div class="col-6 text-center">
                                         
                                     </div>
                                 </div>
                                 <div class="row px-3">
-                                    <div class="col-12 text-start">Price/KM - ${addData.price}</div>
+                                    <div class="col-12 text-start">Price/KM - LKR ${buses.Price_Per_km}</div>
                                     
                                 </div>
                                 <div class="row px-3 ">
                                     <div class="col-6 text-start">
-                                        <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span>${addData.seat}</span>
+                                        <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span>${buses.No_Of_Seats}</span>
                                     </div>
                                     
                                     
-                                    <div class="col-6 text-center"${addData.ac}</div>
+                                    <div class="col-6 text-center">${buses.AC_Status.toUpperCase()}</div>
                                 </div>
                                 <div class="row px-4">
                                     <div class="c text-center">
@@ -438,8 +453,18 @@
                                     
                                 </div>                      
                             </div>
-                        </div>  `
-                        busForm.innerHTML += busCard;
+                        </div>  
+                    </div>  `
+                        busform.innerHTML += busCard;
+            });
+        }
+        document.addEventListener("DOMContentLoaded",getbuses)
+
+        function getbuses(){
+            console.log("jhgfds")
+            axios.get('http://localhost:3000/manageBus/OwnedBuses').then((res)=> { 
+                console.log(res.data)
+                displayBuscard(res.data)}).catch(e => console.log(e))
         }
     </script>
 </body>

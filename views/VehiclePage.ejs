@@ -239,7 +239,7 @@
             axios.post('http://localhost:3000/filter/finder', filterValues)
             .then( (res) => {
               /*  console.log(res)*/
-                buses = res.data
+                buses = res.data /* getting the bus array*/ 
               /*  console.log(buses)*/
                 displayBuses(buses);
             }).catch(e => console.log(e))
@@ -250,8 +250,6 @@
             let busesContainerElement = document.getElementById("buses");
             busesContainerElement.innerHTML = ""
             buses.forEach( bus => {
-
-                
                 busCard = `
                 <div class="dashboard-content p-4" style="margin-top: 3rem;">
                     <div id="upcoming-trips-items">

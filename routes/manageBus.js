@@ -9,15 +9,17 @@ router.get('/managebus', (req, res) => {
   res.render('ManageBus');
 })
 
-router.patch('/addBus', function(req, res, next) {
+router.patch('/addBus',authenticateJWT,async function(req, res, next) {
+    const Account_ID = req.body.Account_ID;
     const Bus_No = req.body.Bus_No;
     const No_Of_Seats = req.body.No_Of_Seats;
     const Price_Per_km = req.body.Price_Per_km;
     const AC_Status = req.body.AC_Status;
     const Driver_Name = req.body.Driver_Name;
 // TODO get account id using jwtAuth middleware, find owner id and Add owner id to query , 
-    const sql = "INSERT INTO bus (Bus_No, No_Of_Seats, Price_Per_km, AC_Status,Driver_Name) VALUES (?,?,?,?,?)";
-    const values = [Bus_No,No_Of_Seats,Price_Per_km,AC_Status,Driver_Name];
+    owner = await ownerController.findOwnerByAccountId(Account_ID);
+    const sql = "INSERT INTO bus (Owner_ID,Bus_No, No_Of_Seats, Price_Per_km, AC_Status,Driver_Name,Bus_Image) VALUES (?,?,?,?,?,?,?)";
+    const values = [owner.Owner_ID,Bus_No,No_Of_Seats,Price_Per_km,AC_Status,Driver_Name];
 
     try{
       return dbQuery(sql, values).then(res.send("Succesfull"))
@@ -84,6 +86,39 @@ router.get('/BusDetails', function(req, res, next){
   }
 })
 
+router.get('/OwnedBuses', authenticateJWT, async function(req, res, next){
+  const accountId = req.body.Account_ID;
+  const accountType = req.body.AccountType;
+  
+  let values,getbus;
+  if(accountType === "owner"){
+    
+    try{
+      owner = await ownerController.findOwnerByAccountId(accountId);
+      console.log(owner)
+    }
+    catch (error){
+
+      throw error
+    }
+    values = [owner.Owner_ID]
+    console.log(values)
+    getbus = "SELECT * FROM `bus` WHERE `bus`.`Owner_ID`= ?"
+    console.log(getbus)
+    try{
+      dbQuery(getbus,values).then(result =>{return res.json(result)});
+      
+    }
+    catch (error){
+
+      throw error
+    }
+  }else{
+    return res.send("hi")
+  }
+
+
+})
 
   module.exports = router;
 	
