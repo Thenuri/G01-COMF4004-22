@@ -25,7 +25,7 @@ class OwnerModel {
     }
 
     static findOwnerByOwnerId(Owner_ID) {
-        const sql = "SELECT * FROM `bus_owner` WHERE Client_ID = ?";
+        const sql = "SELECT * FROM `bus_owner` WHERE Owner_ID = ?";
         const values = [Owner_ID]
         try {
             return dbQueryFetchFirstResult(sql, values)
