@@ -9,6 +9,9 @@ router.get('/managebus', (req, res) => {
   res.render('ManageBus');
 })
 
+
+
+
 router.patch('/addBus',authenticateJWT,async function(req, res, next) {
     const Account_ID = req.body.Account_ID;
     const Bus_No = req.body.Bus_No;
@@ -18,15 +21,18 @@ router.patch('/addBus',authenticateJWT,async function(req, res, next) {
     const Driver_Name = req.body.Driver_Name;
 // TODO get account id using jwtAuth middleware, find owner id and Add owner id to query , 
     owner = await ownerController.findOwnerByAccountId(Account_ID);
-    const sql = "INSERT INTO bus (Owner_ID,Bus_No, No_Of_Seats, Price_Per_km, AC_Status,Driver_Name,Bus_Image) VALUES (?,?,?,?,?,?,?)";
+    const sql = "INSERT INTO bus (Owner_ID, Bus_No, No_Of_Seats, Price_Per_km, AC_Status, Driver_Name) VALUES (?,?,?,?,?,?)";
     const values = [owner.Owner_ID,Bus_No,No_Of_Seats,Price_Per_km,AC_Status,Driver_Name];
 
-    try{
-      return dbQuery(sql, values).then(res.send("Succesfull"))
-    }
-    catch (error){
-      throw error
-    }
+    
+      dbQuery(sql, values)
+      .then((result) => {
+        res.send("Successful")
+      })
+      .catch( (error) => {
+        res.status(418).send(error)
+      })
+    
 
 })
 

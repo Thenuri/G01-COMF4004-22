@@ -6,6 +6,10 @@ router.get('/', (req, res) => {
     res.render('VehiclePage');
 })
 
+router.get('/vehicleDe', (req, res) => {
+    res.render('VehicleDetails');
+})
+  
 router.post('/finder',function(req,res){
 console.log(req.body);
     seatNo = req.body.seatNo
