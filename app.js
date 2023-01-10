@@ -39,8 +39,8 @@ app.use(bodyParser.json()) // to parse json to req.body
 app.use(cookieParser())
 
 // authenticate
-// if auth success will add email, and account id to req.body.Email, req.body.Account_ID
-const AuthenicateWithJWT = require('./middleware/authMiddleware') 
+// if auth success will add email, and account id to req.body.Email, req.body.Account_ID 
+const authenticateJWT = require('./middleware/authMiddleware');
 
 app.use(cors())
 
@@ -56,6 +56,11 @@ app.use('/accounts', accountRouter);
 app.get('/', (req, res) => {
   res.render('index')
 })
+
+app.get('/protected', authenticateJWT, (req, res) => {
+  res.send("Protected route")
+})
+
 
 // Display the auth webpages
 app.get('/signin', (req, res) => {
