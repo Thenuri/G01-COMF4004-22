@@ -75,7 +75,7 @@ class AuthService {
 
         } catch (error) {
             console.log(error)
-            return res.json({
+            return res.status(500).json({
                 message: "Error Occured"
             })
         }
@@ -164,7 +164,7 @@ class AuthService {
         }
 
         if (account === undefined) {
-            return res.json({
+            return res.status(403).json({
                 error: {
                     message: "Account not found"
                     // message: "Email Or Password is not valid"
@@ -174,7 +174,7 @@ class AuthService {
         }
 
         if (account.Account_Status !== "active") {
-            return res.json({
+            return res.status(403).json({
                 error: {
                     message: "Account not active / suspended"
                     // message: "Email Or Password is not valid"
@@ -190,11 +190,11 @@ class AuthService {
 
             console.log(isValidPassword, 'valid', hashed_password)
             // generate jwt token, add to a cookie and send 
-            res = jwtService.generateCookieWithJWT(res, account.Account_ID, account.Email, account.Account_Type)    
-            
-            return res.status(200).json({
-                    message: "success"
-                    })     
+            res = jwtService.generateCookieWithJWT(res, account.Account_ID, account.Email, account.Account_Type)       
+
+            let redirect = req.query.redirect || '/';
+            res.redirect(redirect);
+            return;
         } else {
 
             return res.status(403).json( { 
