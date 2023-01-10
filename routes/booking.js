@@ -9,7 +9,9 @@ const authenticateJWT = require('../middleware/authMiddleware');
 // new trip booking
 router.post('/new', authenticateJWT, bookingService.bookTrip)
 // router.post('/new', bookingService.bookTrip)
-
+router.get('/payment', (req, res) => {
+    res.render('payment');
+})
 
 router.put('/cancel/:id',function(req,res,next){
     let findConfirmation = "SELECT * FROM `trip` WHERE `trip`.`Trip_ID`= ?"
