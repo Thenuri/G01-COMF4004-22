@@ -68,12 +68,22 @@
             password:password
         }
 
-        axios.post('/auth/signin',signup)
+        const params = new URLSearchParams(window.location.search);
+        const redirectURL = params.get("redirect")
+        let url;
+        if (redirectURL) {
+            url =`/auth/signin?redirect=${redirectURL}`;
+        } else {
+            url = `/auth/signin`;
+        }
+
+        axios.post(url,signup)
         .then( (res) => {
-            console.log(res.data)
-            // if (res.data.redirect !== "") {
-            //     window.location = res.data.redirect;
-            // }
+            console.log(res.request.responseURL)
+            console.log(res)
+
+            console.log(res.request.responseURL === url)
+            
         })
         .catch(e=> console.log(e))
         }

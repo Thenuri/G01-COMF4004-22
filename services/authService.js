@@ -194,6 +194,7 @@ class AuthService {
 
             let redirect = req.query.redirect || '/';
             res.redirect(redirect);
+            // res.send("singin")
             return;
         } else {
 
