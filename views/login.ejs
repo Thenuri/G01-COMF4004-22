@@ -68,7 +68,14 @@
             password:password
         }
 
-        axios.post('/auth/signin',signup).catch(e=> console.log(e))
+        axios.post('/auth/signin',signup)
+        .then( (res) => {
+            console.log(res.data)
+            // if (res.data.redirect !== "") {
+            //     window.location = res.data.redirect;
+            // }
+        })
+        .catch(e=> console.log(e))
         }
 
         function validate(){
