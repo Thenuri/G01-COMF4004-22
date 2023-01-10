@@ -373,7 +373,7 @@
             }) 
             // let ac = document.getElementById("radio_ac").value;
             let driverName = document.getElementById("name");
-            let busimage = document.getElementById("busimgupload");
+           /* let busimage = document.getElementById("busimgupload");*/
 
             let addData = {
                 Bus_No : BusNumber.value,
@@ -395,10 +395,12 @@
                     {Option.checked = false
                     }
                  })
-                busimage.value="";
-                getbuses()
+               /* busimage.value="";*/
+                 getbuses()
+
                 /*addBuses(addData);*/
              }).catch(e => console.log(e))
+             validate();
         }
         
         function displayBuscard(managebusesitems){
@@ -465,6 +467,41 @@
             axios.get('http://localhost:3000/manageBus/OwnedBuses').then((res)=> { 
                 console.log(res.data)
                 displayBuscard(res.data)}).catch(e => console.log(e))
+        }
+
+
+        function validate(){
+            let BusNumber =  document.getElementById("bus_number");
+            let seat = document.getElementById("seats");
+            let price = document.getElementById("price-per-km");
+            let ac;
+            document.getElementsByName("ac-status").forEach( option => {
+                if (option.checked) {
+                ac = option.id
+            }
+            }) 
+            // let ac = document.getElementById("radio_ac").value;
+            let driverName = document.getElementById("name");
+           /* let busimage = document.getElementById("busimgupload");*/
+
+           let vehicle_no_pattern =/^[A-Z]{2}[\\ -]{0, 1}[0-9]$/;
+           if(!vehicle_no_pattern.match(vehicle_no_pattern && vehicle_no_pattern == "")){
+
+                alert("Please enter a valid vehicle number");
+                document.getElementById("in_name").focus();
+                return false;
+           }else if (seat == ""){
+                alert("Please select the seat amount")
+                return
+           }else if (price == ""){
+                alert("Please enter the price amount")
+           }else if(ac == ""){
+                alert("Please select the ac status")
+           }else if (driverName == ""){
+                alert("Please enter the driver name ")
+           }else{
+               alert("Your bus has successfully added")
+           }   
         }
     </script>
 </body>
