@@ -137,3 +137,74 @@ exports.bookTrip = async (req, res) => {
 
 
 }
+
+exports.confirmBooking = async (req, res) => {
+    const tripId = req.params.tripId;
+    if (req.body.AccountType !== "owner"){
+        // return res.status(403).json({error: {message: "Only owner can confirm"}})
+        return res.status(403).redirect('/signin?redirect=' + req.originalUrl);
+    }
+    const accountId = req.body.Account_ID;
+    let owner;
+    try {
+        owner = await ownerController.findOwnerByAccountId(accountId);
+    } catch (error) {
+        console.log(error)
+        return res.status(403).json({error: {message: "Error finding owner account"}})
+    }
+    if (owner === "undefined") {
+        return res.status(403).json({error: {message: "No owner account found"}})
+    }
+
+    // get trip from db
+    let sql = "SELECT * from `trip` where `Trip_ID` = ?"
+    let values = [tripId]
+    let trip;
+    try {
+        trip = await dbQueryFetchFirstResult(sql, values);
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.json({error:{ message: "Error finding trip"}});
+    }
+
+    if (trip === "undefined") {
+        return res.json({error: {message: "No trip found"}})
+    }
+
+    let bus;
+    sql = "SELECT * from `bus` where `Bus_ID` = ?"
+    values = [trip.Bus_ID]
+    try {
+        bus = await dbQueryFetchFirstResult(sql, values);
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.json({error:{ message: "Error finding Bus"}});
+    }
+    if (bus === "undefined") {
+        return res.json({error: {message: "No bus found for the trip"}})
+    }
+
+    // check if current current user
+    if (bus.Owner_ID !== owner.Owner_ID) {
+        // return res.status(403).json({error:{message: "Not the owner of the bus"}})
+        return res.status(403).redirect('/signin?redirect=' + req.originalUrl);
+    }
+    if (trip.Trip_Status !== "Pending Confirmation") {
+        return res.json({error: {message: `Cannot confirm trip is ${trip.Trip_Status}`}});
+    }
+    
+    // update bus to database
+    sql = "UPDATE `trip` SET `Trip_Status` = 'Upcoming' WHERE `trip`.`Trip_ID` = ? "
+    values = [trip.Trip_ID]
+    try {
+        trip = await dbQuery(sql, values).then( () => {
+            return res.status(200).json({message: "The Trip has been confirmed"})
+        })
+        
+    } catch (error) {
+        console.log(error.message);
+        return res.json({error:{ message: "Error: Could not confirm booking"}});
+    }
+}
