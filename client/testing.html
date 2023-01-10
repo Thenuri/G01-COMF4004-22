@@ -189,16 +189,22 @@
                 </div>
             </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6"><br><br><br>
                     <!-- Bus Upload Image -->
-                    <div class="sam col-lg-5">
+                    <!-- <div class="sam col-lg-5">
                         <div class="col-6 ">
                           <div id="bus-img-display"></div>
                           <input type="file" name="bus-image" id="bus-img-upload">
                         </div>
                         <div class="col-6"></div>
                         <button class="btn-primary col-3 " type="submit">Add Bus</button>
-                      </div>
+                    </div> -->
+                    <div class="col-6 ">
+                        <div id="bus-img-display"></div>
+                        <input type="file" name="bus-image" id="bus-img-upload">
+                    </div>
+                    <div class="col-6"></div>
+                    <button class="btn-primary col-3 rounded-pill " type="submit">Add Bus</button>
                 </div>
             </div>
         </div>
@@ -207,6 +213,19 @@
     </div>
 
     <script>
+
+        // Display uploaded image
+        // select the elements
+        const imageUploadInput = document.getElementById("bus-img-upload")
+        const imageDisplay = document.getElementById("bus-img-display")
+
+        imageUploadInput.addEventListener( "change", displayImg )
+
+        function displayImg() {
+            console.log("Upload")
+            imgObjUrl = URL.createObjectURL(imageUploadInput.files[0])
+            imageDisplay.style.backgroundImage = `url(${imgObjUrl})`;
+        }
 
         // Sidebar menu link color to white for selected link.
             // get a node list of the sidebar links
