@@ -28,19 +28,13 @@ exports.bookTrip = async (req, res) => {
     const startTime = req.body.startTime;
     
     // MapsApiRequest.distanceMatrixRequest(to, from).catch(e => console.log(e));
-    try {
-        distanceMatrixResponseData = await MapsApiRequest.distanceMatrixRequest(to, from);
-        
-    } catch (error) {
-        throw error;
-    }
-    console.log(distanceMatrixResponseData)
-    return res.json(distanceMatrixResponseData);
-
+    // console.log(distanceMatrixResponseData)
+    // return res.json(distanceMatrixResponseData);
     if (req.body.AccountType !== "client") {
-        return res.json({error: {message: "Buses can be booked only by client"}});
+        return res.status(403).json({error: {message: "Buses can be booked only by client"}});
     }
     const clientAccountId = req.body.Account_ID
+
 
     // Client Id is needed to book a trip therefore find the relavent client account with accountId foreign key
     let client
@@ -50,7 +44,7 @@ exports.bookTrip = async (req, res) => {
         return res.json({error:{ message: "Error finding client account"}})
 
     }
-    console.log(client)
+//    console.log(client)
     const clientId = client.Client_ID
     let sql, values;
     
@@ -62,14 +56,14 @@ exports.bookTrip = async (req, res) => {
         bus = await dbQueryFetchFirstResult(sql, values);
     } catch (error) {
         console.log(error);
+        return res.json({error:{message: "Error finding bus"}})
 
     }
-    console.log(bus)
+//    console.log(bus)
 
-    if (typeof bus === undefined) {
-        return res.json({error: {message: "No bus found"}})
+    if (typeof bus === "undefined") {
+        return res.status(404).json({error: {message: "No bus found"}})
     }
-    
     // check if bus is available
 
     if (bus.Bus_Availability !== "available") {
@@ -99,11 +93,25 @@ exports.bookTrip = async (req, res) => {
     } 
 
     // TODO later use google maps api to calculate distance
-    MapApiRequest.getDistance(to, from);
-    const distanceKm = 300;
+    let distanceInMetres;
+    MapsApiRequest.distanceMatrixRequest(to, from).then(
+        res => {
+            distanceInMetres = res.distanceInMetres;
+        }
+    ).catch( (error) => {
+        // if the api cannot be accessed
+        if (error.code === "ENOTFOUND") {
+            return res.status(500).json({error: {message: "Error getting distance from Maps API"}});
+        }
 
+        return res.status(500).json({error: {message: error.message}});
+       
+    })
+
+    const distanceKm = distanceInMetres / 1000;
+    
     // calculate the total amount for the trip
-    const tripAmount = distanceKm * bus.Price_Per_km;  // TODO round trip calc
+    const tripAmount = distanceKm * bus.Price_Per_km * 2;  // 2x for the round trip
     
     // insert the trip to the table
     sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`, `Trip_Start_Time`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
@@ -126,6 +134,6 @@ exports.bookTrip = async (req, res) => {
         )})
 
 
-    
+
 
 }

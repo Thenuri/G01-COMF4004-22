@@ -15,7 +15,7 @@ function generateJWTToken(Account_ID, Email, AccountType) {
 
     try {
         return jwt.sign(accountDetails, process.env.JWT_SECRET, {
-            expiresIn: 600  // 10 min denoted in secounds
+            expiresIn: 30 * 60 // 30 min denoted in secounds
     
         })
     } catch (e) {
@@ -58,8 +58,8 @@ exports.generateCookieWithJWT = (res, Account_ID, Email, AccountType) => {
     res.cookie("token", token, {
         secure: true,
         httpOnly: true,
-        maxAge: 10 * 60 * 1000 // 10 mins, given in ms, multiplication is to break it down for redability
-                    // 10min * 60s * 1000ms
+        maxAge: 30 * 60 * 1000 // 30 mins, given in ms, multiplication is to break it down for redability
+                    // 30min * 60s * 1000ms
     })
     return res
     
