@@ -7,8 +7,8 @@ const ownerController  = require('../controllers/ownerController');
 const authenticateJWT = require('../middleware/authMiddleware');
 
 // new trip booking
-// router.post('/new', authenticateJWT, bookingService.bookTrip)
-router.post('/new', bookingService.bookTrip)
+router.post('/new', authenticateJWT, bookingService.bookTrip)
+// router.post('/new', bookingService.bookTrip)
 
 
 router.put('/cancel/:id',function(req,res,next){
