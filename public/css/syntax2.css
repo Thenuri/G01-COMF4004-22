@@ -139,6 +139,16 @@ a {
     overflow-y:scroll;
     scroll-behavior: smooth;
 }
+#bus-img-display {
+    width: 100%;
+    height: 15rem;
+    background-color: aliceblue;
+    background-size: cover;
+    
+}
+.BusIM{
+    padding-left: 75px;
+}
 /*.Profile-Gradient{
     background-position:center;
     position:relative;
@@ -154,8 +164,8 @@ a {
     padding-right: 170px;
 }
 .Profile-Form{
-    padding-left: 175px;
-    padding-top: 0px;
+    padding-left: 10px;
+    padding-top: 20px;
     padding-bottom: 100px;
     margin-top: 0px;
 }
@@ -164,7 +174,7 @@ a {
     width: 500px;
     display: flex;
     gap: 25px;
-    padding-left: 300px;
+    padding-left: 150px;
 }
 hi{
     width: 100px;
