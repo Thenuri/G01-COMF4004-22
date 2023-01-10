@@ -9,7 +9,6 @@ const jwtService = require('./jwtService')
 class AuthService { 
 
     static async signUp(req, res)  {
-
         
         //  Expected JSON format
         /*
@@ -63,9 +62,9 @@ class AuthService {
         }
 
         // Check if account type field is valid
-        const accountTypeList = ["client", "owner" , "admin"]    // , "admin"
+        const accountTypeList = ["client", "owner" ]    // , "admin"
         if (!(accountTypeList.includes(accountType))) {
-            return res.json({error: { message: 'Account Type Error'}})
+            return res.status(400).json({error: { message: 'Account Type Error'}})
         }
     
         // check if account already exists for that email
@@ -92,9 +91,9 @@ class AuthService {
             return res.json({ error: {message: "Enter your name"}})
         }
 
-        if (address === undefined) return res.json({ error: {message: "Enter your address"}})
+        if (address === undefined) return res.status(400).json({ error: {message: "Enter your address"}})
 
-        if (contactNo === undefined) return res.json({ error: {message: "Enter your Contact No"}})
+        if (contactNo === undefined) return res.status(400).json({ error: {message: "Enter your Contact No"}})
 
         // TODO check for profile photo later
 
@@ -121,11 +120,11 @@ class AuthService {
                             break;
                     
                         default:
-                            res.json({error: { message: "Error Creating account type"}})
+                            res.status(500).json({error: { message: "Error Creating account type"}})
                             break;
                     }
                 } catch (error) {
-                    res.json({error: { message: "Error Creating account type"}});
+                    res.status(500).json({error: { message: "Error Creating account type"}});
                 }
 
                 
@@ -133,13 +132,13 @@ class AuthService {
                 // generate cookie with a jwt
                 res = jwtService.generateCookieWithJWT(res, account_id, email, accountType)      
                 
-                res.status(201).json({
-                    "message": "Account Created Successfully"
-                })
+                let redirect = req.query.redirect || '/';
+                res.redirect(redirect);
+                return;
             }
         ).catch( e => {
             console.log(e)
-            return res.json({
+            return res.status(500).json({
                 error: {
                             message: e.message
                         }
