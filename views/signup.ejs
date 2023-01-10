@@ -23,59 +23,66 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="new1 row col-lg-7">
+                    
                     <center><h1>Sign Up</h1></center><br><br>
+                    <form id="sign-up-form">
+                    <div class="row">
                     <div class="card border-0 col-4 ">
                         
                         <div class="row px-3">
                             <label class="mb-1"><h6 class="mb-0 text-sm">Select the User</h6></label>
-                            <select class="select form-select mb-4">
+                            <select class="select form-select mb-4" id="account-type-select" required>
                                 <option value="" disabled selected>Select the User</option>
-                                <option value="1">Client User</option>
-                                <option value="2">Bus Owner</option>
-                                <!--<option value="3">Admin User</option>-->
+                                <option value="client">Client User</option>
+                                <option value="owner">Bus Owner</option>
+                                <!--<option value="admin">Admin User</option>-->
                               </select>
                         </div>
                         <div class="row px-3">
                             <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
-                            <input class="mb-4" type="text" name="email" placeholder="Enter a Username">
+                            <input class="mb-4" type="email" name="email" id="email" required placeholder="Enter Email">
                         </div>
                         <div class="row px-3">
                             <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
-                            <input type="password" name="password" placeholder="Enter password">
+                            <input type="password" name="password" id="password" required placeholder="Enter password">
                         </div><br>
                         <div class="row px-3">
                             <label class="mb-1"><h6 class="mb-0 text-sm">Confirm Password</h6></label>
-                            <input type="password" name="password" placeholder="Confirm password">
+                            <input type="password" name="password" id="confirm-password" required placeholder="Confirm password">
                         </div><br>
                         
                     </div>
-                    <div class="col-5">
+                    <div class="col-5 mt-5 pt-3">
                         <div class="card2 card border-0 ">
                             <br><br>
                             <div class="row px-3">
                                 <label class="mb-1"><h6 class="mb-0 text-sm">Name</h6></label>
-                                <input class="mb-4" type="text" name="name" placeholder="Enter your Name">
+                                <input class="mb-4" type="text" name="name" id="name" required placeholder="Enter your Name">
                             </div>
                             <div class="row px-3">
                                 <label class="mb-1"><h6 class="mb-0 text-sm">Address</h6></label>
-                                <input type="text" name="Address" placeholder="Enter your Address">
+                                <input type="text" name="Address" id="address" required placeholder="Enter your Address">
                             </div><br>
                             <div class="row px-3">
                                 <label class="mb-1"><h6 class="mb-0 text-sm">Contact No</h6></label>
-                                <input type="text" name="Contact" placeholder="Enter your Contact No">
+                                <input type="tel" name="Contact" id="contact-no" maxlength="10" minlength="10" pattern="[0-9]{1}[0-9]{9}" title="Enter 10 digit telephone number" trequired placeholder="Enter your Contact No">
                             </div><br><br>
                         </div>
                     </div>
                     <div class="third row mb-3 px-3">
-                        <center><button type="submit" class="btn btn-blue text-center">SignUp</button></center>
+                        <center><button type="submit" class="btn btn-blue text-center" id="sign-up-btn">SignUp</button></center>
                     </div>
+                    </div>
+                    </form>
                     <div class="row mb-4 px-3">
                         <center><small class="font-weight-bold">Already have an account? </small></center>
                     </div>
                     <div class="row mb-3 px-3">
-                        <center><a href="login.html"><button type="submit" class="btn btn-blue text-center">Login</button></a></center>
+                        <center><a href="/signin"><button class="btn btn-blue text-center">Login</button></a></center>
                     </div>
+                </form>
                 </div>
             </div>
             <div class="bg-white py-0">
@@ -84,5 +91,91 @@
                 </div>
             </div>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // get user input
+        const accountType = document.getElementById("account-type-select");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirm-password");
+        const name = document.getElementById("name");
+        const address = document.getElementById("address");
+        const contactNo = document.getElementById("contact-no");
+        
+        // get sign up btn 
+        const btnSignUp = document.getElementById("sign-up-btn");
+        // form
+        const signUpForm = document.getElementById("sign-up-form")
+        signUpForm.addEventListener("submit", signUpUser);
+        var resposeObj;
+        function signUpUser(evt) {
+           evt.preventDefault()
+            signUpData = {
+                email: email.value,
+                password: password.value,
+                confirmPassword: confirmPassword.value,
+                accountType: accountType.value,
+                details : {
+                    name: name.value,
+                    address: address.value,
+                    contactNo: contactNo.value,
+                }
+            }
+
+            // validate later
+            validate();
+            // axios post
+            // url path
+            const urlPath = "/auth/signup"
+
+            // For redirect param
+            const params = new URLSearchParams(window.location.search);
+            const redirectURL = params.get("redirect")
+            let url;
+            if (redirectURL) {
+                url =`${urlPath}?redirect=${redirectURL}`;
+            } else {
+                url = `${urlPath}`;
+            }
+
+            axios.post(url,signUpData)
+            .then( (res) => {
+
+                axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+                //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+                if(axiosReqUrl !== res.request.responseURL) {
+                    window.location.href = res.request.responseURL;  // set the window location to redirect
+                }
+
+            })
+            .catch(e=> {
+                console.log(e)
+                alert(e.response.data.error.message)
+            })
+            
+
+        }
+        password.addEventListener("change", validatePasswords);
+        confirmPassword.addEventListener("change", validatePasswords)
+
+        function validatePasswords() {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.style.borderColor = "red"
+            } else {
+                confirmPassword.style.borderColor = ""
+            }
+        }
+
+        function validate() {
+            if (password.value !== confirmPassword.value) {
+                alert("Passwords dont match")
+            } 
+
+        }
+
+        
+    </script>
 </body>
 </html>
