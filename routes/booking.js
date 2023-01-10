@@ -13,6 +13,9 @@ router.get('/payment', (req, res) => {
     res.render('payment');
 })
 
+// The bus owner confirms booking
+router.post('/confirm/:tripId', authenticateJWT, bookingService.confirmBooking)
+
 router.put('/cancel/:id',function(req,res,next){
     let findConfirmation = "SELECT * FROM `trip` WHERE `trip`.`Trip_ID`= ?"
     const value = [req.params.id];
