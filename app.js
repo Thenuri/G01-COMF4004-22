@@ -42,24 +42,29 @@ app.use(cookieParser())
 // if auth success will add email, and account id to req.body.Email, req.body.Account_ID
 const AuthenicateWithJWT = require('./middleware/authMiddleware') 
 
-
+app.use(cors())
 
 // Use routers
-app.use('/api/auth', authRouter)
-app.use(cors())
+app.use(express.static('routes'));
+app.use('/auth', authRouter)  // only the posts are in this
 app.use('/booking', bookingRouter)
 app.use('/vehicle', vehicleRouter)
+app.use('/ManageBus', ManageBusRouter);
+app.use('/accounts', accountRouter);
+
 
 app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.use('/ManageBus', ManageBusRouter);
-app.use(express.static('routes'));
-app.use('/api/auth', authRouter);
-app.use('/accounts', accountRouter);
+// Display the auth webpages
+app.get('/signin', (req, res) => {
+  res.render("login")
+})
 
-
+app.get('/signup', (req, res) => {
+  res.render("signup")
+})
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
