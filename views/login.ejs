@@ -63,31 +63,40 @@
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
 
-            let signup = {
+            let login = {
             email:email,
             password:password
-        }
+            }
 
+        //url path
+        const urlPath = "/auth/signin"
+
+        // For redirect param
         const params = new URLSearchParams(window.location.search);
-        const redirectURL = params.get("redirect")
-        let url;
-        if (redirectURL) {
-            url =`/auth/signin?redirect=${redirectURL}`;
-        } else {
-            url = `/auth/signin`;
+            const redirectURL = params.get("redirect")
+            let url;
+            if (redirectURL) {
+                url =`${urlPath}?redirect=${redirectURL}`;
+            } else {
+                url = `${urlPath}`;
+            }
+        
+            axios.post(url,login)
+            .then( (res) => {
+
+                axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+                //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+                if(axiosReqUrl !== res.request.responseURL) {
+                    window.location.href = res.request.responseURL;  // set the window location to redirect
+                }
+
+            })
+            .catch(e=> {
+                console.log(e)
+                alert(e.response.data.error.message)
+            })
         }
-
-        axios.post(url,signup)
-        .then( (res) => {
-            console.log(res.request.responseURL)
-            console.log(res)
-
-            console.log(res.request.responseURL === url)
-            
-        })
-        .catch(e=> console.log(e))
-        }
-
         function validate(){
             let email = document.getElementById("email").value;
             let email_pattern = /^[A-Za-z\d\.\_]+\@[A-Za-z\d\.\-]+\.[A-Za-z]{2,5}$/;
