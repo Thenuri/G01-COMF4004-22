@@ -15,7 +15,7 @@
     </div>
     <div class="container-fluid mx-auto">
             <div class="row d-flex">
-                <div class="new col-lg-4">
+                <div class="new col-lg-5">
                     <div class="card1 pb-5">
                         
                         <div class="row px-3 justify-content-center mt-5 mb-5 ">
@@ -24,22 +24,29 @@
                     </div>
                 </div>
                 
-                <div class="new1 row col-lg-7">
+                <div class="new1  col-lg-6">
                     
-                    <center><h1>Sign Up</h1></center><br><br>
-                    <form id="sign-up-form">
+                    <center><h1 style="margin-left:-60px;">Sign Up</h1></center><br><br>
+                    <form id="sign-up-form" style="margin-left: 100px;">
                     <div class="row">
-                    <div class="card border-0 col-4 ">
+                    <div class="card border-0 col-7 ">
                         
                         <div class="row px-3">
                             <label class="mb-1"><h6 class="mb-0 text-sm">Select the User</h6></label>
-                            <select class="select form-select mb-4" id="account-type-select" required>
+                            <select class="select form-select mb-1" id="account-type-select" required  onchange="Control();">
                                 <option value="" disabled selected>Select the User</option>
-                                <option value="client">Client User</option>
-                                <option value="owner">Bus Owner</option>
+                                <option value="0">Client User</option>
+                                <option value="1">Bus Owner</option>
                                 <!--<option value="admin">Admin User</option>-->
                               </select>
+                              <div class="mb-0"style="display: flex; " >
+                                <input class="hidden" type="text" name="name" id="name" required placeholder="Enter your Name" >
+                                <input class="hidden" type="tel" name="Contact" id="contact-no" maxlength="10" minlength="10" pattern="[0-9]{1}[0-9]{9}" title="Enter 10 digit telephone number" trequired placeholder="Enter your Contact No">
+                              </div>
+                              <input class="hidden" type="text" name="Address" id="address" required placeholder="Enter your Address">
+                            
                         </div>
+                        
                         <div class="row px-3">
                             <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
                             <input class="mb-4" type="email" name="email" id="email" required placeholder="Enter Email">
@@ -54,42 +61,25 @@
                         </div><br>
                         
                     </div>
-                    <div class="col-5 mt-5 pt-3">
-                        <div class="card2 card border-0 ">
-                            <br><br>
-                            <div class="row px-3">
-                                <label class="mb-1"><h6 class="mb-0 text-sm">Name</h6></label>
-                                <input class="mb-4" type="text" name="name" id="name" required placeholder="Enter your Name">
-                            </div>
-                            <div class="row px-3">
-                                <label class="mb-1"><h6 class="mb-0 text-sm">Address</h6></label>
-                                <input type="text" name="Address" id="address" required placeholder="Enter your Address">
-                            </div><br>
-                            <div class="row px-3">
-                                <label class="mb-1"><h6 class="mb-0 text-sm">Contact No</h6></label>
-                                <input type="tel" name="Contact" id="contact-no" maxlength="10" minlength="10" pattern="[0-9]{1}[0-9]{9}" title="Enter 10 digit telephone number" trequired placeholder="Enter your Contact No">
-                            </div><br><br>
-                        </div>
-                    </div>
-                    <div class="third row mb-3 px-3">
+                    <div class="third row mb-2 px-3" style="margin-left:-100px;">
                         <center><button type="submit" class="btn btn-blue text-center" id="sign-up-btn">SignUp</button></center>
                     </div>
                     </div>
                     </form>
-                    <div class="row mb-4 px-3">
+                    <div class="row mb-2 px-3">
                         <center><small class="font-weight-bold">Already have an account? </small></center>
                     </div>
-                    <div class="row mb-3 px-3">
-                        <center><a href="/signin"><button class="btn btn-blue text-center">Login</button></a></center>
+                    <div class="row mb-2 px-3">
+                        <center><a href="/signin"><button class="btn btn-blue text-center" style="margin-left:-70px;">Login</button></a></center>
                     </div>
                 </form>
                 </div>
             </div>
-            <div class="bg-white py-0">
-                <div class="row px-3">
-                    <b><center><small class="footer ml-0 ml-sm-4 mb-0"><br>&copy; 2022 Book My Bus</small></center></b>
-                </div>
-            </div>
+           <!-- <div class="bg-white py-0"> -->
+               <!-- <div class="row px-3"> -->
+                    <!-- <b><center><small class="footer ml-0 ml-sm-4 mb-0"><br>&copy; 2022 Book My Bus</small></center></b> -->
+                <!-- </div> -->
+            <!-- </div> -->
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -174,6 +164,26 @@
             } 
 
         }
+
+        function Control() {
+        let accounttype = document.getElementById("account-type-select");
+        let Name = document.getElementById("name");
+        let Address = document.getElementById("address");
+        let contactNo = document.getElementById("contact-no")
+        let selectedValue = accounttype.options[accounttype.selectedIndex].value;
+        console.log(selectedValue)
+        switch(selectedValue) {
+            case '0':
+            case '1':
+                    Name.classList.remove("hidden");
+                    Name.disabled = false;
+                    Address.classList.remove("hidden");
+                    Address.disabled = false;
+                    contactNo.classList.remove("hidden");
+                    contactNo.disabled = false;
+                    break;    
+        }
+}
 
         
     </script>
