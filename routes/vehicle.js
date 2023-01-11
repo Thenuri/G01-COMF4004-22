@@ -1,14 +1,11 @@
 const express = require('express');
-const { dbQuery } = require('../config/database');
+const { dbQuery, dbQueryFetchFirstResult } = require('../config/database');
 const router = express.Router();
 
 router.get('/', (req, res) => {
     res.render('VehiclePage');
 })
 
-router.get('/vehicleDe', (req, res) => {
-    res.render('VehicleDetails');
-})
   
 router.post('/finder',function(req,res){
 console.log(req.body);
@@ -101,7 +98,7 @@ router.get('/:busId',async (req, res) => {
     //     Owner_Contact_No: owner.Contact_No
 
     // }
-
+    console.log("wada", busDetails)
     return res.render("VehicleDetails", {
         busDetails: busDetails
     });
