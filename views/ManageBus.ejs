@@ -381,7 +381,7 @@
                 Price_Per_km : price.value,
                 AC_Status : ac,
                 Driver_Name : driverName.value,
-                Bus_Image: busimage      
+                // Bus_Image: busimage      
             }
             
              axios.patch('http://localhost:3000/manageBus/addBus',addData)
@@ -485,23 +485,22 @@
            /* let busimage = document.getElementById("busimgupload");*/
 
            let vehicle_no_pattern =/^[A-Z]{2}[\\ -]{0, 1}[0-9]$/;
-           if(!vehicle_no_pattern.match(vehicle_no_pattern && vehicle_no_pattern == "")){
+           if(!BusNumber.match(vehicle_no_pattern) && vehicle_no_pattern == ""){
 
                 alert("Please enter a valid vehicle number");
-                document.getElementById("in_name").focus();
+                document.getElementById("bus_number").focus();
                 return false;
            }else if (seat == ""){
-                alert("Please select the seat amount")
+                alert("Please select the seat amount");
                 return
            }else if (price == ""){
-                alert("Please enter the price amount")
+                alert("Please enter the price amount");
            }else if(ac == ""){
-                alert("Please select the ac status")
+                alert("Please select the ac status");
            }else if (driverName == ""){
-                alert("Please enter the driver name ")
-           }else{
-               alert("Your bus has successfully added")
-           }   
+                alert("Please enter the driver name ");
+           }
+               alert("Your bus has successfully added");  
         }
     </script>
 </body>
