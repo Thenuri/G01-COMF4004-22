@@ -18,27 +18,24 @@ router.get("/profileView",authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID;
     const accountType =  req.body.AccountType
     console.log('auth', accountId, accountType)
-    let getData,value;
-    
+    let getData,value, result;
+
     if (accountType === "client"){
         client =await clientController.findClientByAccountId(accountId);
         console.log(client)
-        getData = "SELECT * FROM `client` WHERE `client`.`Client_ID` = ?"
-        values = [client.Client_ID ]
+        result = client
+        // getData = "SELECT * FROM `client` WHERE `client`.`Client_ID` = ?"
+        // values = [client.Client_ID ]
     }else if (accountType === "owner"){
         owner = await ownerController.findOwnerByAccountId(accountId);
         console.log(owner)
-        getData = "SELECT * FROM `bus_owner` WHERE `bus_owner`.`Owner_ID` = ?"
-        values = [owner.owner_ID ]
+        result = owner;
+        // getData = "SELECT * FROM `bus_owner` WHERE `bus_owner`.`Owner_ID` = ?"
+        // values = [owner.owner_ID ]
     }else {
         return res.json({error: {message: "Account type not valid"}})
     }
-    try {
-        dbQuery(getData, values).then( result => res.json(result));
-    }
-    catch (error) {
-        throw error
-    }
+    res.json(result);
 })
 router.put("/profileUpdate", authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID
