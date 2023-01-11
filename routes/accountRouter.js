@@ -10,6 +10,10 @@ const authenticateJWT = require('../middleware/authMiddleware');
 router.put('/suspend/:accountId', authWithJWT, accountController.suspendAccount)
 router.put('/activate/:accountId', authWithJWT, accountController.activateAccount)
 
+router.get('/profile', (req, res) => {
+  res.render('MyProfile');
+})
+
 router.get("/profileView",authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID;
     const accountType =  req.body.AccountType

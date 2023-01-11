@@ -12,6 +12,7 @@ router.get('/managebus', (req, res) => {
 
 
 
+
 router.patch('/addBus',authenticateJWT,async function(req, res, next) {
     const Account_ID = req.body.Account_ID;
     const Bus_No = req.body.Bus_No;

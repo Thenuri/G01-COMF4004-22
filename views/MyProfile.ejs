@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/commonstyles.css">
-    <link rel="stylesheet" href="css/syntax2.css">
+    <link rel="stylesheet" type="text/css" href="/css/commonstyles.css">
+    <link rel="stylesheet" href="/css/syntax2.css">
     
 </head>
 <body style="height:100vh; overflow: hidden;">
@@ -32,7 +32,7 @@
                                 
                                 <div class="dropdown">
                                     <button class="btn shadow-none dropdown-toggle text-dark " type="button" id="userNameDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/profilepic1.jpg" class="profilePic" alt="">
+                                        <img src="/images/profilepic1.jpg" class="profilePic" alt="">
                                       <span class="fs-5">Joe Biden</span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="userDropDown">
@@ -173,17 +173,17 @@
                     <div class="row">
                         <div class="line1">
                             <label class="mb-1 rounded-pill"><h6 class="mb-0 text-sm">Name</h6></label>
-                            <input type="text" class="form-control" placeholder="Name">
+                            <input type="text" class="form-control" placeholder="Name" id="name">
                         </div>
 
                         <div class="line1">
                             <label class="mb-1 rounded-pill"><h6 class="mb-0 text-sm"><br>Address</h6></label>
-                            <input type="text" class="form-control" placeholder="Address">
+                            <input type="text" class="form-control" placeholder="Address" id="address">
                         </div>
     
                         <div class="line1">
                             <label class=" mb-1 rounded-pill"><h6 class="mb-0 text-sm"><br>Contact No</h6></label>
-                            <input type="text" class="form-control" placeholder="Contact No">
+                            <input type="text" class="form-control" placeholder="Contact No" id="contact">
                         </div>
 
                         <!-- <div class="line1">
@@ -213,11 +213,11 @@
             </div>
             <div class="lol">
                 <div class="hi mb-3 px-1">
-                    <center><button type="submit" class="btn btn-blue text-center">Cancel</button></center>
+                    <center><button type="submit" class="btn btn-blue text-center" id="cancel">Cancel</button></center>
                 </div>
 
                 <div class="hi mb-3 px-1">
-                    <center><button type="submit" class="btn btn-blue text-center">Update</button></center>
+                    <center><button type="submit" class="btn btn-blue text-center" id="update">Update</button></center>
                 </div>
             </div>
         </div>
@@ -268,7 +268,74 @@
 
 
     </script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById("update").addEventListener("click",update);
+        function update(event){
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let address = document.getElementById("address").value;
+            let contact = document.getElementById("contact").value;
+
+            let profileValues ={
+                Name: name,
+                Address :address,
+                Contact_No :contact
+    
+            }
+            axios.put('/accounts/profileUpdate',profileValues)
+            .then((res)=>{
+                console.log("succ")
+            })
+        }
+
+        document.addEventListener("DOMContentLoaded", getvalues)
+        function getvalues(){
+            const urlPath = "/accounts/profileView"
+
+        // For redirect param
+        const params = new URLSearchParams(window.location.search);
+            const redirectURL = params.get("redirect")
+            let url;
+            if (redirectURL) {
+                url =`${urlPath}?redirect=${redirectURL}`;
+            } else {
+                url = `${urlPath}`;
+            }
+        
+            axios.get(url)
+            .then( (res) => {
+
+                axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+                //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+                if(axiosReqUrl !== res.request.responseURL) {
+                    window.location.href = res.request.responseURL;  // set the window location to redirect
+
+                    
+                }
+
+                let profileDetails = res.data;
+                let name = document.getElementById("name");
+                let address = document.getElementById("address");
+                let contact = document.getElementById("contact");
+
+                name.value = profileDetails.Name;
+                address.value = profileDetails.Address;
+                contact.value = profileDetails.Contact_No
+
+            })
+            .catch(e=> {
+                console.log(e)
+                alert(e.response.data.error.message)
+            })
+
+        }
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
 </body>
 </html>
