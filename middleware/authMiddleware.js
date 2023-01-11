@@ -3,6 +3,14 @@ const accountController = require('../controllers/accountController')
 
 async function authenticateJWT (req, res, next) {
 
+    // if an api request is done without signing in, the redirection after signin should go to
+    // the referer site ( the page that the api request was done)
+    if (req.headers.referer) {
+        if(req.headers.referer !== req.originalUrl) {
+            req.originalUrl = req.headers.referer;
+        }
+    }
+
     if (req.cookies === undefined) {
         return res.status(403).redirect('/signin?redirect=' + req.originalUrl);
         // .json({
