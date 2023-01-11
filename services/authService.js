@@ -40,7 +40,7 @@ class AuthService {
         // check if email is valid
         const isValidEmail = emailValidator.validate(email);
         if (!isValidEmail) {
-            return res.json({
+            return res.status(400).json({
                 error: {message: "Email is not valid"}
             })
             
@@ -48,7 +48,7 @@ class AuthService {
     
         // check if password1 and 2 match
         if (password !== confirmPassword) {
-            return res.json({
+            return res.status(400).json({
                 error: {message: "Passwords do not match"}
             })
         
@@ -56,7 +56,7 @@ class AuthService {
         // check if password has enough length 
         const minLength = 10
         if (password.length < minLength - 1) {
-        return res.json({ 
+        return res.status(400).json({ 
             error: { message: 'Password is shorter than ' + minLength + ' characters'}
         })        
         }
@@ -88,7 +88,7 @@ class AuthService {
 
         // check if details are provided
         if (name === undefined) {
-            return res.json({ error: {message: "Enter your name"}})
+            return res.status(400).json({ error: {message: "Enter your name"}})
         }
 
         if (address === undefined) return res.status(400).json({ error: {message: "Enter your address"}})
