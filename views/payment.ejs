@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/syntax1.css">
-    <link rel="stylesheet" type="text/css" href="css/commonstyles.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax1.css">
+    <link rel="stylesheet" type="text/css" href="/css/commonstyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -31,7 +31,7 @@
                             <li class="nav-item ">
                                 <div class="dropdown">
                                     <button class="btn shadow-none dropdown-toggle text-white " type="button" id="userNameDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/profilepic1.jpg" class="profilePic" alt="">
+                                        <img src="/images/profilepic1.jpg" class="profilePic" alt="">
                                       <span class="fs-5">Joe Biden</span>
                                     </button>
                                     <ul class="dropdown-menu text-dark" aria-labelledby="userDropDown">
@@ -54,7 +54,7 @@
                     <div class="dashboard-content p-4" style="margin-top: 3rem;">
                         <div id="upcoming-trips-items">
                             <div class="trip-info-card card overflow-hidden border-0fs-5" style="background-color: #bbc4de; border-radius: 20px; width:400px; height: auto; ">
-                                <img src="images/jonathan-borba-T5jzpRTVF1U-unsplash.jpg" alt="bus" style="width:250px; margin-top:50px; margin-left:70px;" >
+                                <img src="/images/jonathan-borba-T5jzpRTVF1U-unsplash.jpg" alt="bus" style="width:250px; margin-top:50px; margin-left:70px;" >
                                 <div class=" start-trip-content">
                                     <div class="start-trip-content">
                                         <p style="font-size:40px ; font-weight:bold;">NA - 4321</p >
@@ -66,7 +66,7 @@
                                             <span class="fa fa-star-o"> </span>
                                         </div>
                                         <p>LKR/KM-240.00</p>
-                                        <P><img src="images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">50</P>
+                                        <P><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">50</P>
                                         <P>NON-AC</P>
                                         <p>Start Date<br>16 Dec 2022</p>
                                     </div>
@@ -145,12 +145,13 @@
                                         <div class="form">
                                             <form>
                                                 <label>Name on Card</label><br>
-                                                <input  type="text" name="name" placeholder="Enter a valid name" style="border-radius: 10px; width:75%; border: 1px solid #000;;"><br><br>
+                                                <input  type="text" name="name" id="name" placeholder="Enter a valid name" style="border-radius: 10px; width:75%; border: 1px solid #000;"><br><br>
                                                 <label>Card Number</label><br>
-                                                <input  type="text" name="card Number" placeholder="Enter a valid card number" style="border-radius: 10px; width:75%; border: 1px solid #000;;"><br><br>
+                                                <input  type="text" name="card Number"id="card" placeholder="Enter a valid card number" style="border-radius: 10px; width:75%; border: 1px solid #000;;"><br><br>
                                                 <label>Expiary</label> <label id="cvv">CVV</label><br>
-                                                <input  type="text" name="Expiary" placeholder="Enter Expiary" style="border-radius: 10px; width:40%; border: 1px solid #000;"> <input  type="text" name="cvv" placeholder="Enter cvv" style="border-radius: 10px; width:40%; border: 1px solid #000;"><br><br>
-                                                <button id="btn2">Pay</button>
+                                                <input  type="text"id="expiary" name="Expiary" placeholder="Enter Expiary" style="border-radius: 10px; width:40%; border: 1px solid #000;">
+                                                <input  type="text" name="cvv" id="cVV" placeholder="Enter cvv" style="border-radius: 10px; width:40%; border: 1px solid #000;"><br><br>
+                                                <input  type="button" value="pay" id="btn2" class="submit" onclick="paymentValidation();"> 
                                             </form>
                                         </div>
                                     </div>
@@ -158,7 +159,7 @@
                             </div>
                         </div>
                     </div> 
-                </div>
+                </div> 
             </div>
         </div>    
     </div>     
@@ -175,5 +176,45 @@
 
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        
+        function paymentValidation(){
+            // event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let card = document.getElementById("card").value;
+            let expiary = document.getElementById("expiary").value;
+            let cvv = document.getElementById("cVV").value;
+
+            let card_pattern = /^[0-9]{16,16}$/;
+            let pin_pattern = /^[0-9]{3,3}$/;
+            let holder_pattern = /^\b(?!.*\.{2})[a-zA-Z.]+(?:\s[a-zA-Z.]+)\b$/; 
+
+            if(!name.match(holder_pattern)){
+                alert("please enter a valid name");
+                document.getElementById("name").focus();
+                return false;   
+            }
+            if(!card.match(card_pattern)){
+                alert("please enter a valid cardnumber");
+                document.getElementById("card").focus();
+                return false;
+                
+            }if(expiary == ""){
+                alert("please enter the expiary date");
+                document.getElementById("expiary").focus();
+                return;
+            }if(cvv ==""){
+                alert("please enter the cvv in your card");
+                document.getElementById("cVV").focus();
+                return false;
+            }
+            alert("Thank you for your payment")
+
+
+        }
+
+
+    </script>
 </body>
 </html>
