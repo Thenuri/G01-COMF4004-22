@@ -26,6 +26,8 @@ exports.bookTrip = async (req, res) => {
     const startDate = req.body.startDate;
     const returnDate = req.body.returnDate;
     const startTime = req.body.startTime;
+
+    [ busId,  to, from,  startDate, returnDate, startTime  ].forEach( thing => console.log(thing))
     
     // MapsApiRequest.distanceMatrixRequest(to, from).catch(e => console.log(e));
     // console.log(distanceMatrixResponseData)
@@ -93,25 +95,40 @@ exports.bookTrip = async (req, res) => {
     } 
 
     // TODO later use google maps api to calculate distance
-    let distanceInMetres;
-    MapsApiRequest.distanceMatrixRequest(to, from).then(
-        res => {
-            distanceInMetres = res.distanceInMetres;
-        }
-    ).catch( (error) => {
+    // let distanceInMetres;
+    // MapsApiRequest.distanceMatrixRequest(to, from).then(
+    //     res => {
+    //         distanceInMetres = res.distanceInMetres;
+    //     }
+    // ).catch( (error) => {
+    //     // if the api cannot be accessed
+    //     if (error.code === "ENOTFOUND") {
+    //         return res.status(500).json({error: {message: "Error getting distance from Maps API"}});
+    //     }
+
+    //     return res.status(500).json({error: {message: error.message}});
+       
+    // })
+    let distanceMatrixResponse;
+    try {
+        distanceMatrixResponse = await MapsApiRequest.distanceMatrixRequest(to, from);
+    } catch (error) {
         // if the api cannot be accessed
         if (error.code === "ENOTFOUND") {
+            console.log("Error getting distance from Maps API: Check network, maps api status, and key")
             return res.status(500).json({error: {message: "Error getting distance from Maps API"}});
         }
 
         return res.status(500).json({error: {message: error.message}});
-       
-    })
+    }
 
+    const distanceInMetres = distanceMatrixResponse.distanceInMetres * 2; // 2x for the round trip
     const distanceKm = distanceInMetres / 1000;
-    
+    console.log("this is distance", distanceKm)
+    console.log("after distance")
+
     // calculate the total amount for the trip
-    const tripAmount = distanceKm * bus.Price_Per_km * 2;  // 2x for the round trip
+    const tripAmount = distanceKm * bus.Price_Per_km;
     
     // insert the trip to the table
     sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`, `Trip_Start_Time`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
@@ -139,6 +156,7 @@ exports.bookTrip = async (req, res) => {
 }
 
 exports.confirmBooking = async (req, res) => {
+
     const tripId = req.params.tripId;
     if (req.body.AccountType !== "owner"){
         // return res.status(403).json({error: {message: "Only owner can confirm"}})

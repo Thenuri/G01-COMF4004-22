@@ -67,28 +67,28 @@
         </div>                    
     </div>
     <div class="form-container2">
-        <form action="">
+        <form action="" id="bookNowForm">
     <% if (busDetails.Bus_Availability === "available") { %>
        
             <div class="input-box">
                 <span>To</span>
-                <input type="search" name="" id="" placeholder="search place">
+                <input type="search" name="" id="to" placeholder="search place">
             </div>
             <div class="input-box">
                 <span>From</span>
-                <input type="search" name="" id="" placeholder="search place">
+                <input type="search" name="" id="from" placeholder="search place">
             </div>
             <div class="input-box">
                 <span>Start Date</span>
-                <input type="date" name="" id="">
+                <input type="date" name="" id="startDate">
             </div>
             <div class="input-box">
                 <span>Return Date</span>
-                <input type="date" name="" id="">
+                <input type="date" name="" id="returnDate">
 
             </div>
             
-            <button class="btn">Book Now</button>
+            <button class="btn" id="bookNowBtn">Book Now</button>
            
     <% } else { %>
     <div class="bg-white rounded p-3">
@@ -129,6 +129,76 @@
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // booking the trip
+
+
+    let bookNowForm = document.getElementById("bookNowForm");
+    bookNowForm.addEventListener("submit", bookBus );
+
+    function bookBus(evt) {
+        evt.preventDefault();
+        // get the bus id 
+        let path = window.location.pathname
+        let busId = path.split("/")[2]    // path.split("/") will give u [ "", "vehicle", "1" ]
+
+        let from = document.getElementById("from").value;
+        let to = document.getElementById("to").value;
+        let startDate = document.getElementById("startDate").value;
+        let returnDate = document.getElementById("returnDate").value;
+
+        // TODO do validation
+
+        bookingData = {
+            busId: busId,
+            from: from,
+            to: to,
+            startDate: startDate,
+            returnDate: returnDate,
+            startTime: "14:08:48"   // TODO remove hard coded time
+        }
+
+        // axios post
+        // url path
+        const urlPath = `/booking/new`
+
+        // For redirect param
+        const params = new URLSearchParams(window.location.search);
+        const redirectURL = params.get("redirect")
+        let url;
+        if (redirectURL) {
+            url =`${urlPath}?redirect=${redirectURL}`;
+        } else {
+            url = `${urlPath}`;
+        }
+
+        axios.post(url,bookingData)
+        .then( (res) => {
+
+            axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+            //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+            if(axiosReqUrl !== res.request.responseURL) {
+                window.location.href = res.request.responseURL;  // set the window location to redirect
+            }
+
+            if (res.data.message) {
+                alert(res.data.message);
+            }
+
+        })
+        .catch(e=> {
+            console.log(e)
+            if(e.response.data.error.message) {
+                alert(e.response.data.error.message);
+            }
+            
+        })
+
+    }
+        
+    </script>
 
 </body>
 </html>
