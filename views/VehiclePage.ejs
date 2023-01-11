@@ -236,7 +236,7 @@
                 price : price
             }
            /* console.log(filterValues);*/
-            axios.post('http://localhost:3000/filter/finder', filterValues)
+            axios.post('http://localhost:3000/vehicle/finder', filterValues)
             .then( (res) => {
               /*  console.log(res)*/
                 buses = res.data /* getting the bus array*/ 
