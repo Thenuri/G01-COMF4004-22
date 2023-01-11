@@ -47,7 +47,7 @@
                 <img src="/images/jonathan-borba-T5jzpRTVF1U-unsplash.jpg" class="bus-img">
             </div>
             <div class="col-sm fw-bold" id="card-con" ><br>
-                NA-1323 <br><br>
+                <%= busDetails.Bus_No %> <br><br>
                 <div class=" rating-stars d-flex">
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
@@ -55,19 +55,21 @@
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star-o"> </span>
                 </div><br>
-                <br>LKR/KM-LKR 240.00<br><br>
-                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span>50</span> <br><br>
-                <span>Non-AC</span>
+                <br>LKR/KM-LKR <%= busDetails.Price_Per_km %><br><br>
+                <img src="images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.Seat_No %></span> <br><br>
+                <span><%= busDetails.AC_Staus %></span>
             </div>
             <div class="col-sm fw-bold" id="card-con1"><br>
-                <span>Bus Owner Name<br>Joe Pathiraba</span><br><br>
-                <span>Driver Name <br>Sadun Lakshitha</span><br><br>
-                <span>Contact Number<br>0775482478</span><br>
+                <span>Bus Owner Name<br><%= busDetails.Owner_Name%></span><br><br>
+                <span>Driver Name <br><%= busDetails.Driver_Name %></span><br><br>
+                <span>Contact Number<br><%= busDetails.Contact_No %></span><br>
             </div>
         </div>                    
     </div>
     <div class="form-container2">
         <form action="">
+    <% if (busDetails.Bus_Availability === "available") { %>
+       
             <div class="input-box">
                 <span>To</span>
                 <input type="search" name="" id="" placeholder="search place">
@@ -88,7 +90,13 @@
             
             <button class="btn">Book Now</button>
            
-        </form>
+    <% } else { %>
+    <div class="bg-white rounded p-3">
+        <div class="text-danger fs-5 fw-bold"> The Bus is unavailable for booking.</div>
+    </div>
+    <% } %>
+    </form>
+        
     </div>
     <br><br><br><br><br><br><br><br>
 
@@ -98,6 +106,7 @@
              &copy;  2022 Book My Bus. 
         </p>
     </footer>
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -120,13 +129,6 @@
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        
-    </script>
+
 </body>
 </html>
-
-
-
-
-
