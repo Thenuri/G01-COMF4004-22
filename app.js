@@ -61,6 +61,10 @@ app.get('/protected', authenticateJWT, (req, res) => {
   res.send("Protected route")
 })
 
+app.post('/test', (req, res) => {
+  console.log(res)
+  res.send("HI")
+})
 
 // Display the auth webpages
 app.get('/signin', (req, res) => {
