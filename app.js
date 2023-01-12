@@ -9,10 +9,11 @@ const cors = require('cors');
 
 // router imports
 const ManageBusRouter = require('./routes/manageBus');
-const authRouter = require('./routes/auth')
-const accountRouter = require('./routes/accountRouter')
-const bookingRouter = require('./routes/booking')
-const vehicleRouter = require('./routes/vehicle')
+const authRouter = require('./routes/auth');
+const accountRouter = require('./routes/accountRouter');
+const bookingRouter = require('./routes/booking');
+const vehicleRouter = require('./routes/vehicle');
+const dashboardRouter = require('./routes/dashboard');
 
 
 
@@ -48,11 +49,12 @@ app.use(cors())
 
 // Use routers
 app.use(express.static('routes'));
-app.use('/auth', authRouter)  // only the posts are in this
-app.use('/booking', bookingRouter)
-app.use('/vehicle', vehicleRouter)
+app.use('/auth', authRouter);  // only the posts are in this
+app.use('/booking', bookingRouter);
+app.use('/vehicle', vehicleRouter);
 app.use('/managebus', ManageBusRouter);
 app.use('/accounts', accountRouter);
+app.use('/dashboard',dashboardRouter);
 
 
 app.get('/', getProfileDetailsIfLoggedIn, (req, res) => {
