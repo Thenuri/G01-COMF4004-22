@@ -328,7 +328,9 @@
             })
             .catch(e=> {
                 console.log(e)
-                alert(e.response.data.error.message)
+                if(e.response.data.error.message){
+                    alert(e.response.data.error.message)
+                }
             })
 
         }
