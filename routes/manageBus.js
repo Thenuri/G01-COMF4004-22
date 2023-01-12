@@ -5,13 +5,20 @@ const authenticateJWT = require('../middleware/authMiddleware');
 const ownerController = require('../controllers/ownerController');
 const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
 const authMiddleware = require('../middleware/authMiddleware');
+const { signUp } = require('../services/authService');
 
 
-router.get('/', (req, res) => {
+router.get('/',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
+  if(accountType !== "owner"){
+    res.redirect("signUp")
+  }
   res.render('ManageBus');
 })
 
 router.get('/update',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
+  if(accountType !== "owner"){
+    res.redirect("signUp")
+  }
   res.render('UpdateBus');
 })
 
