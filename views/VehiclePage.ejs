@@ -16,7 +16,7 @@
             <!--nav bar-->
             <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
                 <div class="container">
-                    <a href="Index.html" class="navbar-brand text-white fs-1 fw-bold">Book My Bus</a>
+                    <a href="/" class="navbar-brand text-white fs-1 fw-bold">Book My Bus</a>
                     <button type="button"class="navbar-toggler"data-bs-target="#navbarNav"data-bs-toggle="collapse"aria-controls="navbarNav"aria-expanded="false"aria-label="Toggle Navbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -26,8 +26,7 @@
                             <li class="nav-item mx-4"><a href="/vehicle" class="nav-link text-white">Book Now</a></li>
                             <li class="nav-item mx-4"><a href="/#aboutUs" class="nav-link text-white">About Us</a></li>
                             <li class="nav-item mx-4"><a href="/#ContactUs" class="nav-link text-white">Contact Us</a></li>
-                            <li class="nav-item mx-4"><a href="/signup" class="nav-link text-white">Sign Up</a></li>
-                            <li class="nav-item mx-4"><a href="/signin" class="nav-link text-white">Login</a></li>
+                            <%- include('partials/navBarProfileOrSignIn')%>
                         </ul>
                     </div>
                 </div>
@@ -110,7 +109,7 @@
     <br><br><br><br>
     
     <div class="vehicles d-flex flex-wrap" id="buses">
-        <div class="dashboard-content p-4" style="margin-top: 3rem;">
+    <!--     <div class="dashboard-content p-4" style="margin-top: 3rem;">
             <div id="upcoming-trips-items">
                 <div class="trip-info-card card overflow-hidden border-0fs-5" style="background-color: #bbc4de; border-radius: 20px; width:400px;height:250px;">
                     <div class="trip-card-grid">
@@ -182,8 +181,9 @@
                 </div>
             </div>
         </div> 
+             -->
     </div>
-    
+
 
 
     
@@ -215,6 +215,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded",filtering )
+
         document.getElementById("filterBtn").addEventListener("click",filtering);
         
         function filtering(event){
@@ -267,7 +269,7 @@
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star-o"> </span>
                                         </div><br><br>
-                                        <button type="button" class="btn" id="btn1">Book</button>
+                                        <a href="/vehicle/${bus.Bus_ID}"><button type="button" class="btn" id="btn1">Book</button></a>
                                         </div>
                                     </div>                    
                                 </div>

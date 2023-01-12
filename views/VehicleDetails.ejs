@@ -16,7 +16,7 @@
             <!--nav bar-->
             <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
                 <div class="container">
-                    <a href="Index.html" class="navbar-brand text-white fs-1 fw-bold">Book My Bus</a>
+                    <a href="/" class="navbar-brand text-white fs-1 fw-bold">Book My Bus</a>
                     <button type="button"class="navbar-toggler"data-bs-target="#navbarNav"data-bs-toggle="collapse"aria-controls="navbarNav"aria-expanded="false"aria-label="Toggle Navbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -26,8 +26,7 @@
                             <li class="nav-item mx-4"><a href="/" class="nav-link text-white">Book Now</a></li>
                             <li class="nav-item mx-4"><a href="/#aboutUs" class="nav-link text-white">About Us</a></li>
                             <li class="nav-item mx-4"><a href="/#ContactUs" class="nav-link text-white">Contact Us</a></li>
-                            <li class="nav-item mx-4"><a href="/signup" class="nav-link text-white">Sign Up</a></li>
-                            <li class="nav-item mx-4"><a href="/signin" class="nav-link text-white">Login</a></li>
+                            <%- include('partials/navBarProfileOrSignIn')  %>
                         </ul>
                     </div>
                 </div>

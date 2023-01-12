@@ -1,8 +1,9 @@
 const express = require('express');
 const { dbQuery, dbQueryFetchFirstResult } = require('../config/database');
+const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn')
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/',getProfileDetailsIfLoggedIn, (req, res) => {
     res.render('VehiclePage');
 })
 
