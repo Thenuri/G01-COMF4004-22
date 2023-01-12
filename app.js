@@ -8,7 +8,7 @@ dotenv.config();
 const cors = require('cors');
 
 // router imports
-var ManageBusRouter = require('./routes/ManageBus');
+const ManageBusRouter = require('./routes/ManageBus');
 const authRouter = require('./routes/auth')
 const accountRouter = require('./routes/accountRouter')
 const bookingRouter = require('./routes/booking')
@@ -42,6 +42,8 @@ app.use(cookieParser())
 // if auth success will add email, and account id to req.body.Email, req.body.Account_ID 
 const authenticateJWT = require('./middleware/authMiddleware');
 
+const getProfileDetailsIfLoggedIn = require('./middleware/getProfileDetailsIfLoggedIn')
+
 app.use(cors())
 
 // Use routers
@@ -53,11 +55,12 @@ app.use('/ManageBus', ManageBusRouter);
 app.use('/accounts', accountRouter);
 
 
-app.get('/', (req, res) => {
+app.get('/',getProfileDetailsIfLoggedIn, authenticateJWT, (req, res) => {
+  console.log('inthe /',res.locals.name)
   res.render('index')
 })
 
-app.get('/protected', authenticateJWT, (req, res) => {
+app.get('/protected', getProfileDetailsIfLoggedIn ,authenticateJWT, (req, res) => {
   res.send("Protected route")
 })
 
