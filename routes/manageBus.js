@@ -6,7 +6,8 @@ const ownerController = require('../controllers/ownerController');
 const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
 const authMiddleware = require('../middleware/authMiddleware');
 
-router.get('/managebus',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
+
+router.get('/', (req, res) => {
   res.render('ManageBus');
 })
 
