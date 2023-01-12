@@ -35,8 +35,8 @@
                             <label class="mb-1"><h6 class="mb-0 text-sm">Select the User</h6></label>
                             <select class="select form-select mb-1" id="account-type-select" required  onchange="Control();">
                                 <option value="" disabled selected>Select the User</option>
-                                <option value="0">Client User</option>
-                                <option value="1">Bus Owner</option>
+                                <option value="client">Client User</option>
+                                <option value="owner">Bus Owner</option>
                                 <!--<option value="admin">Admin User</option>-->
                               </select>
                               <div class="mb-0"style="display: flex; " >
@@ -175,8 +175,8 @@
         let selectedValue = accounttype.options[accounttype.selectedIndex].value;
         console.log(selectedValue)
         switch(selectedValue) {
-            case '0':
-            case '1':
+            case 'client':
+            case 'owner':
                     Name.classList.remove("hidden");
                     Name.disabled = false;
                     Address.classList.remove("hidden");
