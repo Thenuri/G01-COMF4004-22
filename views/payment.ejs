@@ -28,19 +28,8 @@
                             <li class="nav-item"><a href="/#ContactUs" class="nav-link text-white">Contact Us</a></li>
 
                             <!-- User name and pic here with a drop down -->
-                            <li class="nav-item ">
-                                <div class="dropdown">
-                                    <button class="btn shadow-none dropdown-toggle text-white " type="button" id="userNameDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="/images/profilepic1.jpg" class="profilePic" alt="">
-                                      <span class="fs-5">Joe Biden</span>
-                                    </button>
-                                    <ul class="dropdown-menu text-dark" aria-labelledby="userDropDown">
-                                      <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                      <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                                      <li><a class="dropdown-item" href="#">Sign out</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                            <%- include('partials/navBarProfileOrSignIn')%>
+
                         </ul>
                     </div>
                 </div>

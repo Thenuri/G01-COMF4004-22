@@ -4,12 +4,13 @@ const {dbQuery} = require('../config/database');
 const bookingService = require('../services/bookingService')
 const clientController = require('../controllers/clientController');
 const ownerController  = require('../controllers/ownerController');
+const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
 const authenticateJWT = require('../middleware/authMiddleware');
 
 // new trip booking
 router.post('/new', authenticateJWT, bookingService.bookTrip)
 // router.post('/new', bookingService.bookTrip)
-router.get('/payment', (req, res) => {
+router.get('/payment',getProfileDetailsIfLoggedIn ,(req, res) => {
     res.render('payment');
 })
 
