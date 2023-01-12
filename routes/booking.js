@@ -86,31 +86,31 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
           console.log(buses)
           
           const gettrippromise = buses.map(async (bus) => {
-
             let tripsOfBus;
             let busid = bus.Bus_ID;
             gettrip = "SELECT * FROM `trip` WHERE `Bus_ID`=?"
             values = [busid] 
-            try{
-                tripsOfBus = await dbQuery(gettrip,values);
+            try {
+              tripsOfBus = await dbQuery(gettrip,values);
+            } catch (error) {
+              throw error;
             }
-            catch (error){
-                throw error
-            }
-            if (tripsOfBus.length !== 0) {
-              tripsOfBus.forEach( async (trip) => {
-                console.log("adsfasdf",trip)
-                return trip
-              } )
+         // console.log("tripsOfBus",tripsOfBus)
 
+            if (tripsOfBus.length !== 0) {
+              return tripsOfBus;
             } 
-        });
-        
-        Promise.all(gettrippromise)
-        .then(trips => {
-          console.log(trips)
-          res.json(trips)
-        })
+          });
+          
+          Promise.all(gettrippromise)
+          .then(trips => {
+            
+            trips = Array.prototype.concat.apply([], trips);  // Get the trips to one array
+            res.json(trips);
+            console.log(trips)
+          
+          })
+          
      
     }else{
         return res.send("hi")
