@@ -40,7 +40,7 @@ console.log(req.body);
     }
 });
 
-router.get('/:busId',async (req, res) => {
+router.get('/:busId',getProfileDetailsIfLoggedIn, async (req, res) => {
     const busId = req.params.busId;
 
     // get bus details
