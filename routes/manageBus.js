@@ -3,13 +3,15 @@ const router = express.Router();
 const { dbQuery } = require('../config/database');
 const authenticateJWT = require('../middleware/authMiddleware');
 const ownerController = require('../controllers/ownerController');
+const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
+const authMiddleware = require('../middleware/authMiddleware');
 
 
 router.get('/', (req, res) => {
   res.render('ManageBus');
 })
 
-router.get('/update', (req, res) => {
+router.get('/update',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
   res.render('UpdateBus');
 })
 
