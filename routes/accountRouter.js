@@ -10,7 +10,7 @@ const authenticateJWT = require('../middleware/authMiddleware');
 router.put('/suspend/:accountId', authWithJWT, accountController.suspendAccount)
 router.put('/activate/:accountId', authWithJWT, accountController.activateAccount)
 
-router.get('/profile', (req, res) => {
+router.get('/profile', authWithJWT, (req, res) => {
   res.render('MyProfile');
 })
 
