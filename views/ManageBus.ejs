@@ -25,24 +25,11 @@
                         <div class="mx-auto"></div>
                         <ul class="navbar-nav fs-5">
                             <li class="nav-item"><a href="VehiclePage.html" class="nav-link text-dark">Book Now</a></li>
-                            <li class="nav-item"><a href="Index.html#aboutUs" class="nav-link text-dark">About Us</a></li>
-                            <li class="nav-item"><a href="Index.html#aboutUs" class="nav-link text-dark">Contact Us</a></li>
+                            <li class="nav-item"><a href="/#aboutUs" class="nav-link text-dark">About Us</a></li>
+                            <li class="nav-item"><a href="/#aboutUs" class="nav-link text-dark">Contact Us</a></li>
 
                             <!-- User name and pic here with a drop down -->
-                            <li class="nav-item ">
-                                
-                                <div class="dropdown">
-                                    <button class="btn shadow-none dropdown-toggle text-dark " type="button" id="userNameDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="/images/profilepic1.jpg" class="profilePic" alt="">
-                                      <span class="fs-5">Joe Biden</span>
-                                    </button>
-                                    <ul class="dropdown-menu text-dark" aria-labelledby="userDropDown">
-                                      <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                      <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                                      <li><a class="dropdown-item" href="#">Sign out</a></li>
-                                    </ul>
-                                  </div>
-                            </li>
+                            <%- include('partials/navBarProfileOrSignIn')%>
                         </ul>
                     </div>
                 </div>
@@ -384,7 +371,7 @@
                 // Bus_Image: busimage      
             }
             
-             axios.patch('http://localhost:3000/manageBus/addBus',addData)
+             axios.put('http://localhost:3000/managebus/addBus',addData)
              .then((res)=> {
                 BusNumber.value="";
                 seat.value="";
