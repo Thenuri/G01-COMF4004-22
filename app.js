@@ -8,7 +8,7 @@ dotenv.config();
 const cors = require('cors');
 
 // router imports
-const ManageBusRouter = require('./routes/ManageBus');
+const ManageBusRouter = require('./routes/manageBus');
 const authRouter = require('./routes/auth')
 const accountRouter = require('./routes/accountRouter')
 const bookingRouter = require('./routes/booking')
@@ -51,7 +51,7 @@ app.use(express.static('routes'));
 app.use('/auth', authRouter)  // only the posts are in this
 app.use('/booking', bookingRouter)
 app.use('/vehicle', vehicleRouter)
-app.use('/ManageBus', ManageBusRouter);
+app.use('/managebus', ManageBusRouter);
 app.use('/accounts', accountRouter);
 
 
