@@ -43,7 +43,85 @@ router.put('/cancel/:id',function(req,res,next){
         throw error
     }
 })
+/*---------------------------------------------------------------------------------------------------------------*/
+router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
+    const accountId = req.body.Account_ID;
+    const accountType = req.body.AccountType;
+    
+    let values,gettrip,getbus,buses;
+    if(accountType === "client"){
+      try{
+        client = await clientController.findCilentByClientId(accountId);  
+      }
+      catch (error){
+  
+        throw error
+      }
+      values = [client.Client_ID]
+      gettrip = "SELECT * FROM `trip` WHERE `Client_ID`= ?"
+      try{
+        dbQuery(gettrip,values).then(result =>{return res.json(result)});
+      }
+      catch (error){
+        throw error
+      }
+    }else if(accountType === "owner"){
+        try{
+            owner = await ownerController.findOwnerByOwnerId(accountId);
+          }
+          catch (error){
+            throw error
+          }
+          values = [owner.Owner_ID]
+          getbus = "SELECT `Bus_ID` FROM `bus` WHERE `Owner_ID`= ?"
+          
+          try{
+             buses = await dbQuery(getbus,values);
+          }
+          catch (error){
+      
+            throw error
+          }
+          console.log(buses)
+          
+          const gettrippromise = buses.map(async (bus) => {
+
+            let tripsOfBus;
+            let busid = bus.Bus_ID;
+            gettrip = "SELECT * FROM `trip` WHERE `Bus_ID`=?"
+            values = [busid] 
+            try{
+                tripsOfBus = await dbQuery(gettrip,values);
+            }
+            catch (error){
+                throw error
+            }
+            if (tripsOfBus.length !== 0) {
+              tripsOfBus.forEach( async (trip) => {
+                console.log("adsfasdf",trip)
+                return trip
+              } )
+
+            } 
+        });
+        
+        Promise.all(gettrippromise)
+        .then(trips => {
+          console.log(trips)
+          res.json(trips)
+        })
+     
+    }else{
+        return res.send("hi")
+    }
+
+  
+  })
+  
+     
 module.exports = router;
 
 
-
+//  get owner id
+// get bus ids of all buses beloging to the owner
+// using foreach busid get trips  and save them in a variable and send res
