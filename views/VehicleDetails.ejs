@@ -23,9 +23,9 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <div class="mx-auto"></div>
                         <ul class="navbar-nav   fs-5">
-                            <li class="nav-item mx-4"><a href="/" class="nav-link text-white">Book Now</a></li>
-                            <li class="nav-item mx-4"><a href="/#aboutUs" class="nav-link text-white">About Us</a></li>
-                            <li class="nav-item mx-4"><a href="/#ContactUs" class="nav-link text-white">Contact Us</a></li>
+                            <li class="nav-item mx-4 my-auto"><a href="/" class="nav-link text-white">Book Now</a></li>
+                            <li class="nav-item mx-4 my-auto"><a href="/#aboutUs" class="nav-link text-white">About Us</a></li>
+                            <li class="nav-item mx-4 my-auto"><a href="/#ContactUs" class="nav-link text-white">Contact Us</a></li>
                             <%- include('partials/navBarProfileOrSignIn')  %>
                         </ul>
                     </div>
@@ -131,8 +131,6 @@
 
     <script>
         // booking the trip
-
-
     let bookNowForm = document.getElementById("bookNowForm");
     bookNowForm.addEventListener("submit", bookBus );
 
@@ -196,6 +194,30 @@
         })
 
     }
+
+    //finding and setting today as min value for date
+    function olddate(){
+        let startDate = document.getElementById("startDate").value;
+        let returnDate = document.getElementById("returnDate").value;
+        console.log(startDate)
+
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+            console.log(dd)
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+        // startDate.setAttribute("min", today);
+
+    }
+    olddate()
+    
         
     </script>
 

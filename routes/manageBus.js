@@ -7,7 +7,7 @@ const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLo
 const authMiddleware = require('../middleware/authMiddleware');
 const { signUp } = require('../services/authService');
 
-
+// Add a Bus
 router.get('/',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
   if(accountType !== "owner"){
     res.redirect("signUp")
@@ -15,6 +15,7 @@ router.get('/',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
   res.render('ManageBus');
 })
 
+// Update Bus
 router.get('/update',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
   if(accountType !== "owner"){
     res.redirect("signUp")
