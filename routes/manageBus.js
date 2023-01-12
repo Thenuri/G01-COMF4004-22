@@ -5,7 +5,7 @@ const authenticateJWT = require('../middleware/authMiddleware');
 const ownerController = require('../controllers/ownerController');
 
 
-router.get('/managebus', (req, res) => {
+router.get('/', (req, res) => {
   res.render('ManageBus');
 })
 
