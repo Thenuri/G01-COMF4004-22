@@ -217,7 +217,7 @@
                 </div>
 
                 <div class="hi mb-3 px-1">
-                    <center><button type="submit" class="btn btn-blue text-center" id="update">Update</button></center>
+                    <center><button type="submit" class="btn btn-blue text-center" id="update" onclick="update()">Update</button></center>
                 </div>
             </div>
         </div>
@@ -286,7 +286,7 @@
             }
             axios.put('/accounts/profileUpdate',profileValues)
             .then((res)=>{
-                console.log("succ")
+                console.log("successfull")
             })
         }
 
