@@ -1,0 +1,24 @@
+
+<% if(logged === true) { %> 
+
+            <li class="nav-item ">                        
+                <div class="dropdown">
+                    <button class="btn shadow-none dropdown-toggle text-white " type="button" id="userNameDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="images/profilepic1.jpg" class="profilePic" alt="">
+                        <span class="fs-5 "> <%= name %>  </span>
+                    </button>
+                    <ul class="dropdown-menu text-dark" aria-labelledby="userDropDown">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                    </div>
+            </li>
+
+<% } else { %> 
+
+                <li class="nav-item mx-4 my-auto"><a href="/signup" class="nav-link text-white">Sign Up</a></li>
+                <li class="nav-item mx-4 my-auto"><a href="/signin" class="nav-link text-white">Login</a></li>
+                
+                
+<% } %> 
