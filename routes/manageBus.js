@@ -9,11 +9,15 @@ router.get('/managebus', (req, res) => {
   res.render('ManageBus');
 })
 
+router.get('/update', (req, res) => {
+  res.render('UpdateBus');
+})
 
 
 
 
-router.patch('/addBus',authenticateJWT,async function(req, res, next) {
+// Change patch to put in the JS
+router.put('/addBus',authenticateJWT,async function(req, res, next) {
     const Account_ID = req.body.Account_ID;
     const Bus_No = req.body.Bus_No;
     const No_Of_Seats = req.body.No_Of_Seats;
@@ -52,7 +56,7 @@ router.get("/BusFill",authenticateJWT , async function(req,res){
 })
 
 /*Update bus form*/ 
-router.put("/BusUpdate", authenticateJWT, async function(req,res){
+router.patch("/BusUpdate", authenticateJWT, async function(req,res){
   const Bus_No = req.body.Bus_No;
   const No_Of_Seats = req.body.No_Of_Seats;
   const Price_Per_km = req.body.Price_Per_km;
