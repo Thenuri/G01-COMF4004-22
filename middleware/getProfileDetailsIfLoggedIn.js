@@ -2,19 +2,23 @@ const {verifyJWTToken} = require('../services/jwtService.js')
 const accountController = require('../controllers/accountController')
 const ownerController = require('../controllers/ownerController');
 const clientController = require('../controllers/clientController');
-const { findOwnerByAccountId } = require('../controllers/ownerController.js')
-const { findClientByAccountId } = require('../controllers/clientController.js')
 
 async function getProfileDetailsIfLoggedIn (req, res, next) {
     
+    // this will change to true if the token is validated
+    res.locals.logged = false;
+
+
     console.log("progiljbff")
     if (req.cookies === undefined) {
+        console.log("No cookie")
         return next()
     }
 
     const {token} = req.cookies
 
     if (token === undefined) {
+        console.log("No token")
         return next()
     }
     let isValid
@@ -24,6 +28,7 @@ async function getProfileDetailsIfLoggedIn (req, res, next) {
         
     } catch (error) {
         console.log(error)
+        
         return next();
         
     }
