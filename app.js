@@ -55,7 +55,7 @@ app.use('/ManageBus', ManageBusRouter);
 app.use('/accounts', accountRouter);
 
 
-app.get('/',getProfileDetailsIfLoggedIn, authenticateJWT, (req, res) => {
+app.get('/', getProfileDetailsIfLoggedIn, (req, res) => {
   console.log('inthe /',res.locals.name)
   res.render('index')
 })
