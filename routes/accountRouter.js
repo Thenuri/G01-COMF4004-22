@@ -5,12 +5,13 @@ const accountController = require('../controllers/accountController');
 const {dbQuery} = require('../config/database');
 const clientController = require('../controllers/clientController');
 const ownerController  = require('../controllers/ownerController');
+const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
 const authenticateJWT = require('../middleware/authMiddleware');
 
 router.put('/suspend/:accountId', authWithJWT, accountController.suspendAccount)
 router.put('/activate/:accountId', authWithJWT, accountController.activateAccount)
 
-router.get('/profile', authWithJWT, (req, res) => {
+router.get('/profile',getProfileDetailsIfLoggedIn , authWithJWT, (req, res) => {
   res.render('MyProfile');
 })
 
