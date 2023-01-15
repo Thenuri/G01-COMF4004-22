@@ -89,16 +89,16 @@
                           <div class="row mb-1">
                             <label for="inputBusNo" class="col-sm-4 col-form-label">AC/ NON AC:</label>
                             <div class="col-sm-2">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="AC">
+                                <input class="form-check-input" type="radio" name="ac-status" id="AC">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                   AC
                                 </label>
                               </div>
 
                               <div class="col-sm-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="NONAC">
+                                <input class="form-check-input" type="radio" name="ac-status" id="NON-AC">
                                 <label class="form-check-label" for="flexRadioDefault1">
-                                  NON AC
+                                  NON-AC
                                 </label>
                               </div>
                           </div><br><br>
@@ -189,14 +189,20 @@
         let SeatNo = document.getElementById("SeatNo").value;
         let priceKM = document.getElementById("priceKM").value;
         let DName = document.getElementById("DName").value;
-        // let AC = document.getElementById("AC").value;
-        // let NONAC = document.getElementById("NONAC").value;
+        let ac;
+        document.getElementsByName("ac-status").forEach(option =>{
+          if (option.checked) {
+            ac = option.id
+          }
+        })
 
         let BusValues ={
           Bus_No: BusNo,
           No_Of_Seats: SeatNo,
           Price_Per_km: priceKM,
-          Driver_Name: DName
+          Driver_Name: DName,
+          AC_Status : ac
+
         }
         axios.patch('/ManageBus/BusUpdate',BusValues)
         .then((res)=>{
@@ -206,7 +212,7 @@
 
       document.addEventListener("DOMContentLoaded",getvalues)
       function getvalues(){
-        const urlPath = "ManageBus/BusFill"
+        const urlPath = "/managebus/BusFill"
       
       // For redirect param
       const params = new URLSearchParams(window.location.search);
@@ -230,20 +236,29 @@
                     
                 }
 
+                let BusDetails = res.data;
                 let BusNo = document.getElementById("BusNo");
                 let SeatNo = document.getElementById("SeatNo");
                 let priceKM = document.getElementById("priceKM");
                 let DName = document.getElementById("DName");
+                let ac;
+                document.getElementsByName("ac-status").forEach(option =>{
+                  if (option.checked) {
+                    ac = option.id
+                  }
 
                 BusNo.value = BusDetails.Bus_No;
                 SeatNo.value = BusDetails.Address;
-                priceKM.value = BusDetails.Contact_No
-                DName.value = BusDetails.Contact_No
+                priceKM.value = BusDetails.Contact_No;
+                DName.value = BusDetails.Contact_No;
+                ac.value = BusDetails.AC_Status;
 
             })
             .catch(e=> {
                 console.log(e)
-                alert(e.response.data.error.message)
+                if(e.response.data.error.message){
+                    alert(e.response.data.error.message)
+                }
             })
       }
     </script>

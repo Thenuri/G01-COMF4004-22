@@ -25,7 +25,6 @@ router.get('/update',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
 
 
 
-
 // Change patch to put in the JS
 router.put('/addBus',authenticateJWT,async function(req, res, next) {
     const Account_ID = req.body.Account_ID;
@@ -47,8 +46,6 @@ router.put('/addBus',authenticateJWT,async function(req, res, next) {
       .catch( (error) => {
         res.status(418).send(error)
       })
-    
-
 })
 
 /*Auto fill the bus details in the update bus form*/ 
@@ -56,13 +53,20 @@ router.get("/BusFill",authenticateJWT , async function(req,res){
   const Account_ID = req.body.Account_ID;
   const Account_Type = req.body.Account_Type;
   console.log('auth', accountId, accountType)
-  let getData, values;
+  let getData, values, result;
 
   if (Account_Type === "owner"){
       owner = await ownerController.findOwnerByAccountId(Account_ID);
       console.log(owner)
-      getData = "SELECT "
+      // getData = "SELECT * FROM 'bus_owner' WHERE 'bus_owner'.'Owner_ID' = ?"
+      // values = [owner.owner_ID]
+      result = owner;
+  }else if (Account_Type === "client"){
+    return res.json({error: {message: "Not allowed to update Bus"}})
+  }else{
+    return res.json({error: {message: "Account type not valid"}})
   }
+  res.json(result);
 })
 
 /*Update bus form*/ 
