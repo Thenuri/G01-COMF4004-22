@@ -7,6 +7,8 @@ const clientController = require('../controllers/clientController');
 const ownerController  = require('../controllers/ownerController');
 const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
 const authenticateJWT = require('../middleware/authMiddleware');
+// const jwt = require("jsonwebtoken");
+// const maxAge = 3 * 24  * 60 * 60
 
 router.put('/suspend/:accountId', authWithJWT, accountController.suspendAccount)
 router.put('/activate/:accountId', authWithJWT, accountController.activateAccount)
@@ -14,6 +16,22 @@ router.put('/activate/:accountId', authWithJWT, accountController.activateAccoun
 router.get('/profile',getProfileDetailsIfLoggedIn , authWithJWT, (req, res) => {
   res.render('MyProfile');
 })
+// 1
+// router.post('/signout', function(req, res){
+//     req.session.destroy(function(err){
+//         if(err){
+//             console.log(err);
+//         }else{
+//             res.redirect('/signin');
+//         }
+//     })
+// })
+
+//  2
+// router.post('/signout', async function(req,res) {
+//     res.cookie("jwt","",{maxAge:1})
+//     res.redirect("/signin")
+// })
 
 router.get("/profileView",authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID;
