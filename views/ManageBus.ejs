@@ -56,7 +56,7 @@
         <div class="dashboard-content p-4">
             <h1  class="p-2" id="manage-buses">Manage Buses</h1>
                 <div id="managebusesitems" class="d-flex flex-wrap gap-3">
-                    <div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;">
+                     <div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;"> 
                         <div class="trip-card-grid">
                             <div class="trip-info-bus-img" style="background-image: url('/images/1.jpg');" >
                                 
@@ -430,9 +430,7 @@
                                 
                                 <div class="row px-3">
                                     <div class="mb-2 text-center">
-                                        <button class="btn-outline-primary rounded-pill shadow-none px-4 fs-6">
-                                            Manage
-                                        </button>
+                                    <a href="/manageBus/update/${buses.Bus_ID}"><button class="btn-outline-primary rounded-pill shadow-none px-4 fs-6">Manage</button></a>
                                     </div>
                                     
                                 </div>                      
@@ -448,6 +446,7 @@
             console.log("jhgfds")
             axios.get('http://localhost:3000/manageBus/OwnedBuses').then((res)=> { 
                 console.log(res.data)
+                
                 displayBuscard(res.data)}).catch(e => console.log(e))
         }
 
