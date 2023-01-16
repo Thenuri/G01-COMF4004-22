@@ -32,7 +32,7 @@ router.put('/cancel/:id',function(req,res,next){
                 let cancelBooking = "UPDATE `trip` SET `Trip_Status` = 'cancelled' WHERE `trip`.`Trip_ID` = ?"
                 try {
                     dbQuery(cancelBooking, value)
-                    .then(dbQuery("UPDATE `bus` SET `Bus_Availability` = 'available' WHERE `bus`.Bus_ID = ? ", [bus_id]).then(res.send("trip has been cancelled"))
+                    .then(res.send("trip has been cancelled")
                     )
                }
                catch (error) {

@@ -24,9 +24,9 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <div class="mx-auto"></div>
                         <ul class="navbar-nav fs-5">
-                            <li class="nav-item my-auto"><a href="/vehicle" class="nav-link text-dark">Book Now</a></li>
-                            <li class="nav-item my-auto"><a href="/#aboutUs" class="nav-link text-dark">About Us</a></li>
-                            <li class="nav-item my-auto"><a href="/#ContactUs" class="nav-link text-dark">Contact Us</a></li>
+                            <li class="nav-item"><a href="/vehicle" class="nav-link text-dark">Book Now</a></li>
+                            <li class="nav-item"><a href="/#aboutUs" class="nav-link text-dark">About Us</a></li>
+                            <li class="nav-item"><a href="/#ContactUs" class="nav-link text-dark">Contact Us</a></li>
                             <%- include('partials/navBarProfileOrSignIn')  %> 
                         </ul>
                     </div>
@@ -983,6 +983,11 @@
             let previous = document.getElementById("previous-trips");
             let Cancelled = document.getElementById("cancelled-trips");
 
+            upcoming.innerHTML = "";
+            pending.innerHTML = "";
+            previous.innerHTML= "";
+            Cancelled.innerHTML= "";
+
            axios.get('http://localhost:3000/booking/Ownedtrips')
            .then((res)=>{
             trips = res.data
@@ -1001,7 +1006,7 @@
                         <td>${trips[x].Name}</td>
                         <td>${trips[x].Contact_No}</td>
                         <td>
-                            <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6" onclick="cancel(event)"> Cancel</button>
+                            <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6" data-trip-id=${trips[x].Trip_ID} onclick="cancel(event)"> Cancel</button>
                         </td>
                         </tr>`
                         upcoming.innerHTML+= Utrip;
@@ -1018,8 +1023,8 @@
                         <td>${trips[x].Name}</td>
                         <td>${trips[x].Contact_No}</td>
                         <td> 
-                            <button class="btn-outline-dark rounded-pill shadow-none px-2 fs-6"> Confirm</button> 
-                            <button class="btn-outline-danger rounded-pill shadow-none px-3 fs-6 " onclick="cancel(event)"> Cancel</button>
+                            <button class="btn-outline-dark rounded-pill shadow-none px-2 fs-6" data-trip-id=${trips[x].Trip_ID} onclick="confirm(event)"> Confirm</button> 
+                            <button class="btn-outline-danger rounded-pill shadow-none px-3 fs-6" data-trip-id=${trips[x].Trip_ID} onclick="cancel(event)"> Cancel</button>
                         </td>
                         
                         </tr>`
@@ -1061,11 +1066,85 @@
            });
         }
 
-        function cancel(event){
-            console.log(event)
-            /*axios.put('http://localhost:3000/booking/cancel')*/
+        function cancel(event) {
+            console.log("Cancel event", event)
+            let tripId = event.target.dataset.tripId
+        
+            // axios put
+            // url path
+            const urlPath = `/booking/cancel/${tripId}`
+
+            // For redirect param
+            const params = new URLSearchParams(window.location.search);
+            const redirectURL = params.get("redirect")
+            let url;
+            if (redirectURL) {
+                url =`${urlPath}?redirect=${redirectURL}`;
+            } else {
+                url = `${urlPath}`;
+            }
+
+            axios.put(url)
+            .then( (res) => {
+
+                axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+                //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+                if(axiosReqUrl !== res.request.responseURL) {
+                    window.location.href = res.request.responseURL;  // set the window location to redirect
+                }
+
+                getvalues(); // reload all the trips
+
+            })
+            .catch(e=> {
+                console.log(e)
+                if(e.response.data.error.message){
+                    alert(e.response.data.error.message)
+                }
+            })
+            
         }
 
+        function confirm(event){
+            let tripId = event.target.dataset.tripId
+        
+            // axios put
+            // url path
+            const urlPath = `/booking/confirm/${tripId}`
+
+            // For redirect param
+            const params = new URLSearchParams(window.location.search);
+            const redirectURL = params.get("redirect")
+            let url;
+            if (redirectURL) {
+                url =`${urlPath}?redirect=${redirectURL}`;
+            } else {
+                url = `${urlPath}`;
+            }
+
+            axios.put(url)
+            .then( (res) => {
+
+                axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+                //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+                if(axiosReqUrl !== res.request.responseURL) {
+                    window.location.href = res.request.responseURL;  // set the window location to redirect
+                }
+
+                getvalues(); // reload all the trips
+
+            })
+            .catch(e=> {
+                console.log(e)
+                if(e.response.data.error.message){
+                    alert(e.response.data.error.message)
+                }
+            })
+            
+
+        }
        
 
     </script>
