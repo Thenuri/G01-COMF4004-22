@@ -67,7 +67,6 @@
     </div>
     <div class="form-container2">
         <form action="" id="bookNowForm">
-    <% if (busDetails.Bus_Availability === "available") { %>
        
             <div class="input-box">
                 <span>To</span>
@@ -88,12 +87,6 @@
             </div>
             
             <button class="btn" id="bookNowBtn">Book Now</button>
-           
-    <% } else { %>
-    <div class="bg-white rounded p-3">
-        <div class="text-danger fs-5 fw-bold"> The Bus is unavailable for booking.</div>
-    </div>
-    <% } %>
     </form>
         
     </div>
