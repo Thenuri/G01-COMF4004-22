@@ -199,11 +199,7 @@
             </div>
             <div class="lol">
                 <div class="hi mb-3 px-1">
-                    <center><button type="submit" class="btn btn-blue text-center" id="cancel">Cancel</button></center>
-                </div>
-
-                <div class="hi mb-3 px-1">
-                    <center><button type="submit" class="btn btn-blue text-center" id="update" onclick="update()">Update</button></center>
+                    <center><button type="submit" class="btn btn-blue text-center" id="update">Update</button></center>
                 </div>
             </div>
         </div>
@@ -259,7 +255,6 @@
         document.getElementById("update").addEventListener("click",update);
         function update(event){
             event.preventDefault();
-
             let name = document.getElementById("name").value;
             let address = document.getElementById("address").value;
             let contact = document.getElementById("contact").value;
@@ -268,11 +263,10 @@
                 Name: name,
                 Address :address,
                 Contact_No :contact
-    
             }
-            axios.put('/accounts/profileUpdate',profileValues)
+            console.log(profileValues)
+            axios.put('http://localhost:3000/accounts/profileUpdate',profileValues)
             .then((res)=>{
-                console.log("successfull")
             })
         }
 
