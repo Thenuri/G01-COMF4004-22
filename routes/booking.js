@@ -61,7 +61,8 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
         throw error
       }
       values = [client.Client_ID]
-      gettrip = "SELECT `Trip_ID`,`Bus_No`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name`FROM `trip`,`bus_owner`,`bus` WHERE `Client_ID`=?;"
+            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` WHERE `trip`.`Client_ID`= 3;"
+           // gettrip = "SELECT `Trip_ID`,`Bus_No`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name`FROM `trip`,`bus_owner`,`bus` WHERE `Client_ID`=?"
       try{
         dbQuery(gettrip,values).then(result =>{return res.json(result)});
       }
