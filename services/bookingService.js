@@ -154,7 +154,7 @@ exports.bookTrip = async (req, res) => {
     console.log("after distance")
 
     // calculate the total amount for the trip
-    const tripAmount = distanceKm * bus.Price_Per_km;
+    const tripAmount = (distanceKm * bus.Price_Per_km).toFixed(2);
     
     // insert the trip to the table
     sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`, `Trip_Start_Time`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
