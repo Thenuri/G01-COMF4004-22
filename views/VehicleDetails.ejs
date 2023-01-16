@@ -55,7 +55,7 @@
                     <span class="fa fa-star-o"> </span>
                 </div><br>
                 <br>LKR/KM-LKR <%= busDetails.Price_Per_km %><br><br>
-                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.No_Of_Seats %></span> <br><br>
+                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.Seat_No %></span> <br><br>
                 <span><%= busDetails.AC_Staus %></span>
             </div>
             <div class="col-sm fw-bold" id="card-con1"><br>
@@ -67,6 +67,7 @@
     </div>
     <div class="form-container2">
         <form action="" id="bookNowForm">
+    <% if (busDetails.Bus_Availability === "available") { %>
        
             <div class="input-box">
                 <span>To</span>
@@ -87,6 +88,12 @@
             </div>
             
             <button class="btn" id="bookNowBtn">Book Now</button>
+           
+    <% } else { %>
+    <div class="bg-white rounded p-3">
+        <div class="text-danger fs-5 fw-bold"> The Bus is unavailable for booking.</div>
+    </div>
+    <% } %>
     </form>
         
     </div>
