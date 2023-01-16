@@ -49,12 +49,12 @@
                 <li><a class="text-white-50 text-decoration-none fs-5"href="/accounts/profile" style="position:absolute; bottom:1rem ;">My Profile</a></li>
             </ul>
         </div>
-
+<!--
         <div class="dashboard-content p-4">
             <h1  class="p-2" id="upcoming-trips">Upcoming Trips</h1>
                 <div id="upcoming-trips-items" class="d-flex flex-wrap gap-3">
 
-                    <!-- Trip info card -->
+                    
                     <div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;">
                         <div class="trip-card-grid">
                             <div class="trip-info-bus-img" style="background-image: url('/images/1.jpg');" >
@@ -705,6 +705,211 @@
             </div>      
         </div>
     </div>
+</div> -->
+<div class="dashboard-content p-4"> 
+    <div>
+    <table class="table">
+      <thead>
+        <tr> <th class="table-info" colspan="3" >UPCOMING TRIPS</th></tr>
+        <tr>
+          <th scope="col">Trip ID</th>
+          <th scope="col">TO</th>
+          <th scope="col">From</th>
+          <th scope="col" style="min-width: 80px;">No Of KM</th>
+          <th scope="col">Full Price</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">Return Date</th>
+          <th scope="col">Bus No</th>
+          <th scope="col">Client Name</th>
+          <th scope="col">Contact No.</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody id="upcoming-trips">
+       <!-- <tr> 
+          <th>1</th>
+          <td>Kandy</td>
+          <td>Colombo</td>
+          <td>24</td>
+          <td>4500.00</td>
+          <td>2023-01-09</td>
+          <td>2023-01-03</td>
+          <td>NH-9685</td>
+          <td>Sam</td>
+          <td>0774158741</td>
+          <td>
+              <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6"> Cancel</button>
+          </td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>Kandy</td>
+          <td>Colombo</td>
+          <td>24</td>
+          <td>4500.00</td>
+          <td>2023-01-09</td>
+          <td>2023-01-03</td>
+          <td>NH-9685</td>
+          <td>Sam</td>
+          <td>0774158741</td>
+          <td>
+              <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6"> Cancel</button>
+          </td>
+        </tr>-->
+    </tbody>
+    </table>    
+    </div>
+
+    <div>
+      <table class="table">
+        <thead>
+            <tr> <th class="table-info" colspan="3">PENDING CONFIRMATION</th></tr>
+          <tr>
+            <th scope="col">Trip ID</th>
+            <th scope="col">TO</th>
+            <th scope="col">From</th>
+            <th scope="col" style="min-width: 80px;">No Of KM</th>
+            <th scope="col">Full Price</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">Return Date</th>
+            <th scope="col">Bus No.</th>
+            <th scope="col">Owner Name</th>
+            <th scope="col">Contact No.</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="pending-trips">
+          <!-- <tr> 
+              <th >3</th>
+              <td>Kandy</td>
+              <td>Colombo</td>
+              <td>24</td>
+              <td>4500.00</td>
+              <td>2023-01-09</td>
+              <td>2023-01-03</td>
+              <td>NH-9685</td>
+              <td>Sam</td>
+              <td>0774158741</td>
+              <td> 
+                  <button class="btn-outline-danger rounded-pill shadow-none px-3 fs-6"> Cancel</button>
+              </td>
+             
+            </tr>
+            <tr>
+              <th>4</th>
+              <td>Kandy</td>
+              <td>Colombo</td>
+              <td>24</td>
+              <td>4500.00</td>
+              <td>2023-01-09</td>
+              <td>2023-01-03</td>
+              <td>NH-9685</td>
+              <td>Sam</td>
+              <td>0774158741</td>
+              <td> 
+                  <button class="btn-outline-danger rounded-pill shadow-none px-3 fs-6"> Cancel</button>
+              </td>                
+            </tr>-->
+      </tbody>
+      </table>    
+      </div>
+
+      <div>
+          <table class="table">
+            <thead>
+                <tr> <th class="table-info" colspan="3"   >PREVIOUS TRIPS</th></tr>
+              <tr>
+                  <th scope="col">Trip ID</th>
+                  <th scope="col">TO</th>
+                  <th scope="col">From</th>
+                  <th scope="col" style="min-width: 80px;">No Of KM</th>
+                  <th scope="col">Full Price</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Return Date</th>
+                  <th scope="col">Bus No.</th>
+                  <th scope="col">Owner Name</th>
+                  <th scope="col">Contact No.</th>
+                  <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody  id="previous-trips">
+             <!-- <tr> 
+                <th>1</th>
+                <td>Kandy</td>
+                <td>Colombo</td>
+                <td>24</td>
+                <td>4500.00</td>
+                <td>2023-01-09</td>
+                <td>2023-01-03</td>
+                <td>NH-9685</td>
+                <td>Sam</td>
+                <td>0774158741</td>
+               
+              </tr>
+              <tr>
+                <th>2</th>
+                <td>Kandy</td>
+                <td>Colombo</td>
+                <td>24</td>
+                <td>4500.00</td>
+                <td>2023-01-09</td>
+                <td>2023-01-03</td>
+                <td>NH-9685</td>
+                <td>Sam</td>
+                <td>0774158741</td>
+              </tr>-->
+          </tbody>
+          </table>    
+          </div>
+
+          <div>
+              <table class="table">
+                <thead>
+                    <tr> <th class="table-info" colspan="2" style="width:170px;" >CANCELLED TRIPS</th></tr>
+                  <tr>
+                      <th scope="col">Trip ID</th>
+                      <th scope="col">TO</th>
+                      <th scope="col">From</th>
+                      <th scope="col" style="min-width: 80px;">No Of KM</th>
+                      <th scope="col">Full Price</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">Return Date</th>
+                      <th scope="col">Bus No.</th>
+                      <th scope="col">Owner Name</th>
+                      <th scope="col">Contact No.</th>
+                      <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody  id="cancelled-trips">
+                 <!-- <tr> 
+                    <th>1</th>
+                    <td>Kandy</td>
+                    <td>Colombo</td>
+                    <td>24</td>
+                    <td>4500.00</td>
+                    <td>2023-01-09</td>
+                    <td>2023-01-03</td>
+                    <td>NH-9685</td>
+                    <td>Sam</td>
+                    <td>0774158741</td>
+                   
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>Kandy</td>
+                    <td>Colombo</td>
+                    <td>24</td>
+                    <td>4500.00</td>
+                    <td>2023-01-09</td>
+                    <td>2023-01-03</td>
+                    <td>NH-9685</td>
+                    <td>Sam</td>
+                    <td>0774158741</td>
+                    
+                  </tr>-->
+              </tbody>
+              </table>    
+              </div>
 </div>
 
     <script>
@@ -741,5 +946,153 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", getTrips);
+        let trips;
+        function getTrips() {
+            
+            let upcoming = document.getElementById("upcoming-trips");
+            let pending = document.getElementById("pending-trips");
+            let previous = document.getElementById("previous-trips");
+            let cancelled = document.getElementById("cancelled-trips");
+
+            axios.get('http://localhost:3000/booking/Ownedtrips')
+            .then((res)=>{
+                trips = res.data
+                console.log(trips)
+
+                upcoming.innerHTML =""
+                pending.innerHTML =""
+                previous.innerHTML =""
+                cancelled.innerHTML =""
+
+                trips.forEach( trip => {
+                    console.log("sdfsd",trip)
+                    switch (trip.Trip_Status) {
+                        case "Upcoming":
+                            upcoming.innerHTML += `<tr>
+                                            <th>${trip.Trip_ID}</th>
+                                            <td>${trip.Trip_To}</td>
+                                            <td>${trip.Trip_From}</td>
+                                            <td>${trip.No_Of_km}</td>
+                                            <td>${trip.Trip_Amount}</td>
+                                            <td>${trip.Trip_Start_Date}</td>
+                                            <td>${trip.Trip_Return_Date}</td>
+                                            <td>${trip.Bus_No}</td>
+                                            <td>${trip.Name}</td>
+                                            <td>${trip.Contact_No}</td>
+                                            <td>
+                                                <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6" data-trip-id=${trip.Trip_ID} onclick="cancel(event)"> Cancel</button>
+                                            </td>
+                                        </tr>`
+                            break;
+
+                        case "Pending Confirmation":
+                                pending.innerHTML += `<tr>
+                                                    <th>${trip.Trip_ID}</th>
+                                                    <td>${trip.Trip_To}</td>
+                                                    <td>${trip.Trip_From}</td>
+                                                    <td>${trip.No_Of_km}</td>
+                                                    <td>${trip.Trip_Amount}</td>
+                                                    <td>${trip.Trip_Start_Date}</td>
+                                                    <td>${trip.Trip_Return_Date}</td>
+                                                    <td>${trip.Bus_No}</td>
+                                                    <td>${trip.Name}</td>
+                                                    <td>${trip.Contact_No}</td>
+                                                    <td>
+                                                        <button class="btn-outline-danger rounded-pill shadow-none px-4 fs-6" data-trip-id=${trip.Trip_ID} onclick="cancel(event)"> Cancel</button>
+                                                    </td>
+                                                </tr>`
+                        break;
+
+                        case "completed":
+                                previous.innerHTML += `<tr>
+                                                            <th>${trip.Trip_ID}</th>
+                                                            <td>${trip.Trip_To}</td>
+                                                            <td>${trip.Trip_From}</td>
+                                                            <td>${trip.No_Of_km}</td>
+                                                            <td>${trip.Trip_Amount}</td>
+                                                            <td>${trip.Trip_Start_Date}</td>
+                                                            <td>${trip.Trip_Return_Date}</td>
+                                                            <td>${trip.Bus_No}</td>
+                                                            <td>${trip.Name}</td>
+                                                            <td>${trip.Contact_No}</td>
+                                                            
+                                                        </tr>`
+                                
+                            break;
+
+                        case "cancelled":
+                            cancelled.innerHTML += `<tr>
+                                            <th>${trip.Trip_ID}</th>
+                                            <td>${trip.Trip_To}</td>
+                                            <td>${trip.Trip_From}</td>
+                                            <td>${trip.No_Of_km}</td>
+                                            <td>${trip.Trip_Amount}</td>
+                                            <td>${trip.Trip_Start_Date}</td>
+                                            <td>${trip.Trip_Return_Date}</td>
+                                            <td>${trip.Bus_No}</td>
+                                            <td>${trip.Name}</td>
+                                            <td>${trip.Contact_No}</td>                                                        
+                                        </tr>`
+                            break;
+                    
+                        default:
+                            break;
+                    }
+
+                    
+                })
+            })
+        }
+
+        function cancel(event) {
+            let tripId = event.target.dataset.tripId
+        
+            // axios put
+            // url path
+            const urlPath = `/booking/cancel/${tripId}`
+
+            // For redirect param
+            const params = new URLSearchParams(window.location.search);
+            const redirectURL = params.get("redirect")
+            let url;
+            if (redirectURL) {
+                url =`${urlPath}?redirect=${redirectURL}`;
+            } else {
+                url = `${urlPath}`;
+            }
+
+            axios.put(url)
+            .then( (res) => {
+
+                axiosReqUrl = window.location.origin + res.config.url  // url axios sent the request to
+
+                //  if the url axios sent the request and the respose url from the server doesnt match a redirection has occured
+                if(axiosReqUrl !== res.request.responseURL) {
+                    window.location.href = res.request.responseURL;  // set the window location to redirect
+                }
+
+                getTrips(); // reload all the trips
+
+            })
+            .catch(e=> {
+                console.log(e)
+                if(e.response.data.error.message){
+                    alert(e.response.data.error.message)
+                }
+            })
+            
+        }
+    </script>
 </body>
 </html>
+
+
+
+<!-- 
+
+
+
+
+ -->

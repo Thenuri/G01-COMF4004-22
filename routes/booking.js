@@ -15,7 +15,7 @@ router.get('/payment',getProfileDetailsIfLoggedIn ,(req, res) => {
 })
 
 // The bus owner confirms booking
-router.post('/confirm/:tripId', authenticateJWT, bookingService.confirmBooking)
+router.put('/confirm/:tripId', authenticateJWT, bookingService.confirmBooking)
 
 /* CANCEL BOOKING*/
 router.put('/cancel/:id',function(req,res,next){
