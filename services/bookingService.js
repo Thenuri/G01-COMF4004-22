@@ -43,7 +43,7 @@ exports.bookTrip = async (req, res) => {
     try {
         client = await clientController.findClientByAccountId(clientAccountId)
     } catch (error) {
-        return res.json({error:{ message: "Error finding client account"}})
+        return res.status(404).json({error:{ message: "Error finding client account"}})
 
     }
 //    console.log(client)
@@ -58,7 +58,7 @@ exports.bookTrip = async (req, res) => {
         bus = await dbQueryFetchFirstResult(sql, values);
     } catch (error) {
         console.log(error);
-        return res.json({error:{message: "Error finding bus"}})
+        return res.status(404).json({error:{message: "Error finding bus"}})
 
     }
 //    console.log(bus)
@@ -95,7 +95,7 @@ exports.bookTrip = async (req, res) => {
 
     // check if bus is available
     if (bus.Bus_Availability !== "available") {
-        return res.json({error:{ message: "Bus is unavailable"}})
+        return res.status(403).json({error:{ message: "Bus is unavailable"}})
     }
 
     let owner;
@@ -103,7 +103,7 @@ exports.bookTrip = async (req, res) => {
         owner = await ownerController.findOwnerByOwnerId(bus.Owner_ID)   
     } catch (error) {
         console.log(error.message)
-        return res.json({error:{ message: "Could not find bus owner"}})
+        return res.status(404).json({error:{ message: "Could not find bus owner"}})
     }
     // get the account of the owner is active
     console.log(owner)
@@ -113,11 +113,11 @@ exports.bookTrip = async (req, res) => {
         
     } catch (error) {
         console.log(error.message)
-        return res.json({error:{ message: "Error checking bus owner"}});
+        return res.status(500).json({error:{ message: "Error checking bus owner"}});
     }
 
     if(!isAccountActive) {
-        return res.json({error: {message: "Owner's account is not active"}})
+        return res.status(403).json({error: {message: "Owner's account is not active"}})
     } 
 
     // TODO later use google maps api to calculate distance
