@@ -14,7 +14,7 @@ router.put('/activate/:accountId', authWithJWT, accountController.activateAccoun
 router.get('/profile',getProfileDetailsIfLoggedIn , authWithJWT, (req, res) => {
   res.render('MyProfile');
 })
-
+/*-------------------------------------------------------------PROFILE VIEW /PROFILE UPDATE*******************************************************/
 router.get("/profileView",authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID;
     const accountType =  req.body.AccountType
@@ -38,6 +38,7 @@ router.get("/profileView",authenticateJWT, async function(req,res){
     }
     res.json(result);
 })
+
 router.put("/profileUpdate", authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID
     const accountType =  req.body.AccountType
