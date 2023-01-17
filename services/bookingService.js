@@ -27,7 +27,7 @@ exports.bookTrip = async (req, res) => {
     const returnDate = req.body.returnDate;
     const startTime = req.body.startTime;
 
-    [ busId,  to, from,  startDate, returnDate, startTime  ].forEach( thing => console.log(thing))
+    // [ busId,  to, from,  startDate, returnDate, startTime  ].forEach( thing => console.log(thing))
     
     // MapsApiRequest.distanceMatrixRequest(to, from).catch(e => console.log(e));
     // console.log(distanceMatrixResponseData)
@@ -43,7 +43,7 @@ exports.bookTrip = async (req, res) => {
     try {
         client = await clientController.findClientByAccountId(clientAccountId)
     } catch (error) {
-        return res.json({error:{ message: "Error finding client account"}})
+        return res.status(404).json({error:{ message: "Error finding client account"}})
 
     }
 //    console.log(client)
@@ -58,7 +58,7 @@ exports.bookTrip = async (req, res) => {
         bus = await dbQueryFetchFirstResult(sql, values);
     } catch (error) {
         console.log(error);
-        return res.json({error:{message: "Error finding bus"}})
+        return res.status(404).json({error:{message: "Error finding bus"}})
 
     }
 //    console.log(bus)
@@ -66,10 +66,36 @@ exports.bookTrip = async (req, res) => {
     if (typeof bus === "undefined") {
         return res.status(404).json({error: {message: "No bus found"}})
     }
-    // check if bus is available
 
+
+    // check if bus is available on that date range TODO
+
+    // get trips for the bus that are not cancelled, or completed between start and end date
+    
+    sql = "SELECT DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date' , DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' FROM `trip` WHERE `Bus_ID` = ? AND `Trip_Status` != 'completed' AND `Trip_Status` != 'cancelled' AND ((DATE(`Trip_Start_Date`) BETWEEN ? AND ?) OR (DATE(`Trip_Return_Date`) BETWEEN ? AND ?));"
+    values = [busId, startDate, returnDate, startDate, returnDate]
+    let existingTrips;
+    try {
+        existingTrips = await dbQuery(sql, values);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error:{message: "Error Checking Availability"}})
+
+    }
+
+    // if there are trips then send an error with the day of the trip
+    if (existingTrips.length !== 0) {
+        let daysString = "";
+        existingTrips.forEach( trip => {
+            daysString += `${trip.Trip_Start_Date} - ${trip.Trip_Return_Date},  `
+        })
+        let msg = `The bus is unavailable for booking during the following days - ${daysString} `
+        return res.status(409).json({error: {message: msg}})
+    }
+
+    // check if bus is available
     if (bus.Bus_Availability !== "available") {
-        return res.json({error:{ message: "Bus is already booked"}})
+        return res.status(403).json({error:{ message: "Bus is unavailable"}})
     }
 
     let owner;
@@ -77,7 +103,7 @@ exports.bookTrip = async (req, res) => {
         owner = await ownerController.findOwnerByOwnerId(bus.Owner_ID)   
     } catch (error) {
         console.log(error.message)
-        return res.json({error:{ message: "Could not find bus owner"}})
+        return res.status(404).json({error:{ message: "Could not find bus owner"}})
     }
     // get the account of the owner is active
     console.log(owner)
@@ -87,11 +113,11 @@ exports.bookTrip = async (req, res) => {
         
     } catch (error) {
         console.log(error.message)
-        return res.json({error:{ message: "Error checking bus owner"}});
+        return res.status(500).json({error:{ message: "Error checking bus owner"}});
     }
 
     if(!isAccountActive) {
-        return res.json({error: {message: "Owner's account is not active"}})
+        return res.status(403).json({error: {message: "Owner's account is not active"}})
     } 
 
     // TODO later use google maps api to calculate distance
@@ -128,21 +154,14 @@ exports.bookTrip = async (req, res) => {
     console.log("after distance")
 
     // calculate the total amount for the trip
-    const tripAmount = distanceKm * bus.Price_Per_km;
+    const tripAmount = (distanceKm * bus.Price_Per_km).toFixed(2);
     
     // insert the trip to the table
     sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`, `Trip_Start_Time`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
     values = [clientId, busId, from, to, 'Pending Confirmation', 0, "", distanceKm, tripAmount, startDate, returnDate, startTime]
     dbQuery(sql, values).then(() => {
-
-        // Update bus to unavailable
-        updateBusql = "UPDATE `bus` SET `Bus_Availability` = 'unavailable' WHERE `bus`.`Bus_ID` = ?;"
-        dbQuery(updateBusql, [busId]).then( () => {
-            return res.json({message: "The bus has been booked"});
-        }).catch( () => {
-            return res.json({error: {message: "Error updating bus"}})
-        })
-
+        
+        return res.json({message: `The bus has been booked: Distance: ${distanceKm}Km, Total Cost: ${tripAmount}`});
         }        
     ).catch( (err) => {
         console.log(err.message)

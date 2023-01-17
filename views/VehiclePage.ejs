@@ -49,7 +49,7 @@
             <div class="input-box">
                 <span>From</span>
                 <input type="search" name="" id="from" placeholder="search place">
-            </div>
+            </div>-->
             <div class="input-box">
                 <span>Start Date</span>
                 <input type="date" name="" id="start_Date">
@@ -58,7 +58,7 @@
                 <span>Return Date</span>
                 <input type="date" name="" id="return_Date">
 
-            </div>-->
+            </div>
             <div id="dropdown" >
                 <div class="dropdown">
                     <!--<div class="select">
@@ -73,9 +73,11 @@
                     </ul>-->
                     <select name="seats" id="seats" class="form-select">
                         <option value=null selected > No Of Seats</option>
-                        <option value="50">50 Seats</option>
-                        <option value="40">40 Seats</option>
-                        <option value="30">30 Seats</option>
+                        <option value="20-30">20 to 30</option>
+                        <option value="30-40">30 to 40</option>
+                        <option value="40-50">40 to 50</option>
+                        <option value="50-60">50 to 60</option>
+
                     </select>
                 </div>
                 <div class="dropdown">
@@ -222,9 +224,9 @@
         function filtering(event){
             event.preventDefault();
            /* let To = document.getElementById("to").value;
-            let From = document.getElementById("from").value;
+            let From = document.getElementById("from").value;*/
             let start_Date = document.getElementById("start_Date").value;
-            let return_Date = document.getElementById("return_Date").value;*/
+            let return_Date = document.getElementById("return_Date").value;
             let seatNo = document.getElementById("seats").value;
             let ac = document.getElementById("ac-select").value;
             let price = document.getElementById("price").value;
@@ -232,8 +234,8 @@
                 /*to : To,
                 From :From,*/
                 ac : ac,
-               /* start_Date : start_Date,
-                return_Date : return_Date,*/
+                start_Date : start_Date,
+                return_Date : return_Date,
                 seatNo : seatNo,
                 price : price
             }

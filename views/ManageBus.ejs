@@ -56,7 +56,7 @@
         <div class="dashboard-content p-4">
             <h1  class="p-2" id="manage-buses">Manage Buses</h1>
                 <div id="managebusesitems" class="d-flex flex-wrap gap-3">
-                    <div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;">
+                     <div class="trip-info-card card overflow-hidden border-0 fs-5" style="background-color: #F5F5F5; border-radius: 20px;"> 
                         <div class="trip-card-grid">
                             <div class="trip-info-bus-img" style="background-image: url('/images/1.jpg');" >
                                 
@@ -225,17 +225,12 @@
                         </div>
                         <div class="row my-2">
                             <div class="col-5">
-                                <label class="num-of-seats">Number of seats</label>
+                            <label class="bus-number">Number Of Seats</label>
         
                             </div>
                             <div class="col-6">
-                                <select name="seats" id="seats" class="form-select">
-                                    <option value=null selected > No Of Seats</option>
-                                    <option value="50">50 Seats</option>
-                                    <option value="40">40 Seats</option>
-                                    <option value="30">30 Seats</option>
-                                </select>
-                                
+                                <input type="text" id="seats" name="seats">
+        
                             </div>
                         </div>
                         <div class="row my-2">
@@ -435,9 +430,7 @@
                                 
                                 <div class="row px-3">
                                     <div class="mb-2 text-center">
-                                        <button class="btn-outline-primary rounded-pill shadow-none px-4 fs-6">
-                                            Manage
-                                        </button>
+                                    <a href="/manageBus/update/${buses.Bus_ID}"><button class="btn-outline-primary rounded-pill shadow-none px-4 fs-6">Manage</button></a>
                                     </div>
                                     
                                 </div>                      
@@ -453,39 +446,46 @@
             console.log("jhgfds")
             axios.get('http://localhost:3000/manageBus/OwnedBuses').then((res)=> { 
                 console.log(res.data)
+                
                 displayBuscard(res.data)}).catch(e => console.log(e))
         }
 
 
         function validate(){
-            let BusNumber =  document.getElementById("bus_number");
-            let seat = document.getElementById("seats");
-            let price = document.getElementById("price-per-km");
+            let BusNumber =  document.getElementById("bus_number").value;
+            let seat = document.getElementById("seats").value;
+            let price = document.getElementById("price-per-km").value;
             let ac;
             document.getElementsByName("ac-status").forEach( option => {
                 if (option.checked) {
                 ac = option.id
             }
-            }) 
+            }); 
             // let ac = document.getElementById("radio_ac").value;
-            let driverName = document.getElementById("name");
+            let driverName = document.getElementById("name").value;
            /* let busimage = document.getElementById("busimgupload");*/
 
-           let vehicle_no_pattern =/^[A-Z]{2}[\\ -]{0, 1}[0-9]$/;
-           if(!BusNumber.match(vehicle_no_pattern) && vehicle_no_pattern == ""){
-
+           let vehicle_no_pattern =/^[A-Za-z]{2}-[0-9]{4}$/;
+           if(!BusNumber.match(vehicle_no_pattern)){                                                                          
                 alert("Please enter a valid vehicle number");
                 document.getElementById("bus_number").focus();
                 return false;
-           }else if (seat == ""){
-                alert("Please select the seat amount");
-                return
-           }else if (price == ""){
+           }if (seat == ""){
+                alert("Please add the seat amount");
+                document.getElementById("seats").focus();
+                return;
+           }if (price == ""){
                 alert("Please enter the price amount");
-           }else if(ac == ""){
+                document.getElementById("price-per-km").focus();
+                return;
+           } if(ac == ""){
                 alert("Please select the ac status");
-           }else if (driverName == ""){
+                document.getElementById("ac-status").focus();
+                return;
+           } if (driverName == ""){
                 alert("Please enter the driver name ");
+                document.getElementById("name").focus();
+                return;
            }
                alert("Your bus has successfully added");  
         }

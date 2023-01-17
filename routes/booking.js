@@ -15,8 +15,9 @@ router.get('/payment',getProfileDetailsIfLoggedIn ,(req, res) => {
 })
 
 // The bus owner confirms booking
-router.post('/confirm/:tripId', authenticateJWT, bookingService.confirmBooking)
+router.put('/confirm/:tripId', authenticateJWT, bookingService.confirmBooking)
 
+/* CANCEL BOOKING*/
 router.put('/cancel/:id',function(req,res,next){
     let findConfirmation = "SELECT * FROM `trip` WHERE `trip`.`Trip_ID`= ?"
     const value = [req.params.id];
@@ -44,6 +45,7 @@ router.put('/cancel/:id',function(req,res,next){
         throw error
     }
 })
+/* DASHBOARD CLIENT AND OWNER TRIPS*/ 
 /*---------------------------------------------------------------------------------------------------------------*/
 router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
     const accountId = req.body.Account_ID;
@@ -52,14 +54,15 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
     let values,gettrip,getbus,buses;
     if(accountType === "client"){
       try{
-        client = await clientController.findCilentByClientId(accountId);  
+        client = await clientController.findClientByAccountId(accountId);  
       }
       catch (error){
   
         throw error
       }
       values = [client.Client_ID]
-      gettrip = "SELECT * FROM `trip` WHERE `Client_ID`= ?"
+            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` WHERE `trip`.`Client_ID`= ?;"
+           // gettrip = "SELECT `Trip_ID`,`Bus_No`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name`FROM `trip`,`bus_owner`,`bus` WHERE `Client_ID`=?"
       try{
         dbQuery(gettrip,values).then(result =>{return res.json(result)});
       }
@@ -68,7 +71,7 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
       }
     }else if(accountType === "owner"){
         try{
-            owner = await ownerController.findOwnerByOwnerId(accountId);
+            owner = await ownerController.findOwnerByAccountId(accountId);
           }
           catch (error){
             throw error
@@ -88,14 +91,15 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
           const gettrippromise = buses.map(async (bus) => {
             let tripsOfBus;
             let busid = bus.Bus_ID;
-            gettrip = "SELECT * FROM `trip` WHERE `Bus_ID`=?"
+            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `client` ON `trip`.`client_ID` = `client`.`client_ID` WHERE `bus`.`Bus_ID`= ?;"
             values = [busid] 
+            console.log(busid)
             try {
               tripsOfBus = await dbQuery(gettrip,values);
+              console.log( tripsOfBus)
             } catch (error) {
               throw error;
             }
-         // console.log("tripsOfBus",tripsOfBus)
 
             if (tripsOfBus.length !== 0) {
               return tripsOfBus;
@@ -106,8 +110,15 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
           .then(trips => {
             
             trips = Array.prototype.concat.apply([], trips);  // Get the trips to one array
+
+            // filter out the undefined values
+            trips = trips.filter( trip => { 
+              if (trip !== undefined) {
+                return trip;
+              }
+            })
+
             res.json(trips);
-            console.log(trips)
           
           })
           

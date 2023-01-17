@@ -11,24 +11,30 @@ router.get('/',getProfileDetailsIfLoggedIn, (req, res) => {
 router.post('/finder',function(req,res){
 console.log(req.body);
     seatNo = req.body.seatNo
+    
     price = req.body.price
     ac = req.body.ac
     let sort;
     let select;
     if (seatNo === "null"){
-        seatNo = null
+        sartingSeatNo="0"
+        endingseatNo ="100"
+    }else{
+        seatRange=seatNo.split("-")
+        sartingSeatNo = seatRange[0]
+        endingseatNo = seatRange[1]
     }
     if(ac === "null"){
         ac = null
     }
     console.log(seatNo,price,ac)
     if (price === "high to low price"){
-        select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?) AND `Bus_Availability`= 'available' ORDER BY `Price_Per_km` DESC "
+        select = "SELECT * FROM `bus` WHERE ( `No_Of_Seats` BETWEEN ? AND ?) AND (? IS NULL OR`AC_Status` = ?) AND `Bus_Availability`= 'available' ORDER BY `Price_Per_km` DESC "
     }else {
-        select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?) AND `Bus_Availability`= 'available' ORDER BY `Price_Per_km` ASC "
+        select = "SELECT * FROM `bus` WHERE (`No_Of_Seats` BETWEEN ? AND ?) AND (? IS NULL OR`AC_Status` = ?) AND `Bus_Availability`= 'available' ORDER BY `Price_Per_km` ASC "
     }  
     /*let select = "SELECT * FROM `bus` where (? IS NULL OR `No_Of_Seats`= ?) AND (? IS NULL OR`AC_Status` = ?) AND ORDER BY `Price_Per_Km` ?"*/
-    const values = [seatNo,seatNo,ac,ac];
+    const values = [sartingSeatNo,endingseatNo,ac,ac];
     try {
         dbQuery(select, values).then( result => {
             console.log(result)
@@ -106,6 +112,8 @@ router.get('/:busId',getProfileDetailsIfLoggedIn, async (req, res) => {
 })
 
 module.exports = router;
+
+
 
 
 
