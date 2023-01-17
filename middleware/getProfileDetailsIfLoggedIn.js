@@ -48,14 +48,14 @@ async function getProfileDetailsIfLoggedIn (req, res, next) {
             profile = await clientController.findClientByAccountId(accountId);
 
         } else if (accountType === "admin") {
-            profile.name = "Admin"
+            profile = {}
+            profile.Name = "Admin"
         }
     } catch (error) {
         console.log(error)
         return next();
     }
     console.log( 'profile', profile)
-
     res.locals.logged = true
     res.locals.name = profile.Name;
     res.locals.profilePicture = profile.Profile_Picture;
