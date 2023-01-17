@@ -32,7 +32,7 @@ router.put('/cancel/:id',function(req,res,next){
                 let cancelBooking = "UPDATE `trip` SET `Trip_Status` = 'cancelled' WHERE `trip`.`Trip_ID` = ?"
                 try {
                     dbQuery(cancelBooking, value)
-                    .then(dbQuery("UPDATE `bus` SET `Bus_Availability` = 'available' WHERE `bus`.Bus_ID = ? ", [bus_id]).then(res.send("trip has been cancelled"))
+                    .then(res.send("trip has been cancelled")
                     )
                }
                catch (error) {
@@ -40,6 +40,32 @@ router.put('/cancel/:id',function(req,res,next){
                }    
             }
          })
+    } 
+    catch (error) {
+        throw error
+    }
+})
+router.put('/complete/:id',function(req,res,next){
+  let findConfirmation = "SELECT * FROM `trip` WHERE `trip`.`Trip_ID`= ?"
+    const value = [req.params.id];
+    try {
+         dbQuery(findConfirmation, value).then(result =>{
+            if (result[0].Trip_Status === 'Upcoming') {
+                  let completeBooking = "UPDATE `trip` SET `Trip_Status` = 'completed' WHERE `trip`.`Trip_ID` = ?"
+                  try {
+                      dbQuery(completeBooking, value)
+                      .then(res.send("trip has been completed")
+                      )
+                      }
+                      catch (error) {
+                          throw error
+                      }   
+            } else {
+                res.status(403).json({error: {message: "Connot set as completed this is not an Upcoming trip"}})
+            }
+         } 
+         
+         )
     } 
     catch (error) {
         throw error
@@ -61,7 +87,7 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
         throw error
       }
       values = [client.Client_ID]
-            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` WHERE `trip`.`Client_ID`= ?;"
+            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `Trip_Rating`,`No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` WHERE `trip`.`Client_ID`= ?;"
            // gettrip = "SELECT `Trip_ID`,`Bus_No`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name`FROM `trip`,`bus_owner`,`bus` WHERE `Client_ID`=?"
       try{
         dbQuery(gettrip,values).then(result =>{return res.json(result)});
@@ -91,7 +117,7 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
           const gettrippromise = buses.map(async (bus) => {
             let tripsOfBus;
             let busid = bus.Bus_ID;
-            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `client` ON `trip`.`client_ID` = `client`.`client_ID` WHERE `bus`.`Bus_ID`= ?;"
+            gettrip = "SELECT DISTINCT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`,`Trip_Rating`, `No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `client` ON `trip`.`client_ID` = `client`.`client_ID` WHERE `bus`.`Bus_ID`= ?;"
             values = [busid] 
             console.log(busid)
             try {
