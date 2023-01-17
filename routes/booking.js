@@ -155,6 +155,80 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
 
   
   })
+
+  router.put('/rating/:tripId', authenticateJWT, async (req, res) => {
+    if (req.body.AccountType !== 'client') {
+      res.status(403).json({error: {message: "Only client can rate"}})
+    }
+  
+    const tripId = req.params.tripId;
+    const rating = req.body.rating;
+  
+    console.log
+    
+    const accountId = req.body.Account_ID;
+    let client;
+    try {
+      client = await clientController.findClientByAccountId(accountId)
+      
+    } catch (error) {
+      res.status(500).send("Error")
+    }
+  
+    let sql, values;
+  
+    sql = "SELECT `Client_ID`, `Trip_Rating`, `Trip_Status` FROM `trip` WHERE `trip`.`Trip_ID` = ?; "
+    values = [ tripId ]
+    let result = await dbQuery(sql, values);
+    if ( result.length === 0) {
+      return res.status(404).json({error: {message: "No Trip found"}})
+    }
+  
+    if ( result[0].Trip_Status !== "completed") {
+      return res.status(403).json({error: {message: "Cannot review trips which are not completed"}})
+    }
+  
+    if ( result[0].Client_ID !== client.Client_ID ) {
+      console.log(result[0],  client)
+      return res.status(403).json({error: {message: "Not the client of the trip"}})
+    }
+    if ( result[0].Trip_Rating !== 0) {
+      return res.status(409).json({error: {message: "Trip is already rated"}})
+    }
+  
+    // Update trip rating
+    sql = "UPDATE `trip` SET `Trip_Rating` = ? WHERE `trip`.`Trip_ID` = ? AND `trip`.`Client_ID` = ?; "
+    values = [rating, tripId, client.Client_ID ]
+    dbQuery(sql, values)
+    .then( () => {
+  
+      // Update bus rating. Calculates new average rating
+      sql = "UPDATE `bus` JOIN `trip` ON `bus`.Bus_ID = `trip`.Bus_ID SET `bus`.`Rating` = ( (`bus`.`Rating` * `bus`.`No_Of_Ratings`) + ? )/( `bus`.`No_Of_Ratings` + 1 ) ,`bus`.`No_Of_Ratings` = `bus`.`No_Of_Ratings` + 1 WHERE `bus`.Bus_ID = `trip`.Bus_ID AND `trip`.Trip_ID = ?;  "
+      values = [rating, tripId]
+      dbQuery(sql, values)
+      .then( () => {
+  
+        // Updates owners rating calculates new average rating
+        sql = "UPDATE bus_owner JOIN bus ON bus.Owner_ID = bus_owner.Owner_ID JOIN trip ON trip.Bus_ID = bus.Bus_ID SET bus_owner.Rating = ( (bus_owner.Rating * bus_owner.No_Of_Ratings) + ? )/( bus_owner.No_Of_Ratings + 1 ) , bus_owner.No_Of_Ratings = bus_owner.No_Of_Ratings + 1 WHERE `trip`.Trip_ID = ?;"
+        values = [rating, tripId]
+        dbQuery(sql, values).then( () => {
+          return res.json({message: "Successfully rated the trip"})
+        })
+        .catch( () => {
+          return res.status(500).json({error: {message: "Error Updating Owner rating"}})
+        })
+      })
+      .catch( (e) => {
+        console.log(e)
+        return res.status(500).json({error: {message: "Error Updating Bus rating"}})
+      })
+    }
+      )
+      .catch( () => {
+        return res.status(500).json({error: {message: "Error Updating Trip rating"}})
+      })
+  
+  })
   
      
 module.exports = router;

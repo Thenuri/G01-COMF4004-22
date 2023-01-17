@@ -1033,12 +1033,19 @@
                         pending.innerHTML+=Ptrip
 
                 }else if(trips[x].Trip_Status === "completed"){
+                    let tripRating;
+                    if ( trips[x].Trip_Rating === 0) {
+                        tripRating = "N/A";
+                    } else {
+                        tripRating = trips[x].Trip_Rating;
+                    }
                     let Ctrip=`<tr>
                         <th>${trips[x].Trip_ID}</th>
                         <td>${trips[x].Trip_To}</td>
                         <td>${trips[x].Trip_From}</td>
                         <td>${trips[x].No_Of_km}</td>
                         <td>${trips[x].Trip_Amount}</td>
+                        <td>${tripRating}</td>
                         <td>${trips[x].Trip_Start_Date}</td>
                         <td>${trips[x].Trip_Return_Date}</td>
                         <td>${trips[x].Bus_No}</td>

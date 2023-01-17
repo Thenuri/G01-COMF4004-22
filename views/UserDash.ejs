@@ -1007,12 +1007,29 @@
                         break;
 
                         case "completed":
+                                let ratingTableData
+                                if ((trip.Trip_Rating === 0) || (trip.Trip_Rating === undefined)){
+                                ratingTableData = `<td>
+                                                        <select data-trip-id=${trip.Trip_ID} onchange="setRating(event)">
+                                                            <option value=null>Rating</option>
+                                                            <option value="1">1</option> 
+                                                            <option value="2">2</option>    
+                                                            <option value="3">3</option>    
+                                                            <option value="4">4</option>    
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </td>`
+                            } else {
+                                ratingTableData = `<td>${trip.Trip_Rating}</td>`
+                                
+                            }
                                 previous.innerHTML += `<tr>
                                                             <th>${trip.Trip_ID}</th>
                                                             <td>${trip.Trip_To}</td>
                                                             <td>${trip.Trip_From}</td>
                                                             <td>${trip.No_Of_km}</td>
                                                             <td>${trip.Trip_Amount}</td>
+                                                            ${ratingTableData}
                                                             <td>${trip.Trip_Start_Date}</td>
                                                             <td>${trip.Trip_Return_Date}</td>
                                                             <td>${trip.Bus_No}</td>
@@ -1085,15 +1102,21 @@
             })
             
         }
+        
+        function setRating(event) {
+            let tripId = event.target.dataset.tripId;
+            let rating = event.target.value;
+            console.log(tripId, rating)
+            
+            if (confirm(`Do you want to set rating to this trip to ${rating}`)) {
+                axios.put(`/booking/rating/${tripId}`, {
+                    rating: rating
+                }).then( (res) => {
+                    alert(res.data.message);
+                    getTrips();
+        })
+    }}
     </script>
 </body>
 </html>
 
-
-
-<!-- 
-
-
-
-
- -->
