@@ -283,6 +283,17 @@
             busesContainerElement.innerHTML += busCard;
             }) ;  
         }
+
+        // Blocking the previous days
+        document.addEventListener("DOMContentLoaded", olddate)
+        function olddate(){
+            let startDate = document.getElementById("start_Date").value;
+            let returnDate = document.getElementById("return_Date").value;
+            let today = new Date().toISOString().split("T")[0];
+            document.getElementById('start_Date').setAttribute('min', today);
+            document.getElementById('return_Date').setAttribute('min', today);
+        }
+
     </script>
 </body>
 </html>
