@@ -357,7 +357,7 @@
             // let ac = document.getElementById("radio_ac").value;
             let driverName = document.getElementById("name");
            /* let busimage = document.getElementById("busimgupload");*/
-
+           
             let addData = {
                 Bus_No : BusNumber.value,
                 No_Of_Seats : seat.value,
@@ -366,7 +366,6 @@
                 Driver_Name : driverName.value,
                 // Bus_Image: busimage      
             }
-            
              axios.put('http://localhost:3000/managebus/addBus',addData)
              .then((res)=> {
                 BusNumber.value="";

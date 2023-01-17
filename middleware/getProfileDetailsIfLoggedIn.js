@@ -59,6 +59,7 @@ async function getProfileDetailsIfLoggedIn (req, res, next) {
     res.locals.logged = true
     res.locals.name = profile.Name;
     res.locals.profilePicture = profile.Profile_Picture;
+    res.locals.accountType = accountType;
 
     next()
  }
