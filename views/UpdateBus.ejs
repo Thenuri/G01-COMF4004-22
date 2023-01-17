@@ -136,7 +136,7 @@
 
         
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
 
         // Display uploaded image
@@ -181,10 +181,12 @@
 
     </script>
     <script>
+        let path = window.location.pathname
+        let busId = path.split("/")[3]  
       document.getElementById("update").addEventListener("click",update);
       function update(event){
         event.preventDefault();
-
+      
         let BusNo = document.getElementById("BusNo").value;
         let SeatNo = document.getElementById("SeatNo").value;
         let priceKM = document.getElementById("priceKM").value;
@@ -197,6 +199,7 @@
         })
 
         let BusValues ={
+          BUS_ID:busId,
           Bus_No: BusNo,
           No_Of_Seats: SeatNo,
           Price_Per_km: priceKM,
@@ -212,7 +215,8 @@
 
       document.addEventListener("DOMContentLoaded",getvalues)
       function getvalues(){
-        const urlPath = "/managebus/BusFill"
+        
+        const urlPath = `/managebus/BusFill/${busId}`
       
       // For redirect param
       const params = new URLSearchParams(window.location.search);
@@ -236,7 +240,8 @@
                     
                 }
 
-                let BusDetails = res.data;
+                let BusDetails = res.data[0];
+                console.log(BusDetails)
                 let BusNo = document.getElementById("BusNo");
                 let SeatNo = document.getElementById("SeatNo");
                 let priceKM = document.getElementById("priceKM");
@@ -248,15 +253,22 @@
                   }
 
                 BusNo.value = BusDetails.Bus_No;
-                SeatNo.value = BusDetails.Address;
-                priceKM.value = BusDetails.Contact_No;
-                DName.value = BusDetails.Contact_No;
-                ac.value = BusDetails.AC_Status;
-
+                SeatNo.value = BusDetails.No_Of_Seats;
+                console.log(BusDetails.No_Of_Seats)
+                priceKM.value = BusDetails.Price_Per_km;
+                DName.value = BusDetails.Driver_Name;
+               // ac.value = BusDetails.AC_Status;
+               document.getElementsByName("ac-status").forEach(Option=>{
+                    if (Option.id.toLowerCase() === BusDetails.AC_Status)
+                    {Option.checked = true;
+                    }
+                 })
+                  
             })
+          })
             .catch(e=> {
                 console.log(e)
-                if(e.response.data.error.message){
+                if(e.response.data){
                     alert(e.response.data.error.message)
                 }
             })

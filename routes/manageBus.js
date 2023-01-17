@@ -16,14 +16,12 @@ router.get('/',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
 })
 
 // Update Bus
-router.get('/update',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
+router.get('/update/:id',getProfileDetailsIfLoggedIn,authMiddleware, (req, res) => {
   if(accountType !== "owner"){
     res.redirect("signUp")
   }
   res.render('UpdateBus');
 })
-
-
 
 // Change patch to put in the JS
 router.put('/addBus',authenticateJWT,async function(req, res, next) {
@@ -48,29 +46,37 @@ router.put('/addBus',authenticateJWT,async function(req, res, next) {
       })
 })
 
-/*Auto fill the bus details in the update bus form*/ 
-router.get("/BusFill",authenticateJWT , async function(req,res){
+// Auto fill the bus details in the update bus form
+router.get("/BusFill/:id",authenticateJWT , async function(req,res){
+  const busid = req.params.id
   const Account_ID = req.body.Account_ID;
-  const Account_Type = req.body.Account_Type;
+  const Account_Type = req.body.AccountType;
   console.log('auth', accountId, accountType)
   let getData, values, result;
 
   if (Account_Type === "owner"){
       owner = await ownerController.findOwnerByAccountId(Account_ID);
       console.log(owner)
-      // getData = "SELECT * FROM 'bus_owner' WHERE 'bus_owner'.'Owner_ID' = ?"
-      // values = [owner.owner_ID]
-      result = owner;
+       getData = "SELECT * FROM `bus` WHERE `Bus_ID`=? AND `Owner_ID`=?"
+       values = [busid,owner.Owner_ID]
+       try {
+        dbQuery(getData, values).then(result =>{return res.json(result)})
+      }
+      catch (error) {
+        throw error
+      }
   }else if (Account_Type === "client"){
-    return res.json({error: {message: "Not allowed to update Bus"}})
+    return res.status(403).json({error: {message: "Not allowed to update Bus"}})
   }else{
-    return res.json({error: {message: "Account type not valid"}})
+    return res.status(403).json({error: {message: "Account type not valid"}})
   }
-  res.json(result);
+ 
 })
 
-/*Update bus form*/ 
+// Update bus form 
 router.patch("/BusUpdate", authenticateJWT, async function(req,res){
+  const busid = req.body.Bus_ID;
+  const busID = req.body.Bus_ID;
   const Bus_No = req.body.Bus_No;
   const No_Of_Seats = req.body.No_Of_Seats;
   const Price_Per_km = req.body.Price_Per_km;
@@ -83,8 +89,8 @@ router.patch("/BusUpdate", authenticateJWT, async function(req,res){
   if (Account_Type === "owner"){
       owner_ac = await ownerController.findOwnerByAccountId(Account_ID);
       console.log(owner_ac)
-      updates = "UPDATE `bus` SET `Bus_No` = ? , `No_Of_Seats` = ? , `Price_Per_km` = ? , `Driver_Name` = ? , `AC_Status` = ? WHERE `Bus_No` = ?";
-      values = [Bus_No, No_Of_Seats, Price_Per_km, Driver_Name, AC_Status]
+      updates = "UPDATE `bus` SET `Bus_No` = ? , `No_Of_Seats` = ? , `Price_Per_km` = ? , `Driver_Name` = ? , `AC_Status` = ? WHERE `Bus_ID` = ?";
+      values = [Bus_No, No_Of_Seats, Price_Per_km, Driver_Name, AC_Status,busID, busid]
   }else {
       return res.json({error: {message: "Not allowed to update the bus"}})
   }
@@ -97,7 +103,7 @@ router.patch("/BusUpdate", authenticateJWT, async function(req,res){
   
 })
 
-/*View Vehicle Details*/
+// View Vehicle Details
 router.get('/BusDetails', function(req, res, next){
   const Bus_ID = req.body.Bus_ID;
   const sql = "SELECT Bus_No, No_Of_Seats, AC_Status, Price_Per_km, Driver_Name FROM `bus` WHERE Bus_ID = ?";
@@ -107,8 +113,8 @@ router.get('/BusDetails', function(req, res, next){
   }
   catch (error){
 
-      throw error
-  }
+      throw error
+  }
 })
 
 router.get('/OwnedBuses', authenticateJWT, async function(req, res, next){
@@ -141,11 +147,7 @@ router.get('/OwnedBuses', authenticateJWT, async function(req, res, next){
   }else{
     return res.send("hi")
   }
-
-
 })
 
-
-
-  module.exports = router;
+module.exports = router;
 	

@@ -7,6 +7,8 @@ const clientController = require('../controllers/clientController');
 const ownerController  = require('../controllers/ownerController');
 const getProfileDetailsIfLoggedIn = require('../middleware/getProfileDetailsIfLoggedIn');
 const authenticateJWT = require('../middleware/authMiddleware');
+// const jwt = require("jsonwebtoken");
+// const maxAge = 3 * 24  * 60 * 60
 
 router.put('/suspend/:accountId', authWithJWT, accountController.suspendAccount)
 router.put('/activate/:accountId', authWithJWT, accountController.activateAccount)

@@ -161,7 +161,7 @@ exports.bookTrip = async (req, res) => {
     values = [clientId, busId, from, to, 'Pending Confirmation', 0, "", distanceKm, tripAmount, startDate, returnDate, startTime]
     dbQuery(sql, values).then(() => {
         
-        return res.json({message: "The bus has been booked"});
+        return res.json({message: `The bus has been booked: Distance: ${distanceKm}Km, Total Cost: ${tripAmount}`});
         }        
     ).catch( (err) => {
         console.log(err.message)

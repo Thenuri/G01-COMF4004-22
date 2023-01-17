@@ -79,6 +79,12 @@ app.get('/signin', (req, res) => {
 app.get('/signup', (req, res) => {
   res.render("signup")
 })
+
+app.get('/signout', (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/")
+})
+
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));

@@ -194,29 +194,17 @@
         })
 
     }
-
-    //finding and setting today as min value for date
+    // Blocking the previous days
+    document.addEventListener("DOMContentLoaded", olddate)
     function olddate(){
         let startDate = document.getElementById("startDate").value;
         let returnDate = document.getElementById("returnDate").value;
-        console.log(startDate)
 
-        let today = new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd
-            console.log(dd)
-        }
-        if (mm < 10) {
-            mm = '0' + mm
-        }
-        today = yyyy + '-' + mm + '-' + dd;
-        // startDate.setAttribute("min", today);
-
+        let today = new Date().toISOString().split("T")[0];
+        document.getElementById('startDate').setAttribute('min', today);
+        document.getElementById('returnDate').setAttribute('min', today);
     }
-    olddate()
+
     
         
     </script>
