@@ -55,8 +55,8 @@
                     <span class="fa fa-star-o"> </span>
                 </div><br>
                 <br>LKR/KM-LKR <%= busDetails.Price_Per_km %><br><br>
-                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.No_of_Seats %></span> <br><br>
-                <span><%= busDetails.AC_Staus %></span>
+                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.No_Of_Seats %></span> <br><br>
+                <span><%= busDetails.AC_Status.toUpperCase() %></span>
             </div>
             <div class="col-sm fw-bold" id="card-con1"><br>
                 <span>Bus Owner Name<br><%= busDetails.Owner_Name%></span><br><br>
