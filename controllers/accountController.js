@@ -1,3 +1,4 @@
+const { dbQuery } = require('../config/database');
 const Account= require('../models/accountModel')
 
 exports.createAccount = async (email, hashed_password, accountType) => {
@@ -111,6 +112,17 @@ exports.suspendAccount = async (req, res) => {
             res.status(403).json({error: {message: "Not Admin Account"}})
         }
         try {
+           if( this.isOwnerAccount(accountId) ) {
+                let sql = "UPDATE `bus` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` JOIN `account` ON `bus_owner`.`Account_ID` = `account`.`Account_ID`  SET `Bus_Availability` = 'unavailable' WHERE `account`.`Account_ID` = ?;"
+                let values = [accountId]
+                await dbQuery(sql, values)
+           }
+
+        } catch (error) {
+            res.status(500)
+        }
+
+        try {
             result = await Account.suspendAccount(accountId);
 
         } catch (error) {
@@ -126,6 +138,16 @@ exports.activateAccount = async (req, res) => {
     if (req.body.AccountType !== "admin") {
         res.status(403).json({error: {message: "Not Admin Account"}})
     }
+    try {
+        if( this.isOwnerAccount(accountId) ) {
+             let sql = "UPDATE `bus` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` JOIN `account` ON `bus_owner`.`Account_ID` = `account`.`Account_ID`  SET `Bus_Availability` = 'available' WHERE `account`.`Account_ID` = ?;"
+             let values = [accountId]
+             await dbQuery(sql, values)
+        }
+
+     } catch (error) {
+         res.status(500)
+     }
     try {
         result = await Account.activateAccount(accountId);
 

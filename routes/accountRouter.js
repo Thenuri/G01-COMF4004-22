@@ -12,10 +12,31 @@ const authenticateJWT = require('../middleware/authMiddleware');
 
 router.put('/suspend/:accountId', authWithJWT, accountController.suspendAccount)
 router.put('/activate/:accountId', authWithJWT, accountController.activateAccount)
-
 router.get('/profile',getProfileDetailsIfLoggedIn , authWithJWT, (req, res) => {
   res.render('MyProfile');
 })
+
+router.get('/getallaccounts',authenticateJWT,async function(req,res){
+    const accountId = req.body.Account_ID;
+    const accountType =  req.body.AccountType;
+    let getOwners, owners,getClients,clients,accounts,values;
+    if(accountType !== "admin"){
+        return res.status(403).json({error: {message: "Not admin"}})
+    }
+
+     getOwners = "SELECT `Owner_ID`, `account`.`Account_ID`, `Name`, `Address`, `Contact_No`, `Profile_Picture`, `Rating`, `No_Of_Ratings`,`Account_Type`, `Account_Status` FROM bus_owner LEFT JOIN account ON bus_owner.Account_ID = account.Account_ID; "
+     owners = await dbQuery(getOwners);
+     getClients= "SELECT `Client_ID`, `account`.`Account_ID`, `Name`, `Address`, `Contact_No`, `Profile_Picture`,`Account_Type`, `Account_Status` FROM client LEFT JOIN account ON client.Account_ID = account.Account_ID; "
+     clients = await dbQuery(getClients);
+
+     accounts =clients.concat(owners);
+
+     return res.json(accounts);
+
+
+  
+})
+
 /*-------------------------------------------------------------PROFILE VIEW /PROFILE UPDATE*******************************************************/
 router.get("/profileView",authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID;
@@ -40,6 +61,8 @@ router.get("/profileView",authenticateJWT, async function(req,res){
     }
     res.json(result);
 })
+
+
 
 router.put("/profileUpdate", authenticateJWT, async function(req,res){
     const accountId = req.body.Account_ID
