@@ -55,7 +55,7 @@
                     <span class="fa fa-star-o"> </span>
                 </div><br>
                 <br>LKR/KM-LKR <%= busDetails.Price_Per_km %><br><br>
-                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.Seat_No %></span> <br><br>
+                <img src="/images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span><%= busDetails.No_of_Seats %></span> <br><br>
                 <span><%= busDetails.AC_Staus %></span>
             </div>
             <div class="col-sm fw-bold" id="card-con1"><br>
@@ -133,7 +133,7 @@
         // booking the trip
     let bookNowForm = document.getElementById("bookNowForm");
     bookNowForm.addEventListener("submit", bookBus );
-
+    document.getElementById('startDate').addEventListener("change", setReturnDateMin )
     function bookBus(evt) {
         evt.preventDefault();
         // get the bus id 
@@ -145,7 +145,13 @@
         let startDate = document.getElementById("startDate").value;
         let returnDate = document.getElementById("returnDate").value;
 
-        // TODO do validation
+        if ( from === "" || to === "") {
+        return alert("Please fill the locations")
+        }
+
+        if ( startDate === "" || returnDate === "") {
+        return alert("Please add the dates")
+        }
 
         bookingData = {
             busId: busId,
@@ -155,6 +161,9 @@
             returnDate: returnDate,
             startTime: "14:08:48"   // TODO remove hard coded time
         }
+
+      
+
 
         // axios post
         // url path
@@ -194,6 +203,18 @@
         })
 
     }
+    function setReturnDateMin(event) {
+        let startDate = event.target.value;
+        // set the min of return date to the start date
+        document.getElementById('returnDate').setAttribute('min', startDate);
+    }
+
+    function validate(bookingData) {
+
+
+
+    }
+
     // Blocking the previous days
     document.addEventListener("DOMContentLoaded", olddate)
     function olddate(){
