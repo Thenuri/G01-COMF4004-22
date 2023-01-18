@@ -159,9 +159,10 @@ exports.bookTrip = async (req, res) => {
     // insert the trip to the table
     sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`, `Trip_Start_Time`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
     values = [clientId, busId, from, to, 'Pending Confirmation', 0, "", distanceKm, tripAmount, startDate, returnDate, startTime]
-    dbQuery(sql, values).then(() => {
-        
-        return res.json({message: `The bus has been booked: Distance: ${distanceKm}Km, Total Cost: ${tripAmount}`});
+    dbQuery(sql, values).then( async ( result) => {
+        const tripInsertId = result.insertId;
+        res.redirect(`/booking/payment/${tripInsertId}`)
+        // return res.json({message: `The bus has been booked: Distance: ${distanceKm}Km, Total Cost: ${tripAmount}`});
         }        
     ).catch( (err) => {
         console.log(err.message)
