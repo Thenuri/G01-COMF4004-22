@@ -254,6 +254,17 @@
             let busesContainerElement = document.getElementById("buses");
             busesContainerElement.innerHTML = ""
             buses.forEach( bus => {
+                let ratingStarsHTML ="";
+                for (let i = 0; i < 5; i++) {
+
+                    if ( i < Math.floor(bus.Rating)) {
+                        ratingStarsHTML += `<span class="fa fa-star"></span>`
+                    } else  {
+                        ratingStarsHTML += `<span class="fa fa-star-o"></span>`
+                    }
+                }
+                
+
                 busCard = `
                 <div class="dashboard-content p-4" style="margin-top: 3rem;">
                     <div id="upcoming-trips-items">
@@ -265,12 +276,10 @@
                                         <div class="col-0 text-start" id="text">${bus.Bus_No.toUpperCase()}<br>LKR/KM-${bus.Price_Per_km}.00<br>
                                         <img src="images/ic_airline_seat_recline_extra_24px.svg" class="seat-icon"><span>${bus.No_Of_Seats}</span> <span id="ac">${bus.AC_Status.toUpperCase()}</span>
                                         <div class=" rating-stars d-flex" style="font-size:30px;">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star-o"> </span>
-                                        </div><br><br>
+                                            ${ratingStarsHTML}
+                                        </div>
+                                        <div>${bus.Rating.toFixed(1)} / 5.0  (${bus.No_Of_Ratings})</div> 
+                                        <br>                                                                            
                                         <a href="/vehicle/${bus.Bus_ID}"><button type="button" class="btn" id="btn1">Book</button></a>
                                         </div>
                                     </div>                    
