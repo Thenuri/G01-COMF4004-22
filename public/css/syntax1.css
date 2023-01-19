@@ -196,7 +196,7 @@
     width: auto;
 }
 .vehicles{
-    margin-left:50px;  
+    margin-left:80px;  
     
 }
 /* top trending buses */
@@ -328,7 +328,7 @@
     gap: 1rem;
     position: absolute;
     bottom: 4rem;
-    left:150px;
+    left:2500px;
     background: #240A6B;
     padding:5px;
     border-radius:10px;
@@ -340,7 +340,7 @@
     gap: 1rem;
     position: absolute;
     bottom: 2rem;
-    left: 150px;
+    left: 270px;
     background: #240A6B;
     padding:5px;
     border-radius:10px;
