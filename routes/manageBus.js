@@ -31,18 +31,23 @@ router.put('/addBus',authenticateJWT,async function(req, res, next) {
     const Price_Per_km = req.body.Price_Per_km;
     const AC_Status = req.body.AC_Status;
     const Driver_Name = req.body.Driver_Name;
+    const Bus_Image = req.body.Bus_Image;
+
+    console.log("wada",Bus_Image)
+
 // TODO get account id using jwtAuth middleware, find owner id and Add owner id to query , 
     owner = await ownerController.findOwnerByAccountId(Account_ID);
-    const sql = "INSERT INTO bus (Owner_ID, Bus_No, No_Of_Seats, Price_Per_km, Bus_Availability, AC_Status, Driver_Name) VALUES (?,?,?,?,?,?,?)";
-    const values = [owner.Owner_ID,Bus_No,No_Of_Seats,Price_Per_km,'available',AC_Status,Driver_Name];
+    const sql = "INSERT INTO bus (Owner_ID, Bus_No, No_Of_Seats, Price_Per_km, Bus_Availability, AC_Status, Driver_Name, Bus_Image) VALUES (?,?,?,?,?,?,?, ?)";
+    const values = [owner.Owner_ID,Bus_No,No_Of_Seats,Price_Per_km,'available',AC_Status,Driver_Name, Bus_Image];
 
     
       dbQuery(sql, values)
       .then((result) => {
+        console.log(result)
         res.send("Successful")
       })
       .catch( (error) => {
-        res.status(418).send(error)
+        res.status(500).send(error)
       })
 })
 
