@@ -43,7 +43,10 @@
     <div class="container " style="background-color: #bbc4de; border-radius: 20px; margin-top: 1rem; height:200%; width:60%;">
         <div class="row ">
             <div class="col-sm">
-                <img src="/images/jonathan-borba-T5jzpRTVF1U-unsplash.jpg" class="bus-img">
+                <% 
+                let busImageBase64 = busDetails.Bus_Image;
+                %>
+                <img src=<%- busImageBase64 %> class="bus-img">
             </div>
             <div class="col-sm fw-bold" id="card-con" ><br>
                 <% 
