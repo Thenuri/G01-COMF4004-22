@@ -17,7 +17,7 @@ exports.bookTrip = async (req, res) => {
             "to": "Kandy",
             "startDate" : "2023-02-12",
             "returnDate": "2023-02-15",
-            "startTime" : "14:08:48"
+ 
     }
     */
     const busId = req.body.busId;
@@ -25,9 +25,7 @@ exports.bookTrip = async (req, res) => {
     const to = req.body.to;
     const startDate = req.body.startDate;
     const returnDate = req.body.returnDate;
-    const startTime = req.body.startTime;
-
-    // [ busId,  to, from,  startDate, returnDate, startTime  ].forEach( thing => console.log(thing))
+  
     
     // MapsApiRequest.distanceMatrixRequest(to, from).catch(e => console.log(e));
     // console.log(distanceMatrixResponseData)
@@ -142,7 +140,7 @@ exports.bookTrip = async (req, res) => {
         // if the api cannot be accessed
         if (error.code === "ENOTFOUND") {
             console.log("Error getting distance from Maps API: Check network, maps api status, and key")
-            return res.status(500).json({error: {message: "Error getting distance from Maps API"}});
+            return res.status(500).json({error: {message: "Sorry Trip cannot be booked. Error getting distance from Maps API."}});
         }
 
         return res.status(500).json({error: {message: error.message}});
@@ -157,8 +155,8 @@ exports.bookTrip = async (req, res) => {
     const tripAmount = (distanceKm * bus.Price_Per_km).toFixed(2);
     
     // insert the trip to the table
-    sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`, `Trip_Start_Time`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
-    values = [clientId, busId, from, to, 'Pending Confirmation', 0, "", distanceKm, tripAmount, startDate, returnDate, startTime]
+    sql = "INSERT INTO `trip` ( `Client_ID`, `Bus_ID`, `Trip_From`, `Trip_To`, `Trip_Status`, `Trip_Rating`, `Trip_Comments`, `No_Of_km`, `Trip_Amount`, `Trip_Start_Date`, `Trip_Return_Date`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
+    values = [clientId, busId, from, to, 'Pending Confirmation', 0, "", distanceKm, tripAmount, startDate, returnDate]
     dbQuery(sql, values).then( async ( result) => {
         const tripInsertId = result.insertId;
         res.redirect(`/booking/payment/${tripInsertId}`)

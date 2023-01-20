@@ -168,8 +168,7 @@
             from: from,
             to: to,
             startDate: startDate,
-            returnDate: returnDate,
-            startTime: "14:08:48"   // TODO remove hard coded time
+            returnDate: returnDate
         }
 
       
@@ -206,7 +205,7 @@
         })
         .catch(e=> {
             console.log(e)
-            if(e.response.data.error.message) {
+            if(e.response) {
                 alert(e.response.data.error.message);
             }
             
