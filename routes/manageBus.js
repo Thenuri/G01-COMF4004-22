@@ -80,7 +80,6 @@ router.get("/BusFill/:id",authenticateJWT , async function(req,res){
 
 // Update bus form 
 router.patch("/BusUpdate", authenticateJWT, async function(req,res){
-  const busid = req.body.Bus_ID;
   const busID = req.body.Bus_ID;
   const Bus_No = req.body.Bus_No;
   const No_Of_Seats = req.body.No_Of_Seats;
@@ -89,13 +88,14 @@ router.patch("/BusUpdate", authenticateJWT, async function(req,res){
   const Driver_Name = req.body.Driver_Name;
   const Account_ID = req.body.Account_ID;
   const Account_Type = req.body.Account_Type;
+  const Bus_Image = req.body.Bus_Image
   let updates, values;
 
   if (Account_Type === "owner"){
       owner_ac = await ownerController.findOwnerByAccountId(Account_ID);
       console.log(owner_ac)
-      updates = "UPDATE `bus` SET `Bus_No` = ? , `No_Of_Seats` = ? , `Price_Per_km` = ? , `Driver_Name` = ? , `AC_Status` = ? WHERE `Bus_ID` = ?";
-      values = [Bus_No, No_Of_Seats, Price_Per_km, Driver_Name, AC_Status,busID, busid]
+      updates = "UPDATE `bus` SET `Bus_No` = ? , `No_Of_Seats` = ? , `Price_Per_km` = ? , `Driver_Name` = ? , `AC_Status` = ? , `Bus_Image`= ? WHERE `Bus_ID` = ?";
+      values = [Bus_No, No_Of_Seats, Price_Per_km, Driver_Name, AC_Status, Bus_Image ,busID]
   }else {
       return res.json({error: {message: "Not allowed to update the bus"}})
   }

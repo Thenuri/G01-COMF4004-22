@@ -70,22 +70,27 @@ router.put("/profileUpdate", authenticateJWT, async function(req,res){
     const Name = req.body.Name;
     const ContactNo = req.body.Contact_No;
     const Address = req.body.Address;
+    const Profile_Picture = req.body.Profile_Picture
+    console.log("Profile picture",Profile_Picture)
     let updates, values;
     if (accountType === "client"){
         client_ac = await clientController.findClientByAccountId(accountId);
-        updates = "UPDATE `client` SET `Name` = ?, `Address` = ?, `Contact_No` = ? WHERE `client`.`Client_ID` = ?"
-        values = [Name, Address, ContactNo, client_ac.Client_ID ]
+        updates = "UPDATE `client` SET `Name` = ?, `Address` = ?, `Contact_No` = ?, `Profile_Picture` = ? WHERE `client`.`Client_ID` = ?"
+        values = [Name, Address, ContactNo, Profile_Picture, owner_ac.Owner_ID]
     }else if (accountType === "owner"){
         owner_ac = await ownerController.findOwnerByAccountId(accountId);
         console.log(owner_ac)
-        updates = "UPDATE  `bus_owner` SET `Name` = ? , `Address` = ? , `Contact_No` = ? WHERE `bus_owner`.`Owner_ID` = ?"
-        values = [Name, Address, ContactNo, owner_ac.Owner_ID ]
+        updates = "UPDATE  `bus_owner` SET `Name` = ? , `Address` = ? , `Contact_No` = ?,  `Profile_Picture` = ? WHERE `bus_owner`.`Owner_ID` = ?"
+        values = [Name, Address, ContactNo, Profile_Picture, owner_ac.Owner_ID ]
         console.log(values)
     } else {
         return res.json({error: {message: "Account type not valid"}})
     }
     try {
-        dbQuery(updates, values).then(res.send("Profile Has been updated!"))
+        dbQuery(updates, values).then( (result) => {
+            console.log(result)
+            res.send("Profile Has been updated!")
+        }).catch( (e) => console.log(e))
     }
     catch (error) {
         throw error
