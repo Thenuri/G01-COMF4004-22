@@ -40,7 +40,7 @@
         </header>
     </div>
     <br><br><br><br><br><br><br>
-    <div class="form-container1">
+    <div class="form-container1" >
         <form action="">
             <!--<div class="input-box">
                 <span>To</span>
@@ -77,6 +77,19 @@
                         <option value="30-40">30 to 40</option>
                         <option value="40-50">40 to 50</option>
                         <option value="50-60">50 to 60</option>
+
+                    </select>
+                  
+                </div>
+                <div id="Rdropdown">
+                    <select name="rating" id="rating" class="form-select">
+                        <option value=null selected >Rating</option>
+                        <option value="4">4+</option>
+                        <option value="3">3+</option>
+                        <option value="2">2+</option>
+                        <option value="1">1+</option>
+                        <option value="0">0+</option>
+
 
                     </select>
                 </div>
@@ -230,6 +243,7 @@
             let seatNo = document.getElementById("seats").value;
             let ac = document.getElementById("ac-select").value;
             let price = document.getElementById("price").value;
+            let rating = document.getElementById("rating").value;
             let filterValues = {
                 /*to : To,
                 From :From,*/
@@ -237,7 +251,8 @@
                 start_Date : start_Date,
                 return_Date : return_Date,
                 seatNo : seatNo,
-                price : price
+                price : price,
+                Rating :rating
             }
            /* console.log(filterValues);*/
             axios.post('http://localhost:3000/vehicle/finder', filterValues)

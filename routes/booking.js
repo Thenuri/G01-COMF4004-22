@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {dbQuery} = require('../config/database');
+const {dbQuery, dbQueryFetchFirstResult} = require('../config/database');
 const bookingService = require('../services/bookingService')
 const clientController = require('../controllers/clientController');
 const ownerController  = require('../controllers/ownerController');
@@ -10,8 +10,13 @@ const authenticateJWT = require('../middleware/authMiddleware');
 // new trip booking
 router.post('/new', authenticateJWT, bookingService.bookTrip)
 // router.post('/new', bookingService.bookTrip)
-router.get('/payment',getProfileDetailsIfLoggedIn ,(req, res) => {
-    res.render('payment');
+router.get('/payment/:tripId',getProfileDetailsIfLoggedIn ,async (req, res) => {
+  tripId = req.params.tripId;
+  sql = "SELECT `Trip_ID`,`Bus_No`,`Trip_Status`,`Trip_From`, `Trip_To`, `bus`.`Rating`, `bus`.`No_Of_Ratings`,`No_Of_km`, `Trip_Amount`, DATE_FORMAT(Trip_Start_Date, '%Y-%m-%d') as 'Trip_Start_Date', DATE_FORMAT(Trip_Return_Date, '%Y-%m-%d') as 'Trip_Return_Date' ,`Contact_No`, `Name`, `Driver_Name`, `AC_Status` , `No_Of_Seats`, `Price_Per_km` FROM `trip` JOIN `bus` ON `trip`.`Bus_ID` = `bus`.`Bus_ID` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` WHERE `trip`.`Trip_ID`= ?;"
+  values = [tripId]
+  const trip = await dbQueryFetchFirstResult(sql, values); console.log(trip)
+  res.render('payment', {trip : trip});
+
 })
 
 // The bus owner confirms booking
@@ -230,6 +235,8 @@ router.get('/Ownedtrips', authenticateJWT, async function(req, res, next){
   
   })
   
+
+
      
 module.exports = router;
 

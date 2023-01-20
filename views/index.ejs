@@ -110,7 +110,7 @@
     
     <h3 class="heading"> Top Trending Buses</h3>
     <div id="marks">
-        <div class="containers">
+     <!-- <div class="containers">
             <div class="card">
                 <div class="imgbox">
                     <img src="/images/istockphoto-1214119696-612x612.jpg" alt="bus">
@@ -163,7 +163,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div id="row">
         <div class="container" id="container">
@@ -290,7 +290,42 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        document.addEventListener
+       document.addEventListener("DOMContentLoaded",viewrating )
+
+       function viewrating(){
+        let rating = document.getElementById("marks")
+        rating.innerHTML = ""
+        axios.get('http://localhost:3000/vehicle/vrating')
+        .then((res) => {
+            views = res.data
+            console.log(views)
+            views.forEach(bus =>{
+                ratingCard = `<div class="containers">
+            <div class="card">
+                <div class="imgbox">
+                    <img src="/images/istockphoto-1214119696-612x612.jpg" alt="bus">
+                </div>
+                <div class="contents">
+                    <h2><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">${bus.No_Of_Seats}</h2>
+                    <h4 class="end-text">LKR/KM-${bus.Price_Per_km}</h4>
+                    <p><br>
+                        Vehicle Number-${bus.Bus_No.toUpperCase()}<br>
+                        ${bus.AC_Status}<br>
+                        Bus Owner Name-${bus.Name}<br>
+                        Driver Name-${bus.Driver_Name}<br>
+                       
+                    </p>
+                </div>
+            </div>
+        </div>`
+
+        rating.innerHTML += ratingCard;
+            })
+
+       })
+       }
+
+       
 
 
     </script>

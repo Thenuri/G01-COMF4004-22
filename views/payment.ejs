@@ -46,24 +46,35 @@
                                 <img src="/images/jonathan-borba-T5jzpRTVF1U-unsplash.jpg" alt="bus" style="width:250px; margin-top:50px; margin-left:70px;" >
                                 <div class=" start-trip-content">
                                     <div class="start-trip-content">
-                                        <p style="font-size:40px ; font-weight:bold;">NA - 4321</p >
+                                        <p style="font-size:40px ; font-weight:bold;"><%= trip.Bus_No.toUpperCase() %> </p >
+                                            <% 
+                                                let ratingStarsHTML ="";
+                                                for (let i = 0; i < 5; i++) {
+
+                                                    if ( i < Math.floor(trip.Rating)) {
+                                                        ratingStarsHTML += `<span class="fa fa-star"></span>`
+                                                    } else  {
+                                                        ratingStarsHTML += `<span class="fa fa-star-o"></span>`
+                                                    }
+                                                }
+                                                    
+                                                
+                                                
+                                            %> 
                                         <div class=" rating-stars d-flex">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star-o"> </span>
+                                            <%- ratingStarsHTML %> 
                                         </div>
-                                        <p>LKR/KM-240.00</p>
+                                        <div><%= trip.Rating.toFixed(1) %> / 5.0   (<%= trip.No_Of_Ratings %>)  </div>
+                                        <p>LKR/KM-<%= trip.Price_Per_km %> </p>
                                         <P><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">50</P>
-                                        <P>NON-AC</P>
-                                        <p>Start Date<br>16 Dec 2022</p>
+                                        <P><%= trip.AC_Status %> </P>
+                                        <p>Start Date<br><%= trip.Trip_Start_Date %> </p>
                                     </div>
                                     <div class="end-trip-content">
-                                        <p>Bus Owner Name<br>Joe Pathiraba</p>
-                                        <p>Driver Name <br>Sadun Lakshitha</p>
-                                        <p>Contact Number<br>0775482478</p>
-                                        <p>Return Date<br>17 Dec 2022</p>
+                                        <p>Bus Owner Name<br><%= trip.Name %> </p>
+                                        <p>Driver Name <br><%= trip.Driver_Name %></p>
+                                        <p>Contact Number<br><%= trip.Contact_No %></p>
+                                        <p>Return Date<br><%= trip.Trip_Return_Date %> </p>
                                     </div>
                                     <div class="center-value">
                                         <div class="row px-3 ">
@@ -73,7 +84,7 @@
                                             </div>
                                             <div class="col-3">Kandy</div>
                                         </div>
-                                        <p class="value">LKR 50000</p>
+                                        <p class="value">LKR <%= trip.Trip_Amount%> </p>
                                     </div>
                                 </div>
                             </div>
@@ -202,6 +213,8 @@
 
 
         }
+
+    
 
 
     </script>
