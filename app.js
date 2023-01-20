@@ -33,7 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // middleware 
 // to parse json in body
 const bodyParser = require('body-parser') 
-app.use(bodyParser.json()) // to parse json to req.body
+app.use(bodyParser.json({limit: '100mb'})) // to parse json to req.body
+app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+app.use(bodyParser.text({ limit: '200mb' }));
 
 
 // to parse cookies
