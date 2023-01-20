@@ -208,7 +208,7 @@
             }
 
         let BusValues ={
-          BUS_ID:busId,
+          Bus_ID:busId,
           Bus_No: BusNo,
           No_Of_Seats: SeatNo,
           Price_Per_km: priceKM,
@@ -220,7 +220,7 @@
         axios.patch('/ManageBus/BusUpdate',BusValues)
         .then((res)=>{
           console.log("Successfull")
-        })
+        }).catch(e => console.log(e))
       }
 
       document.addEventListener("DOMContentLoaded",getvalues)

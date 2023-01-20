@@ -87,7 +87,7 @@ router.patch("/BusUpdate", authenticateJWT, async function(req,res){
   const AC_Status = req.body.AC_Status;
   const Driver_Name = req.body.Driver_Name;
   const Account_ID = req.body.Account_ID;
-  const Account_Type = req.body.Account_Type;
+  const Account_Type = req.body.AccountType;
   const Bus_Image = req.body.Bus_Image
   let updates, values;
 
