@@ -76,7 +76,7 @@ router.put("/profileUpdate", authenticateJWT, async function(req,res){
     if (accountType === "client"){
         client_ac = await clientController.findClientByAccountId(accountId);
         updates = "UPDATE `client` SET `Name` = ?, `Address` = ?, `Contact_No` = ?, `Profile_Picture` = ? WHERE `client`.`Client_ID` = ?"
-        values = [Name, Address, ContactNo, Profile_Picture, owner_ac.Owner_ID]
+        values = [Name, Address, ContactNo, Profile_Picture,  client_ac.Client_ID ]
     }else if (accountType === "owner"){
         owner_ac = await ownerController.findOwnerByAccountId(accountId);
         console.log(owner_ac)
