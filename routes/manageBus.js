@@ -100,7 +100,7 @@ router.patch("/BusUpdate", authenticateJWT, async function(req,res){
       return res.json({error: {message: "Not allowed to update the bus"}})
   }
   try{
-      dbQuery(updates, values).then(res.send("Bus details has been updated!"))
+    dbQuery(updates, values).then(res.json({message: "Bus details has been updated!"}))
   }
   catch (error) {
       throw error

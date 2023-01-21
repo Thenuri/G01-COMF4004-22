@@ -219,7 +219,8 @@
         }
         axios.patch('/ManageBus/BusUpdate',BusValues)
         .then((res)=>{
-          console.log("Successfull")
+          alert(res.data.message);
+          location.reload();
         }).catch(e => console.log(e))
       }
 
