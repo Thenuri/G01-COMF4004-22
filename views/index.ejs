@@ -256,7 +256,7 @@
                 navbar.classList.remove('bg-dark-blue-theme','shadow');
             }
         }
-        const dropdowns = document.querySelectorAll('.dropdown');
+       /* const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach(dropdown => {
             const select= dropdown.querySelector('.select');
             const caret = dropdown.querySelector('.caret');
@@ -270,7 +270,7 @@
                 menu.classList.toggle('menu-open');
             });
            options.forEach(option => {
-            option.addEventListener('click',() =>{
+            option.addEventListener('click',()=>{
                 selected.innerText= option.innerText;
                 select.classList.remove('select-clicked');
                 caret.classList.remove('caret-rotate');
@@ -284,7 +284,7 @@
 
            });
 
-        });
+        });*/
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -303,7 +303,7 @@
                 ratingCard = `<div class="containers">
             <div class="card">
                 <div class="imgbox">
-                    <img ${bus.bus_Image} alt="bus">
+                    <img src="${bus.Bus_Image}" alt="bus">
                 </div>
                 <div class="contents">
                     <h2><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">${bus.No_Of_Seats}</h2>

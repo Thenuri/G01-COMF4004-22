@@ -10,7 +10,7 @@ router.get('/vrating', (req,res) => {
 
     let top,values;
     console.log("lol")
-    top = "SELECT * FROM `bus`,`bus_owner` ORDER BY bus.`Rating` DESC LIMIT 3;"
+    top = "SELECT * FROM `bus` JOIN `bus_owner` ON `bus`.`Owner_ID` = `bus_owner`.`Owner_ID` ORDER BY bus.`Rating` DESC LIMIT 3;"
     try {
         dbQuery(top).then( result => {
             console.log(result)
