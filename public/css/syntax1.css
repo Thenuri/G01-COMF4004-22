@@ -342,7 +342,7 @@
     /*bottom: 2rem;*/
     left:220px;
     background: #240A6B;
-    margin-top: -150px;
+    margin-top: -130px;
     border-radius:10px;
 }
 .form-container2 form{
@@ -351,10 +351,12 @@
     align-items: center;
     gap: 1rem;
     position: absolute;
-    bottom:-350px;
+    /*bottom:-350px;*/
     left:340px;
+    margin-left:-10PX;
     background: #240A6B;
-    padding:5px;
+    margin-top:50px;
+    padding:10px;
     border-radius:10px;
 }
    
