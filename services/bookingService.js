@@ -118,21 +118,7 @@ exports.bookTrip = async (req, res) => {
         return res.status(403).json({error: {message: "Owner's account is not active"}})
     } 
 
-    // TODO later use google maps api to calculate distance
-    // let distanceInMetres;
-    // MapsApiRequest.distanceMatrixRequest(to, from).then(
-    //     res => {
-    //         distanceInMetres = res.distanceInMetres;
-    //     }
-    // ).catch( (error) => {
-    //     // if the api cannot be accessed
-    //     if (error.code === "ENOTFOUND") {
-    //         return res.status(500).json({error: {message: "Error getting distance from Maps API"}});
-    //     }
 
-    //     return res.status(500).json({error: {message: error.message}});
-       
-    // })
     let distanceMatrixResponse;
     try {
         distanceMatrixResponse = await MapsApiRequest.distanceMatrixRequest(to, from);
