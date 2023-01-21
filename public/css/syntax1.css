@@ -15,7 +15,7 @@
     background-size: cover;
     position:relative;
     max-width: 100%;
-    height: 80vh;
+    height:60vh;
 }
 /*book a bus with ease*/
 .content{
@@ -339,10 +339,10 @@
     align-items: center;
     gap: 1rem;
     position: absolute;
-    bottom: 2rem;
-    left: 200px;
+    /*bottom: 2rem;*/
+    left:220px;
     background: #240A6B;
-    padding:5px;
+    margin-top: -150px;
     border-radius:10px;
 }
 .form-container2 form{
