@@ -35,7 +35,7 @@ class AuthService {
         const name = req.body.details.name;
         const address = req.body.details.address;
         const contactNo = req.body.details.contactNo;
-        const profilePhoto = req.body.details.profilePhoto;
+
     
         // check if email is valid
         const isValidEmail = emailValidator.validate(email);
@@ -113,11 +113,11 @@ class AuthService {
                 try {
                     switch (accountType) {
                         case 'client':
-                            clientController.createClient(account_id, name, address, contactNo, profilePhoto);
+                            clientController.createClient(account_id, name, address, contactNo);
                             break;
                         
                         case 'owner':
-                            ownerController.createOwner(account_id, name, address, contactNo, profilePhoto);                        
+                            ownerController.createOwner(account_id, name, address, contactNo);                        
                             break;
                     
                         default:
