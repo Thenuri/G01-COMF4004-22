@@ -122,6 +122,7 @@ router.get('/BusDetails', function(req, res, next){
   }
 })
 
+/* owned buses by eache bus owner*/
 router.get('/OwnedBuses', authenticateJWT, async function(req, res, next){
   const accountId = req.body.Account_ID;
   const accountType = req.body.AccountType;

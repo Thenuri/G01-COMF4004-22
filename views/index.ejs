@@ -290,16 +290,17 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-       document.addEventListener("DOMContentLoaded",viewrating )
+       document.addEventListener("DOMContentLoaded",viewrating ) 
 
+        /* choosing  top trending buses according to top ratings */
        function viewrating(){
         let rating = document.getElementById("marks")
         rating.innerHTML = ""
         axios.get('http://localhost:3000/vehicle/vrating')
         .then((res) => {
-            views = res.data
+            views = res.data // getting data from the DB
             console.log(views)
-            views.forEach(bus =>{
+            views.forEach(bus =>{  // Displaying bus card for each bus
                 ratingCard = `<div class="containers">
             <div class="card">
                 <div class="imgbox">

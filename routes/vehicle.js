@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/',getProfileDetailsIfLoggedIn, (req, res) => {
     res.render('VehiclePage');
 })
+/* view top trending buses*/
 router.get('/vrating', (req,res) => {
 
     let top,values;
@@ -21,7 +22,7 @@ router.get('/vrating', (req,res) => {
         throw error 
     }
 })
-  
+  /* filter*/
 router.post('/finder',function(req,res){
 console.log(req.body);
     seatNo = req.body.seatNo

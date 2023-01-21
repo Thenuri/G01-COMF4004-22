@@ -49,6 +49,7 @@ router.put('/cancel/:id',function(req,res,next){
         throw error
     }
 })
+/* trip completion */
 router.put('/complete/:id',function(req,res,next){
   let findConfirmation = "SELECT * FROM `trip` WHERE `trip`.`Trip_ID`= ?"
     const value = [req.params.id];

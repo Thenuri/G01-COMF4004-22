@@ -229,7 +229,7 @@
              axios.put('http://localhost:3000/managebus/addBus',addData)
              .then((res)=> {
                 BusNumber.value="";
-                seat.value="";
+                seat.value="";                            /*inserting values*/
                 price.value="";
                 driverName.value="";
                 document.getElementsByName("ac-status").forEach(Option=>{
@@ -244,7 +244,7 @@
              }).catch(e => console.log(e))
              validate();
         }
-        
+        /* diplay bus card that each bus owner own*/
         function displayBuscard(managebusesitems){
             
             let busform = document.getElementById("managebusesitems");

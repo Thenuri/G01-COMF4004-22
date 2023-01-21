@@ -316,7 +316,7 @@
             trips = res.data
             console.log(trips)
             for (let x = 0; x < trips.length; x++) {
-                if (trips[x].Trip_Status === "Upcoming"){
+                if (trips[x].Trip_Status === "Upcoming"){ // ayyar values
                     let Utrip =`<tr>
                         <th>${trips[x].Trip_ID}</th>
                         <td>${trips[x].Trip_To}</td>
