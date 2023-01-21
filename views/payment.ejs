@@ -189,9 +189,8 @@
 
             let card_pattern = /^[0-9]{16,16}$/;
             let pin_pattern = /^[0-9]{3,3}$/;
-            let holder_pattern = /^\b(?!.*\.{2})[a-zA-Z.]+(?:\s[a-zA-Z.]+)\b$/; 
-
-            if(!name.match(holder_pattern)){
+            
+            if(name == ""){
                 alert("please enter a valid name");
                 document.getElementById("name").focus();
                 return false;   
