@@ -21,15 +21,27 @@ body {
 .hidden {
     display: none;
 }
-
+/*Login & Signup styling*/
 .LoginImage {
     width: 750px;
     height: 400px;
+}
+#login{
+    background-color: #240a6b; 
+    color: white;
+}
+#sign-up-btn{
+    background-color: #240a6b; 
+    color: white;
 }
 .SignupImage {
     width: 650px;
     height: 450px;
 }
+#contact-no{
+    margin-left: 10px;
+}
+/*  */
 .new1{
     margin-left: 30px;
 }
