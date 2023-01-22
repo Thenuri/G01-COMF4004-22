@@ -43,127 +43,11 @@
             </div>
         </header>
     </div>
-   <!-- <div class="form-container1">
-        <form action="">
-            <div class="input-box">
-                <span>To</span>
-                <input type="search" name="" id="to" placeholder="search place">
-            </div>
-            <div class="input-box">
-                <span>From</span>
-                <input type="search" name="" id="from" placeholder="search place">
-            </div>
-            <div class="input-box">
-                <span>Start Date</span>
-                <input type="date" name="" id="start_Date">
-            </div>
-            <div class="input-box">
-                <span>Return Date</span>
-                <input type="date" name="" id="return_Date">
-
-            </div>
-            <div id="dropdown" >
-                <div class="dropdown">
-                    <div class="select">
-                        <span class="selected">50 Seats</span>
-                        <div class="caret"></div>     
-                    </div>
-                    <ul class="menu">
-                        <li>40 Seats</li>
-                        <li>30 seats</li>
-                        <li>20 seats</li>
-                        <li class="active">50 Seats</li>
-                    </ul>
-                    <select name="seats" id="seats" class="form-select">
-                        <option value=null selected disabled> No Of Seats</option>
-                        <option value="50">50 Seats</option>
-                        <option value="40">40 Seats</option>
-                        <option value="30">30 Seats</option>
-                    </select>
-                </div>
-                <div class="dropdown">
-                    <div class="select">
-                        <span class="selected">Hight to Low</span>
-                        <div class="caret"></div>     
-                    </div>
-                    <ul class="menu">
-                        <li>Low to High</li>
-                        <li class="active">Hight to Low</li>
-                    </ul>
-                    <select name="price" id="price" class="form-select" >
-                        <option value="volvo">High to Low Price</option>
-                        <option value="saab">Low to High Price</option>
-                    </select>
-
-                </div>
-
-            </div>
-            <div class="checkbox">
-                <span>AC</span>
-                <input type="checkbox" checked="checked">
-                
-            </div>
-            <button class="btn" id="filterBtn">filter</button>
-           
-        </form>
-    </div>-->
+   
     
-    <h3 class="heading"> Top Trending Buses</h3>
+    <h3 class="heading"> Top Rated Buses</h3>
     <div id="marks">
-     <!-- <div class="containers">
-            <div class="card">
-                <div class="imgbox">
-                    <img src="/images/istockphoto-1214119696-612x612.jpg" alt="bus">
-                </div>
-                <div class="contents">
-                    <h2><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">50</h2>
-                    <h4 class="end-text">LKR/KM-278.00</h4>
-                    <p>
-                        Vehicle Number-NA-1323<br>
-                        Non-AC<br>
-                        Bus Owner Name-Joe Pathiraba<br>
-                        Driver Name-Sadun Lakshitha<br>
-                        Contact Number-0775482478<br>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="containers">
-            <div class="card">
-                <div class="imgbox">
-                    <img src="/images/istockphoto-1372188593-170667a.jpg" alt="bus" >
-                </div>
-                <div class="contents">
-                    <h2><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">20</h2>
-                    <h4 class="end-text">LKR/KM-240.00</h4>
-                    <p>
-                        Vehicle Number-NA-1323<br>
-                        Non-AC<br>
-                        Bus Owner Name-Joe Pathiraba<br>
-                        Driver Name-Sadun Lakshitha<br>
-                        Contact Number-0775482478<br>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="containers" >
-            <div class="card">
-                <div class="imgbox">
-                    <img src="/images/istockphoto-136521748-170667a.jpg" alt="bus">
-                </div>
-                <div class="contents">
-                    <h2><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">30</h2>
-                    <h4 class="end-text">LKR/KM-270.00</h4>
-                    <p>
-                        Vehicle Number-NA-1323<br>
-                        Non-AC<br>
-                        Bus Owner Name-Joe Pathiraba<br>
-                        Driver Name-Sadun Lakshitha<br>
-                        Contact Number-0775482478<br>
-                    </p>
-                </div>
-            </div>
-        </div> -->
+     
     </div>
     <div id="row">
         <div class="container" id="container">
@@ -256,35 +140,7 @@
                 navbar.classList.remove('bg-dark-blue-theme','shadow');
             }
         }
-       /* const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            const select= dropdown.querySelector('.select');
-            const caret = dropdown.querySelector('.caret');
-            const menu = dropdown.querySelector('.menu');
-            const options = dropdown.querySelectorAll('.menu li');
-            const selected = dropdown.querySelector('.selected');
-
-            select.addEventListener('click',()=>{
-                select.classList.toggle('select-clicked');
-                caret.classList.toggle('caret-rotate');
-                menu.classList.toggle('menu-open');
-            });
-           options.forEach(option => {
-            option.addEventListener('click',()=>{
-                selected.innerText= option.innerText;
-                select.classList.remove('select-clicked');
-                caret.classList.remove('caret-rotate');
-                menu.classList.remove('menu-open');
-
-                options.forEach(option => {
-                    option.classList.remove('active');
-                });
-                option.classList.add('active');
-            });
-
-           });
-
-        });*/
+       
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -300,8 +156,18 @@
         .then((res) => {
             views = res.data // getting data from the DB
             console.log(views)
-            views.forEach(bus =>{  // Displaying bus card for each bus
-                ratingCard = `<div class="containers">
+            views.forEach(bus =>{ // Displaying bus card for each bus
+                let ratingStarsHTML ="";
+                for (let i = 0; i < 5; i++) {
+
+                    if ( i < Math.floor(bus.Rating)) {
+                        ratingStarsHTML += `<span class="fa fa-star"></span>`
+                    } else  {
+                        ratingStarsHTML += `<span class="fa fa-star-o"></span>`
+                    }
+                }
+                
+            ratingCard = `<div class="containers">
             <div class="card">
                 <div class="imgbox">
                     <img src="${bus.Bus_Image}" alt="bus">
@@ -309,12 +175,12 @@
                 <div class="contents">
                     <h2><img src="/images/ic_airline_seat_recline_extra_24px.svg"  style="width:25px; height:50px; margin-top:-5px;color:#240A6B;">${bus.No_Of_Seats}</h2>
                     <h4 class="end-text">LKR/KM-${bus.Price_Per_km}</h4>
-                    <p><br>
+                    <p>
                         Vehicle Number-${bus.Bus_No.toUpperCase()}<br>
+                        Rating - ${bus.Rating.toFixed(1)} / 5.0  (${bus.No_Of_Ratings})<br>
                         ${bus.AC_Status}<br>
-                        Bus Owner Name-${bus.Name}<br>
                         Driver Name-${bus.Driver_Name}<br>
-                       
+                        <a href="/vehicle/${bus.Bus_ID}"><button type="button" class="btn" id="btn3">Book</button></a>                   
                     </p>
                 </div>
             </div>
