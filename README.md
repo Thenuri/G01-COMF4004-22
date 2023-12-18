@@ -157,8 +157,8 @@ Below are the screenshots of the Booking system
     GOOGLE_MAPS_API_KEY=
     ```
 
-    >[!NOTE]
-    > If you don't have a google maps api key you can get one from [here](https://developers.google.com/maps/documentation/javascript/get-api-key)
+> [!NOTE]
+> If you don't have a google maps api key you can get one from [here](https://developers.google.com/maps/documentation/javascript/get-api-key)
 
 7. Generate JWT secret key
 
